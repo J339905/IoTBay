@@ -31,10 +31,12 @@
             backdrop-filter: blur(10px); 
         }
 
-        .registration-form h1 {
+        .registration-form h2 {
             color: #333;
             margin-bottom: 24px;
             font-weight: 600; 
+            text-align: center;
+            text-decoration: underline;
         }
 
         .form-control {
@@ -108,6 +110,8 @@
 </head>
 <body>
     <div class="registration-form">
+    <h2>REGISTRATION FORM</h2>
+    <form action="/welcome.jsp" method="post">
         <%
             String email = request.getParameter("email");
             String name = request.getParameter("name");
@@ -135,7 +139,7 @@
                 <div class="form-control">
                 <label for="gender">Gender:</label>
                 <select id="gender" name="gender">
-                    <option value="">Select Gender</option>
+                    <option value="">Select gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
