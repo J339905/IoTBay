@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         .mountain-background {
-            background-image: url('https://i.ibb.co/KyH7ckG/A-serene-and-beautiful-mountain-landscape-at-sunri.png');
+            background-image: url('/css/Mountain-Background.jpeg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
