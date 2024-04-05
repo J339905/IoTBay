@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import = "uts.isd.*"%>
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,8 +18,8 @@
         <h2>Login</h2>
         <form action="loginAction.jsp" method="post"> <!-- You'll need to create or specify the action page -->
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" name="email" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
