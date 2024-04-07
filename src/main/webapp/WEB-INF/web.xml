@@ -13,4 +13,14 @@
    <servlet-name>index.jsp</servlet-name>
    <url-pattern>/index/*</url-pattern>
   </servlet-mapping>
+
+    <servlet>  
+    <servlet-name>RegisterController</servlet-name>  
+    <servlet-class>uts.isd.controller.RegisterController</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>RegisterController</servlet-name>  
+    <url-pattern>/RegisterController</url-pattern>  
+    </servlet-mapping>  
+
 </web-app>

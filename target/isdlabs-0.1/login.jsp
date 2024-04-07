@@ -99,7 +99,7 @@
 </html> --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import = "uts.isd.*"%>
+<%@page import="uts.isd.model.*"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -138,38 +138,45 @@
         }
     </style>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const emailInput = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
-            const loginButton = document.getElementById('loginButton');
+        //document.addEventListener('DOMContentLoaded', function () {
+        //    const emailInput = document.getElementById('email');
+        //    const passwordInput = document.getElementById('password');
+        //    const loginButton = document.getElementById('loginButton');
 
-            function updateButtonState() {
-                if(emailInput.value && passwordInput.value) {
-                    loginButton.disabled = false;
-                    loginButton.classList.remove('btn-secondary');
-                    loginButton.classList.add('btn-primary');
-                } else {
-                    loginButton.disabled = true;
-                    loginButton.classList.remove('btn-primary');
-                    loginButton.classList.add('btn-secondary');
-                }
-            }
+        //    function updateButtonState() {
+        //        if(emailInput.value && passwordInput.value) {
+        //            loginButton.disabled = false;
+        //            loginButton.classList.remove('btn-secondary');
+        //            loginButton.classList.add('btn-primary');
+        //        } else {
+        //            loginButton.disabled = true;
+        //            loginButton.classList.remove('btn-primary');
+        //            loginButton.classList.add('btn-secondary');
+        //        }
+        //    }
 
-            emailInput.addEventListener('input', updateButtonState);
-            passwordInput.addEventListener('input', updateButtonState);
+        //    emailInput.addEventListener('input', updateButtonState);
+        //    passwordInput.addEventListener('input', updateButtonState);
 
-            updateButtonState();
-        });
+        //    updateButtonState();
+        //});
+
+    
     </script>
 </head>
 <body class="bg-light">
     <div class="container mt-5">
         <div class="login-container">
             <h2 class="text-center">Login</h2>
-            <form action="loginAction.jsp" method="post">
+            <form>
+                <%
+
+                User user = session.getAttribute("user");
+
+                %>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" required>
+                    <input type="text" class="form-control" id="email" name="email" value="<%= user.getEmail() %>" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>

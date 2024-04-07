@@ -14,20 +14,20 @@
 <body>
     <div class="registration-form">
     <h2>REGISTRATION FORM</h2>
-    <form action="/welcome.jsp" method="post">
+    <form action="RegisterController" method="post">
         <%-- Server-side script --%>
         <%
+
             String email = request.getParameter("email");
             String name = request.getParameter("name");
             String password = request.getParameter("password");
-            String phone = request.getParameter("phone");
             String favCol = request.getParameter("favcol");
             String gender = request.getParameter("gender");
             String tos = request.getParameter("tos");
             String submitted = request.getParameter("submitted");
 
             if (submitted != null){
-                User user = new User(email, name, phone, password, gender, favCol);
+                User user = new User(email, name, "", password, gender, favCol);
                 session.setAttribute("user", user);
             }
         %>
@@ -36,7 +36,6 @@
             <h1>Welcome</h1>
             <h2>Email: <%= email%></h2>
             <h2>Name: <%= name%></h2>
-
             
         <% } else { %>
             <form>

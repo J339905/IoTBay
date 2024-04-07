@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import = "uts.isd.*"%>
+<%@ page import="uts.isd.model.User" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,13 +34,19 @@
         </style>
     </head>
     <% 
-       String favcol = request.getParameter("favcol");
+        User user = new User();
+        if (request.getAttribute("user") != null) {
+            user = (User) request.getAttribute("user");
+        }
+
+        //    String favcol = request.getParameter("favcol");
     %>
-    <body class="mountain-background" bgcolor="<%= favcol%>" >
+    <body class="mountain-background" bgcolor="<%= user.getFavCol()%>" >
         <%
-            String email = request.getParameter("email");
-            String name = request.getParameter("name");
+            // String email = request.getParameter("email");
+            // String name = request.getParameter("name");
             String tos = request.getParameter("tos");
+
         %>
         <div style="margin-top: 100px; color: <%= favcol%>;">
             <h1>Welcome</h1>
@@ -49,14 +55,14 @@
                 <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zm.192 8.159 6.57-4.027L8 9.586l1.239-.757.367.225A4.49 4.49 0 0 0 8 12.5c0 .526.09 1.03.256 1.5H2a2 2 0 0 1-1.808-1.144M16 4.697v4.974A4.5 4.5 0 0 0 12.5 8a4.5 4.5 0 0 0-1.965.45l-.338-.207z"/>
                 <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.354 1.25 1.25a.5.5 0 0 1-.708.708L13 12.207V14a.5.5 0 0 1-1 0v-1.717l-.28.305a.5.5 0 0 1-.737-.676l1.149-1.25a.5.5 0 0 1 .722-.016"/>
                 </svg>
-                <h2>Email: <%= email%></h2>
+                <h2>Email: <% out.print(user.getEmail()); %> </h2>
             </div>
             
             <div style="display: flex; align-items:center;">
                 <svg style="margin-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chat-square-fill" viewBox="0 0 16 16">
                 <path d="M2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
                 </svg>
-                <h2>Name: <%= name%></h2>
+                <h2>Name: <% out.print(user.getName()); %> </h2>
             </div>
 
             <div style="display: flex; align-items:center;">

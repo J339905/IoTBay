@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.Random"%>
+<%@page import="uts.isd.model.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,16 +14,34 @@
 <body>
     <div class="registration-form">
     <h2>REGISTRATION FORM</h2>
-    <form action="/welcome.jsp" method="post">
+    <form action="RegisterController" method="post">
         <%-- Server-side script --%>
-        <% String email = request.getParameter("email");
-           String name = request.getParameter("name");
-           String tos = request.getParameter("tos");
-           String submitted = request.getParameter("submitted"); %>
+        <%
+            // User user = new User();
+
+            // if (session.getAttribute("user", user) != null) {
+            //     User user = session.getAttribute("user", user) != null;
+            // }
+            String email = request.getParameter("email");
+            String name = request.getParameter("name");
+            String password = request.getParameter("password");
+            String favCol = request.getParameter("favcol");
+            String gender = request.getParameter("gender");
+            String tos = request.getParameter("tos");
+            String submitted = request.getParameter("submitted");
+
+            if (submitted != null){
+                User user = new User(email, name, "", password, gender, favCol);
+                session.setAttribute("user", user);
+            }
+        %>
+
         <% if (submitted != null) { %>
             <h1>Welcome</h1>
-            <p>Email: <%= email %></p>
-            <p>Name: <%= name %></p>
+            <h2>Email: <%= email%></h2>
+            <h2>Name: <%= name%></h2>
+
+            
         <% } else { %>
             <form>
                 <div class="form-control">
