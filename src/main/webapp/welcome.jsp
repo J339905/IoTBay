@@ -5,7 +5,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome</title>
+            <style>
+        /* Apply the user's favourite colour dynamically below */
+        .fav-colour {
+            color: <%= request.getParameter("favcol") %>; /* Fallback, will be overridden if user exists */
+        }
+    </style>
     </head>
+
     <% 
        String favcol = request.getParameter("favcol");
     %>
@@ -23,6 +30,15 @@
         <% }else { %>
                 <h2>You have succesfully created an account!</h2>
         <% } %>
+
+<div>
+    <a href="index.jsp" style="color: <%=favcol%>;">Home</a> |
+    <% if (session.getAttribute("user") != null) { %>
+        <a href="logout.jsp" style="color: <%=favcol%>;">Logout</a> |
+        <a href="account.jsp" style="color: <%=favcol%>;">Account</a>
+    <% } %>
+</div>
+
     </body>
 </html>
 
