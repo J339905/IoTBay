@@ -21,9 +21,15 @@
         <% if (tos == null){ %>
                 <h2>You have not accepted the terms of service!</h2>
         <% }else { %>
-                <h2>You have succesfully created an accoutn!</h2>
+                <h2>You have succesfully created an account!</h2>
         <% } %>
     </body>
 </html>
 
-test
+
+
+have a home button, logout button, account button
+ge tstuff from jack git
+
+
+
