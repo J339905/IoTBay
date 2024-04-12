@@ -2,12 +2,12 @@ package uts.isd.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
-	private String email;
-	private String name;
-	private String phone;
-	private String password;
-	private String gender;
-	private String favCol;
+	protected String email;
+	protected String name;
+	protected String phone;
+	protected String password;
+	protected String gender;
+	protected String favCol;
  
 	public User() {
 	}
@@ -67,5 +67,8 @@ public class User implements Serializable {
  
 	public String getFavCol() {
 		return this.favCol;
+	}
+	public boolean checkPassword(String username) {
+	return this.password.equals(password);
 	}
 }
