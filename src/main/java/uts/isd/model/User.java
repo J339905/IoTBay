@@ -8,17 +8,19 @@ public class User implements Serializable {
 	private String password;
 	private String gender;
 	private String favCol;
+	private String tos;
  
 	public User() {
 	}
  
-	public User(String _email, String _name, String _phone, String _password, String _gender, String _favCol) {
+	public User(String _email, String _name, String _phone, String _password, String _gender, String _favCol, String _tos) {
 		this.email = _email;
 		this.name = _name;
 		this.phone = _phone;
 		this.password = _password;
 		this.gender = _gender;
 		this.favCol = _favCol;
+		this.tos = _tos;
 	}
  
 	public void setEmail(String value) {
@@ -44,6 +46,10 @@ public class User implements Serializable {
 	public void setFavCol(String value) {
 		this.favCol = value;
 	}
+
+	public void setTos(String value) {
+		this.tos = value;
+	}
  
 	public String getEmail() {
 		return this.email;
@@ -67,5 +73,9 @@ public class User implements Serializable {
  
 	public String getFavCol() {
 		return this.favCol;
+	}
+
+	public String getTos() {
+		return this.tos;
 	}
 }

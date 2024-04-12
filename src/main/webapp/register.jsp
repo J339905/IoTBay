@@ -15,21 +15,22 @@
     <div class="registration-form">
     <h2>REGISTRATION FORM</h2>
     <form action="RegisterController" method="post">
+
         <%-- Server-side script --%>
         <%
 
             String email = request.getParameter("email");
             String name = request.getParameter("name");
-            String password = request.getParameter("password");
-            String favCol = request.getParameter("favcol");
-            String gender = request.getParameter("gender");
-            String tos = request.getParameter("tos");
+            // String password = request.getParameter("password");
+            // String favCol = request.getParameter("favcol");
+            // String gender = request.getParameter("gender");
+            // String tos = request.getParameter("tos");
             String submitted = request.getParameter("submitted");
 
-            if (submitted != null){
-                User user = new User(email, name, "", password, gender, favCol);
-                session.setAttribute("user", user);
-            }
+            // if (submitted != null){
+            //     User user = new User(email, name, "", password, gender, favCol);
+            //     session.setAttribute("user", user);
+            // }
         %>
 
         <% if (submitted != null) { %>
@@ -45,15 +46,15 @@
                 </div>
                 <div class="form-control">
                     <label for="name">Name:</label>
-                    <input name="name" id="name" placeholder="Enter your name">
+                    <input name="name" id="name" placeholder="Enter your name" required>
                 </div>
                 <div class="form-control">
                     <label for="password">Password:</label>
-                    <input type="password" name="password" id="password" placeholder="Create a password">
+                    <input type="password" name="password" id="password" placeholder="Create a password" required>
                 </div>
                 <div class="form-control">
                 <label for="gender">Gender:</label>
-                <select id="gender" name="gender">
+                <select id="gender" name="gender" required>
                     <option value="">Select gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -65,7 +66,7 @@
                     <input type="color" name="favcol" id="favcol">
                 </div>
                 <div class="form-control">
-                    <input type="checkbox" name="tos" id="tos">
+                    <input type="checkbox" name="tos" id="tos" required>
                     <label for="tos">Agree to Terms of Service</label>
                 </div>
                 <input type="hidden" name="submitted" value="true">
