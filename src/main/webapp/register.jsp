@@ -60,6 +60,7 @@
                 out.println("<div class='alert alert-danger' role='alert'>You must agree to the Terms of Service to register.</div>");
             }
         %>
+   
     </form>
 </body>
 </html>
