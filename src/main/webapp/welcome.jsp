@@ -17,7 +17,7 @@ User
         padding-top: 40px;
         padding-bottom: 40px;
         background-color: #f5f5f5;
-        background-image: url('/css/Mountain-Background.jpeg') center center/cover no-repeat fixed; /* Add your background image URL here */
+        background-image: url('/css/Mountain-Background.jpeg') center center/cover no-repeat fixed; 
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -26,7 +26,7 @@ User
         max-width: 500px;
         padding: 15px;
         margin: auto;
-        background: rgba(255, 255, 255, 0.8); /* Optional: Make container slightly transparent so text is easier to read */
+        background: rgba(255, 255, 255, 0.8);
     }
     .alert {
         margin-top: 20px;
@@ -47,7 +47,6 @@ User
             <p>Your email: <%= user.getEmail() %></p>
             <p>Your gender: <%= user.getGender() %></p>
             <p>Your favourite colour: <span style="color:<%= user.getFavCol() %>;">&#9632;</span></p>
-            <!-- Logout button -->
             <a href="logout.jsp" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Logout</a>
         <% } else { %>
             <h1 class="h3 mb-3 font-weight-normal">Please login or register.</h1>
@@ -55,7 +54,6 @@ User
             <a href="register.jsp" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Register</a>
         <% } %>
     </div>
-    <!-- Bootstrap and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

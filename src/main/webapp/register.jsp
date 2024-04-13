@@ -39,7 +39,6 @@
         </div>
         <input type="hidden" name="submitted" value="true">
         <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-        <!-- Added text for existing account -->
         <div class="mt-3">
             Already have an account? <a href="login.jsp">Click here</a>
         </div>

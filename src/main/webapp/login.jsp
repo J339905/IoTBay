@@ -70,7 +70,6 @@
         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus name="email">
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
-        <!-- Added text for no account -->
         <div class="mt-3">
             Don't have an account? <a href="register.jsp">Press here</a>
         </div>
