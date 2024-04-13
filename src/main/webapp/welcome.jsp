@@ -1,4 +1,4 @@
-User
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.User"%>
 <!DOCTYPE html>
@@ -54,9 +54,7 @@ User
             <a href="register.jsp" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Register</a>
         <% } %>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+     
 </body>
 </html>
 
