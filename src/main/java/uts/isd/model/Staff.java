@@ -11,7 +11,7 @@ public class Staff extends User {
     public String getRole(){
         return role;
     }
-    public void setRole(){
+    public void setRole(String role){
         this.role = role;
     }
 }

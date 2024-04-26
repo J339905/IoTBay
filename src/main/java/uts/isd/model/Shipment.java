@@ -6,11 +6,13 @@ public class Shipment {
 
     private int shipmentId;
     private int orderId;
+    private int invoiceid;
     private LocalDateTime shipmentDate;
     private String shipmentStatus;
 
-    public Shipment(int shipmentId, int orderId, LocalDateTime shipmentDate, String shipmentStatus) {
+    public Shipment(int shipmentId, int invoiceid, int orderId, LocalDateTime shipmentDate, String shipmentStatus) {
         this.shipmentId = shipmentId;
+        this.invoiceid = invoiceid;
         this.orderId = orderId;
         this.shipmentDate = shipmentDate;
         this.shipmentStatus = shipmentStatus;
@@ -23,6 +25,15 @@ public class Shipment {
     public void setShipmentId(int shipmentId) {
         this.shipmentId = shipmentId;
     }
+
+    public int getinvoiceId() {
+        return invoiceid;
+    }
+
+    public void setinvoiceId(int invoiceid) {
+        this.invoiceid = invoiceid;
+    }
+
 
     public int getOrderId() {
         return orderId;
