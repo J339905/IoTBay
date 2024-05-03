@@ -1,15 +1,17 @@
 package uts.isd.model;
 
+import net.bytebuddy.asm.Advice.This;
+
 public class Product {
     protected int productid;
 	protected String productName;
 	protected String productType;
 	protected String description;
-	protected int price;
+	protected Double price;
 	protected int quantity;
-    public Product(){
-        this.productid = productid;
-        this.productName = productName;
+    public Product(int productId, String ProductName, String productType, String description, Double price, int quantity){
+        this.productid = productId;
+        this.productName = ProductName;
         this.productType = productType;
         this.description = description;
         this.price = price;
@@ -41,14 +43,14 @@ public class Product {
         this.description = description;
     }
     
-    public int getproductPrice(){
+    public Double getproductPrice(){
         return price;
     }
     public void setProducPrice(){
         this.price = price;
     }
     public int getproductQuantity(){
-        return price;
+        return this.quantity;
     }
     public void setProducQuantity(){
         this.quantity = quantity;

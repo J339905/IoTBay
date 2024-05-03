@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.User"%>
+<%@page import="uts.isd.model.UserIDGenerator"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +26,7 @@
         <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
         <input type="text" name="name" class="form-control" placeholder="Name" required>
         <input type="password" name="password" class="form-control" placeholder="Password" required>
+        <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
         <select class="form-control" name="gender" required>
             <option value="">Select Gender</option>
             <option value="male">Male</option>
@@ -46,20 +48,23 @@
             String submitted = request.getParameter("submitted");
             boolean tosAgreed = "agree".equals(request.getParameter("tos"));
             if ("true".equals(submitted) && tosAgreed) {
+                int userId = uts.isd.model.UserIDGenerator.generateUserId();          
+
                 String email = request.getParameter("email");
                 String name = request.getParameter("name");
                 String password = request.getParameter("password");
                 String gender = request.getParameter("gender");
                 String favCol = request.getParameter("favcol");
-                
-                User newUser = new User(email, name, "", password, gender, favCol);
+                int phone = Integer.parseInt(request.getParameter("phone"));
+                User newUser = new User(userId,email, name, phone, password, gender, favCol);
                 session.setAttribute("user", newUser);
                 response.sendRedirect("welcome.jsp");
             } else if ("true".equals(submitted)) {
                 out.println("<div class='alert alert-danger' role='alert'>You must agree to the Terms of Service to register.</div>");
             }
         %>
-   
+
     </form>
 </body>
 </html>
+

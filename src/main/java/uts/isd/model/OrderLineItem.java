@@ -6,12 +6,14 @@ public class OrderLineItem {
     private int orderId;
     private int productId;
     private int quantity;
+    private double price;
 
-    public OrderLineItem(int lineItemId, int orderId, int productId, int quantity) {
+    public OrderLineItem(int lineItemId, int orderId, int productId, int quantity, double price) {
         this.lineItemId = lineItemId;
         this.orderId = orderId;
         this.productId = productId;
         this.quantity = quantity;
+        this.price = price;
     }
 
     public int getLineItemId() {
@@ -20,6 +22,13 @@ public class OrderLineItem {
 
     public void setLineItemId(int lineItemId) {
         this.lineItemId = lineItemId;
+    }
+    public double getprice() {
+        return price;
+    }
+
+    public void setLineItemId(double price) {
+        this.price = price;
     }
 
     public int getOrderId() {

@@ -13,4 +13,24 @@
    <servlet-name>index.jsp</servlet-name>
    <url-pattern>/index/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ConnServlet</servlet-name>
+    <servlet-class>uts.isd.controller.ConnServlet<servlet-class/>
+    <load-on-startup>0<load-on-startup>
+    </servlet>
+    <servlet>
+    <servlet-name>RegisterServlet</servlet-name>
+    <servlet-class>uts.isd.controller.RegisterServlet<servlet-class/>
+    <load-on-startup>0<load-on-startup>
+    </servlet>
+    <servlet>
+    <servlet-name>ConnServlet</servlet-name>
+    <servlet-class>uts.isd.controller.ConnServlet<servlet-class/>
+    <load-on-startup>0<load-on-startup>
+    </servlet>
+    <servlet>
+    <servlet-name>ConnServlet</servlet-name>
+    <servlet-class>uts.isd.controller.ConnServlet<servlet-class/>
+    <load-on-startup>0<load-on-startup>
+    </servlet>
 </web-app>
