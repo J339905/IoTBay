@@ -27,11 +27,16 @@ public class User implements Serializable {
 		this.email = value;
 	}
  
-	public void setName(String value) {
-		this.name = value;
+	public void setfirstName(String value) {
+		this.firstname = value;
 	}
+	public void setlastname(String value) {
+		this.lastname = value;
+	}
+	
+
  
-	public void setPhone(String value) {
+	public void setPhone(int value) {
 		this.phone = value;
 	}
  
@@ -42,7 +47,7 @@ public class User implements Serializable {
 	public void setGender(String value) {
 		this.gender = value;
 	}
- 
+	
 	public void setFavCol(String value) {
 		this.favCol = value;
 	}
@@ -55,11 +60,15 @@ public class User implements Serializable {
 		return this.email;
 	}
  
-	public String getName() {
-		return this.name;
+	public String getfirstName() {
+		return this.firstname;
 	}
- 
-	public String getPhone() {
+	public String getlastname() {
+		return this.lastname;
+	}
+	
+
+	public int getPhone() {
 		return this.phone;
 	}
  

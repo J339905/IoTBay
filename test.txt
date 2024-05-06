@@ -1,1 +1,126 @@
-test
+
+Invoice
+-- frilab.Invoice definition
+ 
+CREATE TABLE `Invoice` (
+  `InvoiceID` int NOT NULL AUTO_INCREMENT,
+  `OrderID` int NOT NULL,
+  `amount` int NOT NULL,
+  `PaymentDate` datetime NOT NULL,
+  PRIMARY KEY (`InvoiceID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+ 
+INSERT INTO frilab.Invoice (OrderID,amount,PaymentDate) VALUES
+	 (1,1,'2024-04-19 00:00:00');
+
+
+     -- IOTData.OrderLine definition
+CREATE TABLE `OrderLine` (
+  `lineItemid` int NOT NULL AUTO_INCREMENT,
+  `OrderID` int NOT NULL,
+  `ProductID` int NOT NULL,
+  `quantity` int NOT NULL,
+  PRIMARY KEY (`lineItemid`),
+  KEY `OrderLine_Order_FK` (`OrderID`),
+  CONSTRAINT `OrderLine_Order_FK` FOREIGN KEY (`OrderID`) REFERENCES `Order` (`OrderID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+INSERT INTO IOTData.OrderLine (OrderID,ProductID,quantity) VALUES
+	 (1,1,1);
+
+-- IOTData.`Order` definition
+CREATE TABLE `Order` (
+  `OrderID` int NOT NULL AUTO_INCREMENT,
+  `UserID` int NOT NULL,
+  `Order_Date` datetime NOT NULL,
+  `Order_Status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`OrderID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+INSERT INTO IOTData.`Order` (UserID,Order_Date,Order_Status) VALUES
+	 (1,'2024-04-19 00:00:00','Pending');
+
+-- IOTDATA.payment definition
+ 
+CREATE TABLE `payment` (
+  `paymentID` int NOT NULL AUTO_INCREMENT,
+  `orderID` int NOT NULL,
+  `amount` int NOT NULL,
+  `paymentDate` timestamp NULL DEFAULT NULL,
+  `PaymentMethod` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`paymentID`)
+) ENGINE=InnoDB AUTO_INCREMENT=32238724 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+ 
+INSERT INTO IOTDATA.payment (orderID,amount,paymentDate,PaymentMethod) VALUES
+	 (32321,2648,'2024-04-19 00:00:00','Card');
+
+
+-- IOTDATA.shipment definition
+ 
+CREATE TABLE `shipment` (
+  `shipmentID` int NOT NULL AUTO_INCREMENT,
+  `orderID` int NOT NULL,
+  `shipmentDate` timestamp NOT NULL,
+  `shipmentStatus` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`shipmentID`)
+) ENGINE=InnoDB AUTO_INCREMENT=45453436 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+ 
+INSERT INTO IOTDATA.shipment (orderID,shipmentDate,shipmentStatus) VALUES
+	 (67676767,'2024-04-19 00:00:00','Shipped');
+
+CREATE TABLE frilab.Product (
+
+	ProductID INT auto_increment NOT NULL,
+
+	Product_Category varchar(100) NOT NULL,
+
+	Product_Name varchar(100) NOT NULL,
+
+	Product_Stock varchar(100) NOT NULL,
+
+	Product_Price varchar(100) NULL,
+
+	CONSTRAINT Product_pk PRIMARY KEY (ProductID)
+
+)
+
+ENGINE=InnoDB
+
+DEFAULT CHARSET=utf8mb4
+
+COLLATE=utf8mb4_0900_ai_ci;
+ 
+ 
+CREATE TABLE `user` (
+
+  `UserID` int NOT NULL AUTO_INCREMENT,
+
+  `Email` varchar(100) NOT NULL,
+
+  `Password` varchar(100) NOT NULL,
+
+  `Phone_Number` int DEFAULT NULL,
+
+  `Gender` varchar(100) NOT NULL,
+
+  `Favourite_Colour` varchar(100) NOT NULL,
+
+  PRIMARY KEY (`UserID`)
+
+) ENGINE=InnoDB AUTO_INCREMENT=1235 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+ 
+CREATE TABLE frilab.Staff (
+
+	UserID INT auto_increment NOT NULL,
+
+	`role` varchar(100) NOT NULL,
+
+	CONSTRAINT Staff_unique UNIQUE KEY (UserID),
+
+	CONSTRAINT UserID FOREIGN KEY (UserID) REFERENCES frilab.`user`(UserID)
+
+)
+
+ENGINE=InnoDB
+
+DEFAULT CHARSET=utf8mb4
+
+COLLATE=utf8mb4_0900_ai_ci;

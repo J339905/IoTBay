@@ -7,3 +7,10 @@ Joshua Lu
 Jeff Johnson
 Naseem Win
 Taejun Seo
+
+How to deploy software:
+1. open terminal
+2. put in command 'mvn package', 'mvn jetty:run'
+3. open browser and put in local host link
+
+
