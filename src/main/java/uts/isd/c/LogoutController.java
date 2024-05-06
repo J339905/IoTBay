@@ -1,4 +1,4 @@
-package uts.isd.controller;
+package uts.isd.c;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;

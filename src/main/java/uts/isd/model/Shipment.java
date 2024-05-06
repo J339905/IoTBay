@@ -5,24 +5,32 @@ import java.time.LocalDateTime;
 public class Shipment {
     private int shipmentId;
     private int orderId;
+    private int invoiceid;
     private LocalDateTime shipmentDate;
     private String shipmentStatus;
 
-    // Constructor
-    public Shipment(int shipmentId, int orderId, LocalDateTime shipmentDate, String shipmentStatus) {
+    public Shipment(int shipmentId, int invoiceid, int orderId, LocalDateTime shipmentDate, String shipmentStatus) {
         this.shipmentId = shipmentId;
+        this.invoiceid = invoiceid;
         this.orderId = orderId;
         this.shipmentDate = shipmentDate;
         this.shipmentStatus = shipmentStatus;
     }
 
-    // Getters and setters
     public int getShipmentId() {
         return shipmentId;
     }
 
     public void setShipmentId(int shipmentId) {
         this.shipmentId = shipmentId;
+    }
+
+    public int getinvoiceId() {
+        return invoiceid;
+    }
+
+    public void setinvoiceId(int invoiceid) {
+        this.invoiceid = invoiceid;
     }
 
     public int getOrderId() {

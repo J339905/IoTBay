@@ -2,27 +2,36 @@ package uts.isd.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
-	private String email;
-	private String name;
-	private String phone;
-	private String password;
-	private String gender;
-	private String favCol;
-	private String tos;
+	protected int userId;
+	protected String email;
+	protected String firstname;
+	protected String lastname;
+	protected int phone;
+	protected String password;
+	protected String gender;
+	protected String favCol;
+	protected String role;
+
  
 	public User() {
-	}
+	}    
+
  
-	public User(String _email, String _name, String _phone, String _password, String _gender, String _favCol, String _tos) {
-		this.email = _email;
-		this.name = _name;
-		this.phone = _phone;
-		this.password = _password;
-		this.gender = _gender;
-		this.favCol = _favCol;
-		this.tos = _tos;
+	public User(/*int userId,*/ String firstname, String lastname, String email,  int phone, String password, String gender, String role) {
+		this.userId = userId;
+		this.email = email;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.phone = phone;
+		this.password = password;
+		this.gender = gender;
+		this.role =role;
+
 	}
- 
+	// public void setUserID(int i) {
+	// 	this.userId = i;
+	// }
+	
 	public void setEmail(String value) {
 		this.email = value;
 	}
@@ -52,10 +61,13 @@ public class User implements Serializable {
 		this.favCol = value;
 	}
 
-	public void setTos(String value) {
-		this.tos = value;
+	public void setRole(String value) {
+		this.role = value;
 	}
- 
+	// public int getUserID(){
+	// 	return this.userId;
+	// }
+	
 	public String getEmail() {
 		return this.email;
 	}
@@ -84,7 +96,11 @@ public class User implements Serializable {
 		return this.favCol;
 	}
 
-	public String getTos() {
-		return this.tos;
+	public String getRole(){
+		return this.role;
 	}
-}
+	public boolean checkPassword(String username) {
+	return this.password.equals(password);
+	}
+} //register login and logout
+

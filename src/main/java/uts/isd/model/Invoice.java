@@ -1,6 +1,5 @@
 package uts.isd.model;
 
-
 public class Invoice{
     protected int invoiceid;
 	protected int orderid;

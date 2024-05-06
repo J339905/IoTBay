@@ -1,22 +1,20 @@
 package uts.isd.model;
-
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Order {
+
     private int orderId;
     private int userId;
-    private LocalDateTime orderDate;
+    private LocalTime orderDate;
     private String orderStatus;
 
-    // Constructor
-    public Order(int orderId, int userId, LocalDateTime orderDate, String orderStatus) {
+    public Order(int orderId, int userId, LocalTime orderDate, String orderStatus) {
         this.orderId = orderId;
         this.userId = userId;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
     }
 
-    // Getters and setters
     public int getOrderId() {
         return orderId;
     }
@@ -33,11 +31,11 @@ public class Order {
         this.userId = userId;
     }
 
-    public LocalDateTime getOrderDate() {
+    public LocalTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(LocalDateTime orderDate) {
+    public void setOrderDate(LocalTime orderDate) {
         this.orderDate = orderDate;
     }
 

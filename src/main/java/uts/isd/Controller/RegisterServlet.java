@@ -1,5 +1,3 @@
-
-
 package uts.isd.Controller;
 
 import java.io.IOException;
@@ -30,15 +28,6 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 
-    // private UserDAO ensureUserDAOInitialized(HttpSession session) throws SQLException {
-    //     UserDAO userDAO = (UserDAO) session.getAttribute("userDAO");
-    //     if (userDAO == null) {
-    //         Connection conn = db.openConnection(); // Ensure DBConnector is properly initialized and accessible
-    //         userDAO = new UserDAO(conn);
-    //         session.setAttribute("userDAO", userDAO);
-    //     }
-    //     return userDAO;
-    // }
 
 	@Override
 public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
