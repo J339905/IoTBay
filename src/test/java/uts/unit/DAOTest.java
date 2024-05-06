@@ -24,14 +24,14 @@ public class DAOTest {
 	private Connection conn;
 	private UserDAO userDAO;
 	private StaffDAO StaffDAO;
-	private ProductDAO ProductDAO;
+	// private ProductDAO ProductDAO;
 
 	public DAOTest() throws ClassNotFoundException, SQLException {
 		connector = new DBConnector();
 		conn = connector.openConnection();
 		userDAO = new UserDAO(conn);
 		StaffDAO = new StaffDAO(conn);
-		ProductDAO = new ProductDAO(conn);
+		// ProductDAO = new ProductDAO(conn);
 	}
 
 	@Test
@@ -48,7 +48,8 @@ public class DAOTest {
 	}
 	@Test
 	public void testcreateuser() throws SQLException{
-		userDAO.createUser(4, "null", " ", " ", 0, " ", " ");
+// Correct usage with an integer phone number
+	userDAO.createUser("John", "Doe", "john.doe@example.com", 1234567890, "password123", "Male", "Customer");
 
 	}
 }

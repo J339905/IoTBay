@@ -14,7 +14,6 @@ import uts.isd.model.Product;
 public class ProductDAO {
 private PreparedStatement readst;
 private String readQuery = "SELECT ProductID, ProductName, ProductType, ProductDescription, ProductPrice, ProductStock  from Product";
-private Connection connection;
 // private String insertQuery = "SELECT S, FirstName, LastName from Account";
 
 

@@ -43,10 +43,10 @@
             </div>
         <% } %>
         <% if(user != null) { %>
-            <h1 class="h3 mb-3 font-weight-normal">Welcome, <%= user.getName() %>!</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Welcome, <%= user.getfirstName() %>!</h1>
             <p>Your email: <%= user.getEmail() %></p>
             <p>Your gender: <%= user.getGender() %></p>
-            <p>Your id: <%= user.getUserID() %></p>
+            <%-- <p>Your id: <%= user.getUserID() %></p> --%>
             <p>Your favourite colour: <span style="color:<%= user.getFavCol() %>;">&#9632;</span></p>
             <a href="logout.jsp" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Logout</a>
         <% } else { %>
