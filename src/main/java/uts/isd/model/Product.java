@@ -1,7 +1,5 @@
 package uts.isd.model;
 
-import net.bytebuddy.asm.Advice.This;
-
 public class Product {
     protected int productid;
 	protected String productName;
@@ -17,43 +15,43 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
     }
-
-    public int getproductid(){
+    public int getProductid() {
         return productid;
     }
-    public void setproductid(){
+    public void setProductid(int productid) {
         this.productid = productid;
     }
-    public String getproductName(){
+    public String getProductName() {
         return productName;
     }
-    public void setproductName(){
+    public void setProductName(String productName) {
         this.productName = productName;
     }
-    public String getproductType(){
+    public String getProductType() {
         return productType;
     }
-    public void setproductType(){
+    public void setProductType(String productType) {
         this.productType = productType;
     }
-    public String getproductDescription(){
+    public String getDescription() {
         return description;
     }
-    public void setProductDescription(){
+    public void setDescription(String description) {
         this.description = description;
     }
-    
-    public Double getproductPrice(){
+    public Double getPrice() {
         return price;
     }
-    public void setProducPrice(){
+    public void setPrice(Double price) {
         this.price = price;
     }
-    public int getproductQuantity(){
-        return this.quantity;
+    public int getQuantity() {
+        return quantity;
     }
-    public void setProducQuantity(){
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+
     
 }

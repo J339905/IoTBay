@@ -6,36 +6,36 @@ public class Invoice{
 	protected int amount;
 	protected String paymentDate;
 
-public Invoice(){
-    this.invoiceid = invoiceid;
-    this.orderid = orderid;
-    this.amount = amount;
-    this.paymentDate = paymentDate;
-}
-
-public int getinvoiceid(){
-    return invoiceid;
-}
-public void setproductid(){
-    this.invoiceid = invoiceid;
-}
-public int getorderid(){
-    return orderid;
-}
-public void setorderid(){
-    this.orderid = orderid;
-}
-public int getamount(){
-    return amount;
-}
-public void setamount(){
-    this.amount = amount;
-}
-public String getpaymentDate(){
-    return paymentDate;
-}
-public void setpaymentDate(){
-    this.paymentDate = paymentDate;
-}
+    
+    public Invoice(int invoiceid, int orderid, int amount, String paymentDate) {
+        this.invoiceid = invoiceid;
+        this.orderid = orderid;
+        this.amount = amount;
+        this.paymentDate = paymentDate;
+    }
+    public int getInvoiceid() {
+        return invoiceid;
+    }
+    public void setInvoiceid(int invoiceid) {
+        this.invoiceid = invoiceid;
+    }
+    public int getOrderid() {
+        return orderid;
+    }
+    public void setOrderid(int orderid) {
+        this.orderid = orderid;
+    }
+    public int getAmount() {
+        return amount;
+    }
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+    public String getPaymentDate() {
+        return paymentDate;
+    }
+    public void setPaymentDate(String paymentDate) {
+        this.paymentDate = paymentDate;
+    }
 
 }
