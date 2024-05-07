@@ -11,7 +11,7 @@ import uts.isd.model.User;
 
 public class UserDAO {
     private PreparedStatement readst;
-    private String readQuery = "SELECT UserID, FirstName, LastName from User";
+    private String readQuery = "SELECT UserID, FirstName, LastName from user";
     private Connection conn;
     // private String insertQuery = "SELECT AccountID, FirstName, LastName from
     // Account";
@@ -44,7 +44,7 @@ public class UserDAO {
     public void createUser(String firstname, String lastname, String email, int phone, String password, String gender, String role) throws SQLException {
         System.out.println("Gender: " + gender);  // This will show what gender value is being received.
 
-		PreparedStatement st = conn.prepareStatement("Insert into user(FirstName, LastName , email, Phone_Number, password ,Role, gender) Values(?,?,?,?,?,?,?)");
+		PreparedStatement st = conn.prepareStatement("Insert into user(FirstName, LastName , email, Phone_Number, password ,gender, Role) Values(?,?,?,?,?,?,?)");
 		st.setString(1, firstname);
         st.setString(2, lastname);
 		st.setString(3, email);
@@ -72,5 +72,25 @@ public class UserDAO {
         }
         return users;
     }
+
+    public User findUser(String email, String password) throws SQLException{
+        PreparedStatement st = conn.prepareStatement("Select * from user where email = ? and password =?");
+        st.setString(1, email);
+        st.setString(2, password);
+     
+        ResultSet rs = st.executeQuery();
+        if(rs.next()){
+            return new User(
+            rs.getString("FirstName"),
+            rs.getString("LastName"),
+            rs.getString("Email"),
+            rs.getInt("Phone_Number"),  // Make sure this column exists in your DB
+            rs.getString("Password"),
+            rs.getString("Gender"),     // Make sure this column exists in your DB
+            rs.getString("Role")  );
+        }//get from sql table
+        return null;
+     
+        }
 
 }
