@@ -1,187 +1,82 @@
-<%-- <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import = "uts.isd.*"%>
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <!-- Bootstrap CSS for responsive design -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- Web fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body class="bg-light">
-    <div class="container mt-5">
-        <h2>Login</h2>
-        <form action="loginAction.jsp" method="post"> <!-- You'll need to create or specify the action page -->
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-    </div>
-    <!-- Optional JavaScript; choose one of the two! -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
-</html> --%>
-<%-- <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import = "uts.isd.*"%>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <!-- Bootstrap CSS for responsive design -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- Web fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const emailInput = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
-            const loginButton = document.getElementById('loginButton');
-
-            function updateButtonState() {
-                // Check if both inputs are not empty
-                if(emailInput.value && passwordInput.value) {
-                    loginButton.disabled = false; // Enable button if both fields are filled
-                    loginButton.classList.remove('btn-secondary');
-                    loginButton.classList.add('btn-primary');
-                } else {
-                    loginButton.disabled = true; // Disable button if either field is empty
-                    loginButton.classList.remove('btn-primary');
-                    loginButton.classList.add('btn-secondary');
-                }
-            }
-
-            // Listen for input events on both fields to update the button's state
-            emailInput.addEventListener('input', updateButtonState);
-            passwordInput.addEventListener('input', updateButtonState);
-
-            // Initialize the button state on page load
-            updateButtonState();
-        });
-    </script>
-</head>
-<body class="bg-light">
-    <div class="container mt-5">
-        <h2>Login</h2>
-        <form action="loginAction.jsp" method="post"> <!-- You'll need to create or specify the action page -->
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-secondary" id="loginButton" disabled>Login</button>
-        </form>
-    </div>
-    <!-- Optional JavaScript; choose one of the two! -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
-</html> --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import = "uts.isd.*"%>
-
+<%@page import="uts.isd.model.User"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <!-- Bootstrap CSS for responsive design -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!-- Web fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            padding-top: 40px;
+            padding-bottom: 40px;
             background-color: #f5f5f5;
         }
-        .login-container {
+        .form-signin {
             width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
         }
-        .form-group {
-            margin-bottom: 15px;
+        .form-signin .checkbox {
+            font-weight: 400;
         }
-        .btn-secondary.disabled, .btn-secondary:disabled {
-            color: #fff;
-            background-color: #6c757d;
-            border-color: #6c757d;
+        .form-signin .form-control {
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+        .error {
+            color: red;
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const emailInput = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
-            const loginButton = document.getElementById('loginButton');
-
-            function updateButtonState() {
-                if(emailInput.value && passwordInput.value) {
-                    loginButton.disabled = false;
-                    loginButton.classList.remove('btn-secondary');
-                    loginButton.classList.add('btn-primary');
+</head>
+<body class="text-center">
+    <form class="form-signin" action="login.jsp" method="post">
+        <img class="mb-4" src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <% 
+            String loginAttempt = request.getParameter("loginAttempt");
+            if ("true".equals(loginAttempt)) {
+                String email = request.getParameter("email");
+                String password = request.getParameter("password");
+                
+                User sessionUser = (User) session.getAttribute("user");
+                if (sessionUser != null && 
+                    sessionUser.getEmail().equalsIgnoreCase(email) && 
+                    sessionUser.checkPassword(password)) {
+                    response.sendRedirect("welcome.jsp"); // Redirect to welcome page
                 } else {
-                    loginButton.disabled = true;
-                    loginButton.classList.remove('btn-primary');
-                    loginButton.classList.add('btn-secondary');
+                    out.println("<div class='error'>Invalid email or password.</div>");
                 }
             }
-
-            emailInput.addEventListener('input', updateButtonState);
-            passwordInput.addEventListener('input', updateButtonState);
-
-            updateButtonState();
-        });
-    </script>
-</head>
-<body class="bg-light">
-    <div class="container mt-5">
-        <div class="login-container">
-            <h2 class="text-center">Login</h2>
-            <form action="loginAction.jsp" method="post">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-                <button type="submit" class="btn btn-secondary" id="loginButton" disabled>Login</button>
-            </form>
+        %>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus name="email">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
+        <div class="mt-3">
+            Don't have an account? <a href="register.jsp">Press here</a>
         </div>
-    </div>
-    <!-- Optional JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <input type="hidden" name="loginAttempt" value="true">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
+    </form>
+    
 </body>
 </html>

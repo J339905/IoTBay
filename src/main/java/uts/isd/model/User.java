@@ -2,34 +2,49 @@ package uts.isd.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
-	private String email;
-	private String name;
-	private String phone;
-	private String password;
-	private String gender;
-	private String favCol;
+	protected int userId;
+	protected String email;
+	protected String firstname;
+	protected String lastname;
+	protected int phone;
+	protected String password;
+	protected String gender;
+	protected String favCol;
+	protected String role;
+
  
 	public User() {
-	}
+	}    
+
  
-	public User(String _email, String _name, String _phone, String _password, String _gender, String _favCol) {
-		this.email = _email;
-		this.name = _name;
-		this.phone = _phone;
-		this.password = _password;
-		this.gender = _gender;
-		this.favCol = _favCol;
+	public User(/*int userId,*/ String firstname, String lastname, String email,  int phone, String password, String gender, String role) {
+		this.userId = userId;
+		this.email = email;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.phone = phone;
+		this.password = password;
+		this.gender = gender;
+		this.role =role;
 	}
- 
+	// public void setUserID(int i) {
+	// 	this.userId = i;
+	// }
+	
 	public void setEmail(String value) {
 		this.email = value;
 	}
  
-	public void setName(String value) {
-		this.name = value;
+	public void setfirstName(String value) {
+		this.firstname = value;
 	}
+	public void setlastname(String value) {
+		this.lastname = value;
+	}
+	
+
  
-	public void setPhone(String value) {
+	public void setPhone(int value) {
 		this.phone = value;
 	}
  
@@ -40,20 +55,29 @@ public class User implements Serializable {
 	public void setGender(String value) {
 		this.gender = value;
 	}
- 
+	
 	public void setFavCol(String value) {
 		this.favCol = value;
 	}
- 
+	public void setRole(String value) {
+		this.role = value;
+	}
+	// public int getUserID(){
+	// 	return this.userId;
+	// }
 	public String getEmail() {
 		return this.email;
 	}
  
-	public String getName() {
-		return this.name;
+	public String getfirstName() {
+		return this.firstname;
 	}
- 
-	public String getPhone() {
+	public String getlastname() {
+		return this.lastname;
+	}
+	
+
+	public int getPhone() {
 		return this.phone;
 	}
  
@@ -68,4 +92,10 @@ public class User implements Serializable {
 	public String getFavCol() {
 		return this.favCol;
 	}
-}
+	public String getRole(){
+		return this.role;
+	}
+	public boolean checkPassword(String username) {
+	return this.password.equals(password);
+	}
+} //register login and logout
