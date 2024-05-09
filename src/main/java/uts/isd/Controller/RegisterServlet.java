@@ -54,9 +54,6 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
         if (userDAO == null) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "UserDAO not initialized.");
             return;
-            // Connection conn = db.openConnection();
-            // userDAO = new UserDAO(conn);
-            // session.setAttribute("userDAO", userDAO);
         }
 
         userDAO.createUser(firstname, lastname, email, phone, password, gender, role);

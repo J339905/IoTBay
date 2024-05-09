@@ -6,7 +6,6 @@
     <title>Search Users</title>
     <link rel="stylesheet" href="/css/admin.css">
 
-    <!-- Inline Styles -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -72,7 +71,6 @@
 </head>
 <body>
 
-    <!-- Navigation Bar -->
     <nav>
         <ul>
             <li><a href="/admin.jsp">AdminPage</a></li>
@@ -83,12 +81,10 @@
         </ul>
     </nav>
 
-    <!-- Page Content -->
     <div class="content">
         <h1>Search Users</h1>
         <p>Search for users by full name or phone number:</p>
 
-        <!-- User Search Form -->
         <form action="searchUsers.jsp" method="get" class="search-form">
             <label for="search-name">Search by Full Name:</label>
             <input type="text" id="search-name" name="fullName">

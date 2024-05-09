@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="uts.isd.model.User"%>
+<jsp:include page="/AdminReadUsersServlet" flush="true"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +9,6 @@
     <title>View Users</title>
     <link rel="stylesheet" href="/css/admin.css">
 
-    <!-- Inline Styles -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -84,8 +86,6 @@
     </style>
 </head>
 <body>
-
-    <!-- Navigation Bar -->
     <nav>
         <ul>
             <li><a href="/admin.jsp">AdminPage</a></li>
@@ -96,12 +96,9 @@
         </ul>
     </nav>
 
-    <!-- Page Content -->
     <div class="content">
         <h1>View All Users</h1>
         <p>Below is a list of all registered users:</p>
-
-        <!-- User Table -->
         <table class="user-table">
             <thead>
                 <tr>
@@ -116,24 +113,30 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Placeholder rows -->
-                <tr>
-                    <td>1</td>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>johndoe@example.com</td>
-                    <td>1234567890</td>
-                    <td>Admin</td>
-                    <td>Male</td>
-                    <td>
-                        <a href="#" class="btn btn-secondary">Edit</a>
-                        <a href="#" class="btn btn-primary">Delete</a>
-                    </td>
-                </tr>
-                <!-- Add more static rows as placeholders -->
+                <% 
+                    ArrayList<User> users = (ArrayList<User>) request.getAttribute("users");
+                    if (users != null) {
+                        for(User user : users) {
+                %>
+                            <tr>
+                                <td><%= user.getUserID() %></td>
+                                <td><%= user.getfirstName() %></td>
+                                <td><%= user.getlastname() %></td>
+                                <td><%= user.getEmail() %></td>
+                                <td><%= user.getPhone() %></td>
+                                <td><%= user.getRole() %></td>
+                                <td><%= user.getGender() %></td>
+                                <td>
+                                    <a href="/admin/editUser.jsp?userId=<%= user.getUserID() %>" class="btn btn-secondary">Edit</a>
+                                    <a href="/admin/deleteUser?userId=<%= user.getUserID() %>" class="btn btn-primary">Delete</a>
+                                </td>
+                            </tr>
+                <%
+                        }
+                    }
+                %>
             </tbody>
         </table>
     </div>
-
 </body>
 </html>

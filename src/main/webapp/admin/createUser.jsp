@@ -98,7 +98,7 @@
         <p>Fill out the form below to add a new customer or staff member.</p>
 
         <!-- User Creation Form -->
-        <form action="#" method="post" class="user-form">
+        <form action="/AdminCreateUserServlet" method="post" class="user-form">
             <label for="first-name">First Name:</label>
             <input type="text" id="first-name" name="firstname" required>
 
@@ -115,18 +115,17 @@
             <input type="password" id="password" name="password" required>
 
             <label for="gender">Gender:</label>
-            <select id="gender" name="gender">
+            <select id="gender" name="gender" required>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-                <option value="non-binary">Non-Binary</option>
-                <option value="prefer-not-to-say">Prefer Not to Say</option>
+                <option value="other">Other</option>
             </select>
 
             <label for="role">Role:</label>
-            <select id="role" name="role">
-                <option value="customer">Customer</option>
-                <option value="staff">Staff</option>
-                <option value="admin">Admin</option>
+            <select id="role" name="role" required>
+                <option value="Customer">Customer</option>
+                <option value="Staff">Staff</option>
+                <option value="Admin">Admin</option>
             </select>
 
             <button type="submit" class="btn btn-primary">Create User</button>

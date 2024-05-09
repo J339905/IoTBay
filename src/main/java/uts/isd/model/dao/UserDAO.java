@@ -4,14 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import uts.isd.model.User;
 
 public class UserDAO {
     private PreparedStatement readst;
-    private String readQuery = "SELECT UserID, FirstName, LastName from user";
+    private String readQuery = "SELECT * from user";
     private Connection conn;
     // private String insertQuery = "SELECT AccountID, FirstName, LastName from
     // Account";
@@ -42,8 +41,6 @@ public class UserDAO {
     // }
 
     public void createUser(String firstname, String lastname, String email, int phone, String password, String gender, String role) throws SQLException {
-        System.out.println("Gender: " + gender);  // This will show what gender value is being received.
-
 		PreparedStatement st = conn.prepareStatement("Insert into user(FirstName, LastName , email, Phone_Number, password ,gender, Role) Values(?,?,?,?,?,?,?)");
 		st.setString(1, firstname);
         st.setString(2, lastname);
@@ -72,6 +69,25 @@ public class UserDAO {
         }
         return users;
     }
+
+    public ArrayList<User> readAllUsers() throws SQLException {
+        ResultSet rs = readst.executeQuery();
+        ArrayList<User> users = new ArrayList<User>();
+
+        while (rs.next()) {
+            int userId = Integer.parseInt(rs.getString(1));
+            String firstName = rs.getString(2);
+            String lastName = rs.getString(3);
+            String email = rs.getString(4);
+            int phone = Integer.parseInt(rs.getString(6));
+            String role = rs.getString(7);
+            String gender = rs.getString(8);
+
+            User u = new User(userId, firstName, lastName, email, phone, gender, role);
+            users.add(u);
+        }
+        return users;
+    } 
 
     public User findUser(String email, String password) throws SQLException{
         PreparedStatement st = conn.prepareStatement("Select * from user where email = ? and password =?");
