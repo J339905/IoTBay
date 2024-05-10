@@ -127,7 +127,7 @@
                                 <td><%= user.getRole() %></td>
                                 <td><%= user.getGender() %></td>
                                 <td>
-                                    <a href="/admin/editUser.jsp?userId=<%= user.getUserID() %>" class="btn btn-secondary">Edit</a>
+                                    <a href="/EditUserServlet?userId=<%= user.getUserID() %>" class="btn btn-secondary">Edit</a>
                                     <a href="/admin/deleteUser?userId=<%= user.getUserID() %>" class="btn btn-primary">Delete</a>
                                 </td>
                             </tr>

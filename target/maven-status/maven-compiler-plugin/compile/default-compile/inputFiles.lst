@@ -5,6 +5,7 @@
 /Users/seotaejun/Desktop/ISD/IoTBay-3/src/main/java/uts/isd/Controller/RegisterServlet.java
 /Users/seotaejun/Desktop/ISD/IoTBay-3/src/main/java/uts/isd/model/dao/UserDAO.java
 /Users/seotaejun/Desktop/ISD/IoTBay-3/src/main/java/uts/isd/model/User.java
+/Users/seotaejun/Desktop/ISD/IoTBay-3/src/main/java/uts/isd/Controller/EditUserServlet.java
 /Users/seotaejun/Desktop/ISD/IoTBay-3/src/main/java/uts/isd/model/Invoice.java
 /Users/seotaejun/Desktop/ISD/IoTBay-3/src/main/java/uts/isd/model/dao/Application.java
 /Users/seotaejun/Desktop/ISD/IoTBay-3/src/main/java/uts/isd/model/Shipment.java

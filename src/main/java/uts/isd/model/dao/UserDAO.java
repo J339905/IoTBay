@@ -51,6 +51,19 @@ public class UserDAO {
         st.setString(7, role);
 		st.executeUpdate();
 	}
+
+    public void updateUser(User user) throws SQLException {
+		PreparedStatement st = conn.prepareStatement("UPDATE user SET FirstName = ?, LastName = ?, Phone_Number = ?, gender = ?, Role = ? WHERE UserID = ?");
+        st.setString(1, user.getfirstName());
+        st.setString(2, user.getlastname());
+        st.setInt(3, user.getPhone());
+        st.setString(4, user.getGender());
+        st.setString(5, user.getRole());
+        st.setInt(6, user.getUserID());
+
+        st.executeUpdate();
+	}
+
     public ArrayList<User> fetchUsers() throws SQLException {
         ResultSet rs = readst.executeQuery();
         ArrayList<User> users = new ArrayList<User>();
@@ -107,6 +120,24 @@ public class UserDAO {
         }//get from sql table
         return null;
      
+        }
+
+        public User findUserById(String userId) throws SQLException{
+            PreparedStatement st = conn.prepareStatement("Select * from user where UserID = ?");
+            st.setString(1, userId);
+         
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return new User(
+                    rs.getInt("UserID"),
+                    rs.getString("FirstName"),
+                    rs.getString("LastName"),
+                    rs.getString("Email"),
+                    rs.getInt("Phone_Number"),  // Make sure this column exists in your DB
+                    rs.getString("Gender"),     // Make sure this column exists in your DB
+                    rs.getString("Role"));
+            }//get from sql table
+            return null;
         }
     
     public ArrayList<User> findUsersByNameNPhone(String fisrtName, String lastName ,String phone) throws SQLException{

@@ -70,4 +70,12 @@
     <servlet-name>SearchUserServlet</servlet-name>  
     <url-pattern>/SearchUserServlet</url-pattern>  
     </servlet-mapping> 
+    <servlet>  
+    <servlet-name>EditUserServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.EditUserServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>EditUserServlet</servlet-name>  
+    <url-pattern>/EditUserServlet</url-pattern>  
+    </servlet-mapping> 
 </web-app>
