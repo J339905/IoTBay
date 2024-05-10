@@ -47,24 +47,11 @@
     </style>
 </head>
 <body class="text-center">
-    <form class="form-signin" action="/LoginServlet" method="post">
+    <form class="form-login" method="POST" action="/LoginServlet">
         <img class="mb-4" src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <% 
-            String loginAttempt = request.getParameter("loginAttempt");
-            if ("true".equals(loginAttempt)) {
-                String email = request.getParameter("email");
-                String password = request.getParameter("password");
-                
-                User sessionUser = (User) session.getAttribute("user");
-                if (sessionUser != null && 
-                    sessionUser.getEmail().equalsIgnoreCase(email) && 
-                    sessionUser.checkPassword(password)) {
-                    response.sendRedirect("welcome.jsp"); // Redirect to welcome page
-                } else {
-                    out.println("<div class='error'>Invalid email or password.</div>");
-                }
-            }
+        <%
+           
         %>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus name="email">
