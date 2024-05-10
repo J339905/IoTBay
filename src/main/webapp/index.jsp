@@ -35,8 +35,7 @@
         <a href="/register.jsp" class="btn btn-primary mt-3">Register an Account</a>
         <a href="/login.jsp" class="btn btn-primary mt-3">Login to your Account</a>
     </div>
-
-    
     <script src="script.js"></script>
+    <jsp:include page="/ConnServlet" flush="true"/>
 </body>
 </html>

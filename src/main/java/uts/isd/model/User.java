@@ -26,10 +26,22 @@ public class User implements Serializable {
 		this.password = password;
 		this.gender = gender;
 		this.role =role;
+
 	}
-	// public void setUserID(int i) {
-	// 	this.userId = i;
-	// }
+
+	public User(int userId, String firstname, String lastname, String email, int phone, String gender, String role) {
+		this.userId = userId;
+		this.email = email;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.phone = phone;
+		this.gender = gender;
+		this.role =role;
+	}
+
+	public void setUserID(int i) {
+		this.userId = i;
+	}
 	
 	public void setEmail(String value) {
 		this.email = value;
@@ -59,12 +71,15 @@ public class User implements Serializable {
 	public void setFavCol(String value) {
 		this.favCol = value;
 	}
+
 	public void setRole(String value) {
 		this.role = value;
 	}
-	// public int getUserID(){
-	// 	return this.userId;
-	// }
+
+	public int getUserID(){
+		return this.userId;
+	}
+	
 	public String getEmail() {
 		return this.email;
 	}
@@ -92,6 +107,7 @@ public class User implements Serializable {
 	public String getFavCol() {
 		return this.favCol;
 	}
+
 	public String getRole(){
 		return this.role;
 	}
@@ -99,3 +115,4 @@ public class User implements Serializable {
 	return this.password.equals(password);
 	}
 } //register login and logout
+
