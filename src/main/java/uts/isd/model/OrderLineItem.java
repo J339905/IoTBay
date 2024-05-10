@@ -6,6 +6,7 @@ public class OrderLineItem {
     private int orderId;
     private int productId;
     private int quantity;
+
     private double price;
 
     public OrderLineItem(int lineItemId, int orderId, int productId, int quantity, double price) {
@@ -23,6 +24,7 @@ public class OrderLineItem {
     public void setLineItemId(int lineItemId) {
         this.lineItemId = lineItemId;
     }
+
     public double getprice() {
         return price;
     }

@@ -3,7 +3,6 @@ package uts.isd.model;
 import java.time.LocalDateTime;
 
 public class Shipment {
-
     private int shipmentId;
     private int orderId;
     private int invoiceid;
@@ -33,7 +32,6 @@ public class Shipment {
     public void setinvoiceId(int invoiceid) {
         this.invoiceid = invoiceid;
     }
-
 
     public int getOrderId() {
         return orderId;

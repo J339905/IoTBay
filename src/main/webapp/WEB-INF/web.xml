@@ -38,7 +38,7 @@
     <servlet-name>RegisterServlet</servlet-name>  
     <url-pattern>/RegisterServlet</url-pattern>  
     </servlet-mapping> 
-     <servlet>  
+    <servlet>  
     <servlet-name>LoginServlet</servlet-name>  
     <servlet-class>uts.isd.Controller.LoginServlet</servlet-class>  
     </servlet>  
@@ -78,4 +78,21 @@
     <servlet-name>WelcomeServlet</servlet-name>
     <url-pattern>/WelcomeServlet</url-pattern>
 </servlet-mapping> -->
+
+    <servlet>  
+    <servlet-name>AdminCreateUserServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.AdminCreateUserServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>AdminCreateUserServlet</servlet-name>  
+    <url-pattern>/AdminCreateUserServlet</url-pattern>  
+    </servlet-mapping> 
+    <servlet>  
+    <servlet-name>AdminReadUsersServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.AdminReadUsersServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>AdminReadUsersServlet</servlet-name>  
+    <url-pattern>/AdminReadUsersServlet</url-pattern>  
+    </servlet-mapping> 
 </web-app>

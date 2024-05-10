@@ -31,6 +31,7 @@ public class ConnServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		System.out.println("db conn");
 		response.setContentType("text/html;charset=UTF-8");
 		HttpSession session = request.getSession();
 		conn = db.openConnection();
@@ -42,7 +43,7 @@ public class ConnServlet extends HttpServlet {
 		}
 
 		session.setAttribute("userDAO", userDAO);
-		request.getRequestDispatcher("index.jsp").include(request, response);
+		// request.getRequestDispatcher("index.jsp").include(request, response);
 	}
 
 	@Override
