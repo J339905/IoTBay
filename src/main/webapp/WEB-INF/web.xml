@@ -13,7 +13,7 @@
    <servlet-name>index.jsp</servlet-name>
    <url-pattern>/index/*</url-pattern>
   </servlet-mapping>
-  <!-- <servlet>
+  <servlet>
     <servlet-name>welcome.jsp</servlet-name>
     <jsp-file>/welcome.jsp</jsp-file>
     <load-on-startup>1</load-on-startup>
@@ -21,7 +21,7 @@
   <servlet-mapping>
    <servlet-name>welcome.jsp</servlet-name>
    <url-pattern>/welcome/*</url-pattern>
-  </servlet-mapping> -->
+  </servlet-mapping>
   <servlet>  
     <servlet-name>ConnServlet</servlet-name>  
     <servlet-class>uts.isd.Controller.ConnServlet</servlet-class>  
@@ -46,39 +46,6 @@
     <servlet-name>LoginServlet</servlet-name>  
     <url-pattern>/LoginServlet</url-pattern>  
     </servlet-mapping> 
-     <servlet>
-    <servlet-name>LogoutServlet</servlet-name>
-    <servlet-class>uts.isd.Controller.LogoutServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>LogoutServlet</servlet-name>
-    <url-pattern>/LogoutServlet</url-pattern>
-</servlet-mapping>
-<servlet>
-    <servlet-name>WelcomeServlet</servlet-name>
-    <servlet-class>uts.isd.Controller.WelcomeServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>WelcomeServlet</servlet-name>
-    <url-pattern>/WelcomeServlet</url-pattern>
-</servlet-mapping>
- <servlet>  
-    <servlet-name>ViewActivityLogsServlet</servlet-name>  
-    <servlet-class>uts.isd.Controller.ViewActivityLogsServlet</servlet-class>  
-    </servlet>  
-    <servlet-mapping>  
-    <servlet-name>ViewActivityLogsServlet</servlet-name>  
-    <url-pattern>/ViewActivityLogsServlet</url-pattern>  
-    </servlet-mapping> 
-<!-- <servlet>
-    <servlet-name>WelcomeServlet</servlet-name>
-    <servlet-class>uts.isd.Controller.WelcomeServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>WelcomeServlet</servlet-name>
-    <url-pattern>/WelcomeServlet</url-pattern>
-</servlet-mapping> -->
-
     <servlet>  
     <servlet-name>AdminCreateUserServlet</servlet-name>  
     <servlet-class>uts.isd.Controller.AdminCreateUserServlet</servlet-class>  
