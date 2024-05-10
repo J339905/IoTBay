@@ -1,5 +1,4 @@
 
-
 package uts.isd.Controller;
 
 import java.io.IOException;
@@ -15,83 +14,69 @@ import javax.servlet.http.HttpSession;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.UserDAO;
+import uts.isd.model.dao.logDAO;
 
 public class RegisterServlet extends HttpServlet {
 
-    private DBConnector db; // Declare DBConnector
+    private DBConnector db;
+    private UserDAO userDAO;
+    private logDAO logDao;
 
     @Override
     public void init() throws ServletException {
         super.init();
         try {
-            db = new DBConnector(); // Initialize the DBConnector in the init method
+            db = new DBConnector();
+            Connection conn = db.openConnection();
+            userDAO = new UserDAO(conn);
+            logDao = new logDAO(conn);
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
     }
 
-    // private UserDAO ensureUserDAOInitialized(HttpSession session) throws SQLException {
-    //     UserDAO userDAO = (UserDAO) session.getAttribute("userDAO");
-    //     if (userDAO == null) {
-    //         Connection conn = db.openConnection(); // Ensure DBConnector is properly initialized and accessible
-    //         userDAO = new UserDAO(conn);
-    //         session.setAttribute("userDAO", userDAO);
-    //     }
-    //     return userDAO;
-    // }
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
 
-	@Override
-public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    HttpSession session = request.getSession();
+        String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
+        String email = request.getParameter("email");
+        int phone = Integer.parseInt(request.getParameter("phone"));
+        String password = request.getParameter("password");
+        String gender = request.getParameter("gender");
+        String role = "Customer";  // Default role for new registrations
 
-    String email = request.getParameter("email");
-    String firstname = request.getParameter("firstname");
-    String lastname = request.getParameter("secondname");
-    String password = request.getParameter("password");
-    int phone = Integer.parseInt(request.getParameter("phone"));
-    String gender = request.getParameter("gender");  // Retrieve gender from request
-	System.out.println("Received gender: " + gender); // This should print the gender value or null
-    String role = "Customer";
+        try {
+            int userId = userDAO.createUser(firstname, lastname, email, phone, password, gender, role);
+            User user = new User(userId, firstname, lastname, email, phone, password, gender, role);
+            user.setUserID(userId);
+            session.setAttribute("user", user);
 
-    // Print the gender to see what is being received from the form
-    System.out.println("Gender from form: " + gender);
+            // Log the activity
+            logDao.createLog(userId, java.time.LocalDateTime.now().toString(), "Registered");
 
-    try {
-		UserDAO userDAO = (UserDAO) session.getAttribute("userDAO");
-
-        if (userDAO == null) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "UserDAO not initialized.");
-            return;
+            // Redirect to welcome page after registration
+            response.sendRedirect("welcome.jsp");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error during registration.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error.");
         }
-
-        userDAO.createUser(firstname, lastname, email, phone, password, gender, role);
-
-        User user = new User();
-        user.setfirstName(firstname);
-        user.setlastname(lastname);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setPhone(phone);
-		user.setGender(gender);
-        session.setAttribute("user", user);
-
-        response.sendRedirect("welcome.jsp");
-    } catch (Exception e) {
-        e.printStackTrace();
-        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error.");
     }
-}
-
 
     @Override
     public void destroy() {
         super.destroy();
         try {
             if (db != null) {
-                db.closeConnection(); // Properly close your DB connection
+                db.closeConnection();
             }
         } catch (SQLException e) {
             System.err.println("Failed to close database connection.");
         }
     }
 }
+

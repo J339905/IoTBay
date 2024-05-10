@@ -16,8 +16,8 @@
         String emailErr = (String) session.getAttribute("emailErr");
         
     %>
-    <form class="form-register" method="POST" action="/RegisterServlet">
-        <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
+    <%-- <form class="form-register" method="POST" action="/RegisterServlet"> --%>
+        <h1 class="h3 mb-3 font-weight-normal">Change your details below</h1>
         <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
         <%-- <% if(emailErr != null) { %>
                 <h1><%=emailErr%></h1>
@@ -34,11 +34,12 @@
             <option value="other">Other</option>
         </select>
         <input type="color" name="favcol" class="form-control" placeholder="Favourite Colour" required>
-        <div class="checkbox mb-3">
-            <label><input type="checkbox" name="tos" value="agree" required> Agree to Terms of Service</label>
+
+        <div class="mt-3">
+            <a href="/welcome.jsp" class="btn btn-primary">change Login Details</a>
+            <a href="/viewregistrationdetails.jsp" class="btn btn-primary">go back to viewing Registration</a>
+            <%-- <a href="/logout.jsp" class="btn btn-danger">Logout</a> --%>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-        <div class="mt-3">Already have an account? <a href="login.jsp">Click here</a></div>
     </form>
 </body>
 </html>
