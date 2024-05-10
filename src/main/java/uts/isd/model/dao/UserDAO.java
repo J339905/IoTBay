@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import uts.isd.model.User;
@@ -19,7 +20,8 @@ public class UserDAO {
         readst = connection.prepareStatement(readQuery);
     }
 
-    public int createUser(String firstname, String lastname, String email, int phone, String password, String gender,
+    public int CustomercreateUser(String firstname, String lastname, String email, int phone, String password,
+            String gender,
             String role) throws SQLException {
         String sql = "INSERT INTO user (FirstName, LastName, Email, Phone_Number, Password, Gender, Role) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -40,65 +42,64 @@ public class UserDAO {
         }
     }
 
-    // public User updateUser(String firstname, String lastname, int phone, String password, String gender, String role,
-    //         String email) throws SQLException {
-    //     // SQL statement to update user details
-    //     String sqlUpdate = "UPDATE user SET FirstName = ?, LastName = ?, Phone_Number = ?, Password = ?, Gender = ?, Role = ? WHERE Email = ?";
-    //     try (PreparedStatement st = conn.prepareStatement(sqlUpdate)) {
-    //         st.setString(1, firstname);
-    //         st.setString(2, lastname);
-    //         st.setInt(3, phone);
-    //         st.setString(4, password);
-    //         st.setString(5, gender);
-    //         st.setString(6, role);
-    //         st.setString(7, email);
+    // public User updateUser(String firstname, String lastname, int phone, String
+    // password, String gender, String role,
+    // String email) throws SQLException {
+    // // SQL statement to update user details
+    // String sqlUpdate = "UPDATE user SET FirstName = ?, LastName = ?, Phone_Number
+    // = ?, Password = ?, Gender = ?, Role = ? WHERE Email = ?";
+    // try (PreparedStatement st = conn.prepareStatement(sqlUpdate)) {
+    // st.setString(1, firstname);
+    // st.setString(2, lastname);
+    // st.setInt(3, phone);
+    // st.setString(4, password);
+    // st.setString(5, gender);
+    // st.setString(6, role);
+    // st.setString(7, email);
 
-    //         int affectedRows = st.executeUpdate();
+    // int affectedRows = st.executeUpdate();
 
-    //         // Check if the update was successful
-    //         if (affectedRows > 0) {
-    //             // SQL to retrieve the updated user details
-    //             String sqlSelect = "SELECT * FROM user WHERE Email = ?";
-    //             try (PreparedStatement selectStmt = conn.prepareStatement(sqlSelect)) {
-    //                 selectStmt.setString(1, email);
-    //                 try (ResultSet rs = selectStmt.executeQuery()) {
-    //                     if (rs.next()) {
-    //                         // Return the updated user
-    //                         return new User(
-    //                                 rs.getInt("UserID"),
-    //                                 rs.getString("FirstName"),
-    //                                 rs.getString("LastName"),
-    //                                 rs.getString("Email"),
-    //                                 rs.getInt("Phone_Number"),
-    //                                 rs.getString("Password"),
-    //                                 rs.getString("Gender"),
-    //                                 rs.getString("Role"));
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return null; // Return null if no update occurred or user not found
+    // // Check if the update was successful
+    // if (affectedRows > 0) {
+    // // SQL to retrieve the updated user details
+    // String sqlSelect = "SELECT * FROM user WHERE Email = ?";
+    // try (PreparedStatement selectStmt = conn.prepareStatement(sqlSelect)) {
+    // selectStmt.setString(1, email);
+    // try (ResultSet rs = selectStmt.executeQuery()) {
+    // if (rs.next()) {
+    // // Return the updated user
+    // return new User(
+    // rs.getInt("UserID"),
+    // rs.getString("FirstName"),
+    // rs.getString("LastName"),
+    // rs.getString("Email"),
+    // rs.getInt("Phone_Number"),
+    // rs.getString("Password"),
+    // rs.getString("Gender"),
+    // rs.getString("Role"));
+    // }
+    // }
+    // }
+    // }
+    // }
+    // return null; // Return null if no update occurred or user not found
     // }
 
-    
-
-    public void createUser(String firstname, String lastname, String email, int phone, String password, String gender, String role) throws SQLException {
-		PreparedStatement st = conn.prepareStatement("Insert into user(FirstName, LastName , email, Phone_Number, password ,gender, Role) Values(?,?,?,?,?,?,?)");
-		st.setString(1, firstname);
+    public void createUser(String firstname, String lastname, String email, int phone, String password, String gender,
+            String role) throws SQLException {
+        PreparedStatement st = conn.prepareStatement(
+                "Insert into user(FirstName, LastName , email, Phone_Number, password ,gender, Role) Values(?,?,?,?,?,?,?)");
+        st.setString(1, firstname);
         st.setString(2, lastname);
-		st.setString(3, email);
-		st.setInt(4, phone);
-		st.setString(5, password);
+        st.setString(3, email);
+        st.setInt(4, phone);
+        st.setString(5, password);
         st.setString(6, gender);
         st.setString(7, role);
-		st.executeUpdate();
-	}
-    public ArrayList<User> fetchUsers() throws SQLException {
-        ResultSet rs = readst.executeQuery();
-        ArrayList<User> users = new ArrayList<User>();
+        st.executeUpdate();
+    }
 
-    public User findUser(String email, String password) throws SQLException {
+    public User findCustomerUser(String email, String password) throws SQLException {
         String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, email);
@@ -187,34 +188,36 @@ public class UserDAO {
             String firstName = rs.getString(2);
             String lastName = rs.getString(3);
             String email = rs.getString(4);
+            String password = rs.getString(4);
             int phone = Integer.parseInt(rs.getString(6));
             String role = rs.getString(7);
             String gender = rs.getString(8);
 
-            User u = new User(userId, firstName, lastName, email, phone, gender, role);
+            User u = new User(userId, firstName, lastName, email, phone, password, gender, role);
             users.add(u);
         }
         return users;
-    } 
+    }
 
-    public User findUser(String email, String password) throws SQLException{
+    public User findUser(String email, String password) throws SQLException {
         PreparedStatement st = conn.prepareStatement("Select * from user where email = ? and password =?");
         st.setString(1, email);
         st.setString(2, password);
-     
+
         ResultSet rs = st.executeQuery();
-        if(rs.next()){
+        if (rs.next()) {
             return new User(
-            rs.getString("FirstName"),
-            rs.getString("LastName"),
-            rs.getString("Email"),
-            rs.getInt("Phone_Number"),  // Make sure this column exists in your DB
-            rs.getString("Password"),
-            rs.getString("Gender"),     // Make sure this column exists in your DB
-            rs.getString("Role")  );
-        }//get from sql table
+                    rs.getInt("UserID"),
+                    rs.getString("FirstName"),
+                    rs.getString("LastName"),
+                    rs.getString("Email"),
+                    rs.getInt("Phone_Number"), // Make sure this column exists in your DB
+                    rs.getString("Password"),
+                    rs.getString("Gender"), // Make sure this column exists in your DB
+                    rs.getString("Role"));
+        } // get from sql table
         return null;
-     
-        }
+
+    }
 
 }

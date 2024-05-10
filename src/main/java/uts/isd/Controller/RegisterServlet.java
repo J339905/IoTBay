@@ -1,15 +1,15 @@
 package uts.isd.Controller;
- 
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
- 
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
- 
+
 import uts.isd.model.User;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.UserDAO;
@@ -44,10 +44,10 @@ public class RegisterServlet extends HttpServlet {
         int phone = Integer.parseInt(request.getParameter("phone"));
         String password = request.getParameter("password");
         String gender = request.getParameter("gender");
-        String role = "Customer";  // Default role for new registrations
+        String role = "Customer"; // Default role for new registrations
 
         try {
-            int userId = userDAO.createUser(firstname, lastname, email, phone, password, gender, role);
+            int userId = userDAO.CustomercreateUser(firstname, lastname, email, phone, password, gender, role);
             User user = new User(userId, firstname, lastname, email, phone, password, gender, role);
             user.setUserID(userId);
             session.setAttribute("user", user);
@@ -66,7 +66,6 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 
-
     @Override
     public void destroy() {
         super.destroy();
@@ -79,4 +78,3 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 }
-

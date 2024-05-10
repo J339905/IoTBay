@@ -1,12 +1,10 @@
 
-
-
 package uts.isd.Controller;
- 
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
- 
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,17 +26,18 @@ public class LoginServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         try {
-            db = new DBConnector();  // Initialize the DBConnector.
-            Connection conn = db.openConnection();  // Open a connection
-            userDAO = new UserDAO(conn);  // Initialize UserDAO
-            logDAO = new logDAO(conn);  // Initialize logDAO
+            db = new DBConnector(); // Initialize the DBConnector.
+            Connection conn = db.openConnection(); // Open a connection
+            userDAO = new UserDAO(conn); // Initialize UserDAO
+            logDAO = new logDAO(conn); // Initialize logDAO
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -46,7 +45,7 @@ public class LoginServlet extends HttpServlet {
         try {
             int userId = userDAO.retrieveUserId(email, password, true); // Get UserID from UserDAO
             if (userId != -1) { // Check if UserID is valid
-                User user = userDAO.findUser(email, password); // Get User details using UserID
+                User user = userDAO.findCustomerUser(email, password); // Get User details using UserID
                 session.setAttribute("user", user); // Set user attribute in session
 
                 // Debug statement to trace the UserID
@@ -55,11 +54,11 @@ public class LoginServlet extends HttpServlet {
                 String currentTime = java.time.LocalDateTime.now().toString();
                 logDAO.createLog(userId, currentTime, "Login"); // Use UserID for logging
 
-                // response.sendRedirect("welcome.jsp");  // Navigate to welcome page
+                // response.sendRedirect("welcome.jsp"); // Navigate to welcome page
                 response.sendRedirect("welcome.jsp");
             } else {
                 session.setAttribute("loginErr", "Invalid email/password");
-                response.sendRedirect("login.jsp");  // Stay on login page with error
+                response.sendRedirect("login.jsp"); // Stay on login page with error
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,6 +66,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
         }
     }
+
     public User getLoggedInUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -86,4 +86,3 @@ public class LoginServlet extends HttpServlet {
         }
     }
 }
-
