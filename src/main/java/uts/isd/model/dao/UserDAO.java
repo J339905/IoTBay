@@ -108,5 +108,28 @@ public class UserDAO {
         return null;
      
         }
+    
+    public ArrayList<User> findUsersByNameNPhone(String fisrtName, String lastName ,String phone) throws SQLException{
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM user WHERE FirstName LIKE ? AND LastName Like ? AND phone_number LIKE ?");
+        st.setString(1, "%" + fisrtName + "%");
+        st.setString(2, "%" + lastName + "%");
+        st.setString(3, "%" + phone + "%");
+        ArrayList<User> users = new ArrayList<User>();
+        
+        ResultSet rs = st.executeQuery();
+        while (rs.next()){
+            int userId = Integer.parseInt(rs.getString(1));
+            String _firstName = rs.getString(2);
+            String _lastName = rs.getString(3);
+            String email = rs.getString(4);
+            int _phone = Integer.parseInt(rs.getString(6));
+            String role = rs.getString(7);
+            String gender = rs.getString(8);
 
+            User u = new User(userId, _firstName, _lastName, email, _phone, gender, role);
+            users.add(u);
+        }
+        
+        return users;
+    }
 }

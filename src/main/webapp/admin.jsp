@@ -31,11 +31,16 @@
         </div>
 
         <!-- User Search Form -->
-        <form action="searchUsers.jsp" method="get" class="search-form">
-            <label for="search-name">Search by Full Name:</label>
-            <input type="text" id="search-name" name="fullName">
-            <label for="search-phone">Search by Phone Number:</label>
+        <form action="/SearchUserServlet" method="get" class="search-form">
+            <label for="search-name">First Name:</label>
+            <input type="text" id="search-name" name="firstName">
+
+            <label for="search-name">Last Name:</label>
+            <input type="text" id="search-name" name="lastName">
+
+            <label for="search-phone">Phone Number:</label>
             <input type="text" id="search-phone" name="phoneNumber">
+
             <button type="submit" class="btn btn-search">Search</button>
         </form>
     </div>

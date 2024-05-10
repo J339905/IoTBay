@@ -62,4 +62,12 @@
     <servlet-name>AdminReadUsersServlet</servlet-name>  
     <url-pattern>/AdminReadUsersServlet</url-pattern>  
     </servlet-mapping> 
+    <servlet>  
+    <servlet-name>SearchUserServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.SearchUserServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>SearchUserServlet</servlet-name>  
+    <url-pattern>/SearchUserServlet</url-pattern>  
+    </servlet-mapping> 
 </web-app>

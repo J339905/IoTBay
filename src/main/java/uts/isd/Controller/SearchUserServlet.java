@@ -3,17 +3,19 @@ package uts.isd.Controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import uts.isd.model.User;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.UserDAO;
 
-public class AdminReadUsersServlet extends HttpServlet {
-
+public class SearchUserServlet extends HttpServlet {
+    
     private DBConnector db; // Declare DBConnector
  
     @Override
@@ -28,10 +30,12 @@ public class AdminReadUsersServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("read users");
-       
         HttpSession session = request.getSession();
-        
+
+        String firstname = request.getParameter("firstName");
+        String lastname = request.getParameter("lastName");
+        String phone = request.getParameter("phoneNumber");
+
         ArrayList<User> users = new ArrayList<User>();
         try {
             UserDAO userDAO = (UserDAO) session.getAttribute("userDAO");
@@ -40,13 +44,13 @@ public class AdminReadUsersServlet extends HttpServlet {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "UserDAO not initialized.");
                 return;
             }
-            users = userDAO.readAllUsers();
-            request.setAttribute("users", users); // Set users in request scope
+            users = userDAO.findUsersByNameNPhone(firstname, lastname, phone);
+            request.setAttribute("users", users);
         } catch(SQLException e) {
             e.printStackTrace();
         } 
 
-        response.sendRedirect("/admin/viewUsers.jsp");
+        request.getRequestDispatcher("/admin/searchResult.jsp").forward(request, response);
     }
  
     @Override
@@ -60,5 +64,5 @@ public class AdminReadUsersServlet extends HttpServlet {
             System.err.println("Failed to close database connection.");
         }
     }
-    
+
 }
