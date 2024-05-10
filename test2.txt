@@ -1,0 +1,98 @@
+-- IOTData.acoount definition
+
+CREATE TABLE `acoount` (
+  `AccountID` int NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) DEFAULT NULL,
+  `Password` varchar(100) DEFAULT NULL,
+  `Phone` varchar(100) DEFAULT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`AccountID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- IOTData.Application definition
+
+CREATE TABLE `Application` (
+  `ApplicationID` int NOT NULL AUTO_INCREMENT,
+  `UserID` int NOT NULL,
+  `ProductID` int NOT NULL,
+  PRIMARY KEY (`ApplicationID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- IOTData.Application definition
+
+CREATE TABLE `Application` (
+  `ApplicationID` int NOT NULL AUTO_INCREMENT,
+  `UserID` int NOT NULL,
+  `ProductID` int NOT NULL,
+  PRIMARY KEY (`ApplicationID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- IOTData.Invoice definition
+
+CREATE TABLE `Invoice` (
+  `InvoiceID` int NOT NULL AUTO_INCREMENT,
+  `OrderID` int NOT NULL,
+  `amount` int NOT NULL,
+  `PaymentDate` datetime NOT NULL,
+  PRIMARY KEY (`InvoiceID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- IOTData.`Order` definition
+
+CREATE TABLE `Order` (
+  `OrderID` int NOT NULL AUTO_INCREMENT,
+  `UserID` int NOT NULL,
+  `Order_Date` datetime NOT NULL,
+  `Order_Status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `Delivery_address` varchar(100) NOT NULL,
+  `Quantity` varchar(100) NOT NULL,
+  PRIMARY KEY (`OrderID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- IOTData.OrderLine definition
+
+CREATE TABLE `OrderLine` (
+  `lineItemid` int NOT NULL AUTO_INCREMENT,
+  `OrderID` int NOT NULL,
+  `ProductID` int NOT NULL,
+  `quantity` int NOT NULL,
+  `Products` varchar(100) NOT NULL,
+  `Tax` varchar(100) DEFAULT NULL,
+  `Unit_price` varchar(100) NOT NULL,
+  `Shipment_status` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`lineItemid`),
+  KEY `OrderLine_Order_FK` (`OrderID`),
+  CONSTRAINT `OrderLine_Order_FK` FOREIGN KEY (`OrderID`) REFERENCES `Order` (`OrderID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- IOTData.payment definition
+
+CREATE TABLE `payment` (
+  `paymentID` int NOT NULL AUTO_INCREMENT,
+  `orderID` int NOT NULL,
+  `amount` int NOT NULL,
+  `paymentDate` timestamp NULL DEFAULT NULL,
+  `PaymentMethod` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`paymentID`)
+) ENGINE=InnoDB AUTO_INCREMENT=32238725 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- IOTData.Product definition
+
+CREATE TABLE `Product` (
+  `ProductID` int NOT NULL AUTO_INCREMENT,
+  `Product_Category` varchar(100) NOT NULL,
+  `Product_Name` varchar(100) NOT NULL,
+  `Product_Stock` varchar(100) NOT NULL,
+  `Product_Price` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`ProductID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- IOTData.shipment definition
+
+CREATE TABLE `shipment` (
+  `shipmentID` int NOT NULL AUTO_INCREMENT,
+  `orderID` int NOT NULL,
+  `shipmentDate` timestamp NOT NULL,
+  `shipmentStatus` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`shipmentID`)
+) ENGINE=InnoDB AUTO_INCREMENT=45453442 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
