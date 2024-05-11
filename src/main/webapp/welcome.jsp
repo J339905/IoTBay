@@ -15,9 +15,7 @@
             <a href="/LogoutServlet" class="btn btn-danger">Logout</a>
             <a href="/viewregistrationdetails.jsp" class="btn btn-primary">View Registration Details</a>
             <a href="/viewactivitylogs.jsp" class="btn btn-primary">View Your Activity</a>
-            <a href="CreateProduct.jsp" class="btn btn-success">Add New Product</a>
-            <a href="UpdateProduct.jsp" class="btn btn-info">Manage Products</a>
-            <a href="ProductList.jsp" class="btn btn-info">View Products</a>
+            <a href="/productlist.jsp" class="btn btn-primary">Product list</a>
         </div>
     </div>
 </body>

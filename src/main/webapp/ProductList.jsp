@@ -4,32 +4,35 @@
 <html>
 <head>
     <title>Product List</title>
+    <link rel="stylesheet" href="css/productlist.css">
 </head>
 <body>
-    <h1>Product List</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Stock</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${productList}" var="product">
+    <div class="container">
+        <h1>Product List</h1>
+        <table>
+            <thead>
                 <tr>
-                    <td><c:out value="${product.productId}"/></td>
-                    <td><c:out value="${product.productName}"/></td>
-                    <td><c:out value="${product.productCategory}"/></td>
-                    <td><c:out value="${product.productDescription}"/></td>
-                    <td><c:out value="${product.productPrice}"/></td>
-                    <td><c:out value="${product.productStock}"/></td>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Stock</th>
                 </tr>
-            </c:forEach>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <c:forEach items="${productList}" var="product">
+                    <tr>
+                        <td><c:out value="${product.productID}"/></td>
+                        <td><c:out value="${product.productName}"/></td>
+                        <td><c:out value="${product.productCategory}"/></td>
+                        <td><c:out value="${product.productDescription}"/></td>
+                        <td><c:out value="${product.productPrice}"/></td>
+                        <td><c:out value="${product.productStock}"/></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

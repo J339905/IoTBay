@@ -19,7 +19,7 @@ import uts.isd.model.dao.logDAO;
 public class ListProductServlet extends HttpServlet {
     
     private DBConnector db;
-    private ProductDAO dao;
+    private ProductDAO dao;  // Use 'dao' instead of 'productDao' to match initialization
     private UserDAO userDAO;
     private logDAO logDAO;
 
@@ -29,9 +29,10 @@ public class ListProductServlet extends HttpServlet {
         try {
             db = new DBConnector();  // Initialize the DBConnector.
             Connection conn = db.openConnection();  // Open a connection
+            dao = new ProductDAO(conn);  // Initialize ProductDAO correctly
             userDAO = new UserDAO(conn);  // Initialize UserDAO
             logDAO = new logDAO(conn);  // Initialize logDAO
-            loginServlet = new LoginServlet();
+            // Removed the line that incorrectly tries to instantiate LoginServlet
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
@@ -40,12 +41,12 @@ public class ListProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Fetch the list of products from the database
-            ArrayList<Product> productList = productDao.getAllProducts();
+            // Fetch the list of products from the database using the correctly named DAO
+            ArrayList<Product> productList = dao.getAllProducts();
             // Set the product list as a request attribute
             request.setAttribute("productList", productList);
             // Forward the request to the JSP page
-            request.getRequestDispatcher("/productList.jsp").forward(request, response);
+            request.getRequestDispatcher("/productlist.jsp").forward(request, response);
         } catch (SQLException e) {
             throw new ServletException("Error retrieving products", e);
         }

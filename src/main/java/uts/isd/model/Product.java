@@ -1,7 +1,7 @@
 package uts.isd.model;
 
 public class Product {
-    private int productId;   
+    private int productID;   
     private String productCategory;  
     private String productName;   
     private int productStock;    
@@ -9,8 +9,8 @@ public class Product {
     private String productDescription; 
 
     // Updated constructor parameters and variable assignments to match the fields
-    public Product(int productId, String productName, String productCategory, String productDescription, double productPrice, int productStock) {
-        this.productId = productId;
+    public Product(int productID, String productName, String productCategory, String productDescription, double productPrice, int productStock) {
+        this.productID = productID;
         this.productName = productName;
         this.productCategory = productCategory;
         this.productDescription = productDescription;
@@ -19,12 +19,12 @@ public class Product {
     }
 
     // Getter and setter for productId
-    public int getProductId() {
-        return productId;
+    public int getProductID() {
+        return productID;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
     // Getter and setter for productName
