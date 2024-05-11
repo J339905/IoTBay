@@ -2,64 +2,53 @@ package uts.isd.Controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import uts.isd.model.dao.DBConnector;
-import uts.isd.model.dao.UserDAO;
+import uts.isd.model.dao.ProductDAO;
 
-public class AdminCreateUserServlet extends HttpServlet {
+@WebServlet(name = "DeleteProductServlet", urlPatterns = {"/DeleteProductServlet"})
+public class DeleteProductServlet extends HttpServlet {
+    
+    private DBConnector db;
+    private ProductDAO dao;
 
-     private DBConnector db; // Declare DBConnector
- 
     @Override
     public void init() throws ServletException {
         super.init();
         try {
-            db = new DBConnector(); // Initialize the DBConnector in the init method
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new ServletException("DBConnector initialization failed.", e);
+            db = new DBConnector();
+            dao = new ProductDAO(db.openConnection());
+        } catch (ClassNotFoundException | SQLException ex) {
+            throw new ServletException("DB connection error", ex);
         }
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-    
-        String email = request.getParameter("email");
-        String firstname = request.getParameter("firstname");
-        String lastname = request.getParameter("lastname");
-        String password = request.getParameter("password");
-        int phone = Integer.parseInt(request.getParameter("phone"));
-        String gender = request.getParameter("gender");  // Retrieve gender from request
-        String role = request.getParameter("role");
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        
         try {
-            UserDAO userDAO = (UserDAO) session.getAttribute("userDAO");
-    
-            if (userDAO == null) {
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "UserDAO not initialized.");
-                return;
-            }
-
-            userDAO.createUser(firstname, lastname, email, phone, password, gender, role);
-            response.sendRedirect("/admin.jsp");
-
-        } catch (Exception e) {
+            dao.deleteProduct(id);
+            response.sendRedirect("ProductList.jsp"); // Redirect to the product list page
+        } catch (SQLException e) {
+            // Log error
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error.");
+            // Optionally add error messages to session or request
+            request.getSession().setAttribute("error", "Unable to delete product.");
+            response.sendRedirect("ProductList.jsp"); // Redirect to the list page if there's an error
         }
     }
- 
+
     @Override
     public void destroy() {
-        super.destroy();
         try {
             if (db != null) {
-                db.closeConnection(); // Properly close your DB connection
+                db.closeConnection();
             }
         } catch (SQLException e) {
             System.err.println("Failed to close database connection.");

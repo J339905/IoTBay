@@ -1,4 +1,4 @@
-package uts.isd.Controller;
+package uts.isd.Controller; 
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -19,12 +19,12 @@ public class ListProductServlet extends HttpServlet {
     private ProductDAO dao;
 
     @Override
-    public void init() {
-        db = new DBConnector();
+    public void init() throws ServletException {  // Declare ServletException to be thrown
         try {
+            db = new DBConnector();
             dao = new ProductDAO(db.openConnection());
         } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println(ex.getMessage());
+            throw new ServletException("Initialization of DBConnector failed.", ex);
         }
     }
 
@@ -37,14 +37,16 @@ public class ListProductServlet extends HttpServlet {
             request.getRequestDispatcher("/ProductList.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            throw new ServletException("SQL Error accessing product list.", e);
         }
     }
 
     @Override
     public void destroy() {
         try {
-            db.closeConnection();
+            if (db != null) {
+                db.closeConnection();
+            }
         } catch (SQLException e) {
             System.err.println("Failed to close database connection.");
         }
