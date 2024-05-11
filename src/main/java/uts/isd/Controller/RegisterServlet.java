@@ -45,7 +45,6 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String gender = request.getParameter("gender");
         String role = "Customer";  // Default role for new registrations
-
         try {
             int userId = userDAO.createUser(firstname, lastname, email, phone, password, gender, role);
             User user = new User(userId, firstname, lastname, email, phone, password, gender, role);

@@ -19,6 +19,7 @@
             <a href="/LogoutServlet" class="btn btn-danger">Logout</a>
             <a href="/viewregistrationdetails.jsp" class="btn btn-primary">View Registration Details</a>
             <a href="/viewactivitylogs.jsp" class="btn btn-primary">View Your Activity</a>
+            <a href="/deleteuser.jsp" class="btn btn-danger">Delete Your Account</a>
         </div>
     </div>
 </body>

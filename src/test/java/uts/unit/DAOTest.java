@@ -66,12 +66,18 @@ public class DAOTest {
 	// }
 	// @Test
 	// public void testSelectLogs() throws SQLException {
-	// 	ArrayList<Logs> Logs = LogsDAO.fetchUserLogs();
+	// ArrayList<Logs> Logs = LogsDAO.fetchUserLogs();
+	// assertTrue(Logs.size() > 0);
+	// }
+	// @Test
+	// public void testSelectLogs() throws SQLException {
+	// 	ArrayList<Logs> Logs = LogsDAO.fetchSpecificUserLogs(24);
 	// 	assertTrue(Logs.size() > 0);
 	// }
-	@Test
-	public void testSelectLogs() throws SQLException {
-		ArrayList<Logs> Logs = LogsDAO.fetchSpecificUserLogs(24);
-		assertTrue(Logs.size() > 0);
-	}
+
+	// @Test
+	// public void testDeletUser() throws SQLException {
+	// 	userDAO.deleteUser(37);
+	// }
+
 }

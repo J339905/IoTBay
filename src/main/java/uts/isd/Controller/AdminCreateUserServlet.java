@@ -13,8 +13,8 @@ import uts.isd.model.dao.UserDAO;
 
 public class AdminCreateUserServlet extends HttpServlet {
 
-     private DBConnector db; // Declare DBConnector
- 
+    private DBConnector db; // Declare DBConnector
+
     @Override
     public void init() throws ServletException {
         super.init();
@@ -28,18 +28,19 @@ public class AdminCreateUserServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-    
+
         String email = request.getParameter("email");
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String password = request.getParameter("password");
         int phone = Integer.parseInt(request.getParameter("phone"));
-        String gender = request.getParameter("gender");  // Retrieve gender from request
+        String gender = request.getParameter("gender"); // Retrieve gender from request
         String role = request.getParameter("role");
+        String status = "Current User";
 
         try {
             UserDAO userDAO = (UserDAO) session.getAttribute("userDAO");
-    
+
             if (userDAO == null) {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "UserDAO not initialized.");
                 return;
@@ -53,7 +54,7 @@ public class AdminCreateUserServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error.");
         }
     }
- 
+
     @Override
     public void destroy() {
         super.destroy();

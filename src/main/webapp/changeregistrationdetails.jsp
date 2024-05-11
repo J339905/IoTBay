@@ -1,45 +1,73 @@
+<%-- 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="uts.isd.model.User"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body { padding-top: 40px; padding-bottom: 40px; background-color: #f5f5f5; }
-        .form-register { max-width: 210px; padding: 15px; margin: auto; }
-    </style>
+    <title>Update Registration Details</title>
 </head>
 <body>
- <%
-        String emailErr = (String) session.getAttribute("emailErr");
-        
-    %>
-    <%-- <form class="form-register" method="POST" action="/RegisterServlet"> --%>
-        <h1 class="h3 mb-3 font-weight-normal">Change your details below</h1>
-        <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
-        <%-- <% if(emailErr != null) { %>
-                <h1><%=emailErr%></h1>
-            <% } %> --%>
-        <input type="text" name="firstname" class="form-control" placeholder="First Name" required>
-        <input type="text" name="lastname" class="form-control" placeholder="Last Name" required>
-        
-        <input type="password" name="password" class="form-control" placeholder="Password" required>
-        <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
-        <select class="form-control" name="gender" required>
-            <option value="">Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-        </select>
-        <input type="color" name="favcol" class="form-control" placeholder="Favourite Colour" required>
+    <h1>Update Your Registration Details</h1>
+    <form action="ChangeRegistrationDetails" method="post">
+    
+        <input type="hidden" name="email" value="${user.email}" disabled>
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="firstname" value="${user.firstName}" required><br>
+         <label for="lastname">Last Name:</label>  
+        <input type="text" id="lastname" name="lastname" value="${user.lastname}" required><br>
+        <label for="phone">Phone Number:</label>
+        <input type="number" id="phone" name="phone" value="${user.phone}" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" value="${user.password}" required><br>
+        <label for="gender">Gender:</label>
+        <input type="text" id="gender" name="gender" value="${user.gender}" required><br>
+        <%-- <label for="role">Role:</label>
+        <input type="text" id="role" name="role" value="${user.role}" required><br>  --%>
+        <%-- <button type="submit">Update Details</button>
 
-        <div class="mt-3">
-            <a href="/welcome.jsp" class="btn btn-primary">change Login Details</a>
-            <a href="/viewregistrationdetails.jsp" class="btn btn-primary">go back to viewing Registration</a>
-            <%-- <a href="/logout.jsp" class="btn btn-danger">Logout</a> --%>
-        </div>
     </form>
+    <a href="profile.jsp">Back to Profile</a>
+</body>
+</html>  --%>
+
+
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="uts.isd.model.User"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Update Registration Details</title>
+</head>
+<body>
+    <h1>Update Your Registration Details</h1>
+    <form class="form-register" method="POST" action="/ChangeRegistrationDetailsServlet">
+        <input type="hidden" name="email" value="${user.email}" disabled>
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="firstname" value="${user.getfirstName()}" required><br>
+         <label for="lastname">Last Name:</label>  
+        <input type="text" id="lastname" name="lastname" value="${user.getlastname()}" required><br>
+        <label for="phone">Phone Number:</label>
+        <input type="number" id="phone" name="phone" value="${user.getPhone()}" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" value="${user.getPassword()}" required><br>
+        <%-- <label for="gender">Gender:</label> --%>
+        <select id="gender" name="gender" required>
+            <option value="Male" ${user.gender == 'Male' ? 'selected' : ''}>Male</option>
+            <option value="Female" ${user.gender == 'Female' ? 'selected' : ''}>Female</option>
+            <option value="Other" ${user.gender == 'Other' ? 'selected' : ''}>Other</option>
+        </select><br>
+        <%-- <input type="text" id="gender" name="gender" value="${user.getGender()}" required><br> --%>
+        <%-- <label for="role">Role:</label>
+        <input type="text" id="role" name="role" value="${user.role}" required><br>  --%>
+        <button type="submit">Update Details</button>
+
+    </form>
+    <a href="profile.jsp">Back to Profile</a>
 </body>
 </html>

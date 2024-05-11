@@ -11,7 +11,7 @@ public class User implements Serializable {
 	protected String gender;
 	protected String favCol;
 	protected String role;
-
+	protected String status;
  
 	public User() {
 	}    
@@ -66,6 +66,9 @@ public class User implements Serializable {
 	public void setRole(String value) {
 		this.role = value;
 	}
+	public void setStatus(String value) {
+		this.status = value;
+	}
 	public int getUserID(){
 		return this.userId;
 	}
@@ -100,6 +103,9 @@ public class User implements Serializable {
 
 	public String getRole(){
 		return this.role;
+	}
+	public String getStatus(){
+		return this.status;
 	}
 	public boolean checkPassword(String username) {
 	return this.password.equals(password);

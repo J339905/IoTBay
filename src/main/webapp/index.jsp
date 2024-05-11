@@ -29,7 +29,7 @@
                 } else {
                     greeting = 'Good Evening!';
                 }
-                document.getElementById('greeting').innerHTML = greeting + ' Welcome to Our Home Page';
+                document.getElementById('greeting').innerHTML = greeting + ' Welcome to the IOTBAY Home Page';
             }
         </script>
         <a href="/register.jsp" class="btn btn-primary mt-3">Register an Account</a>

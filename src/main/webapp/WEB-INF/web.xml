@@ -70,6 +70,22 @@
     <servlet-name>ViewActivityLogsServlet</servlet-name>  
     <url-pattern>/ViewActivityLogsServlet</url-pattern>  
     </servlet-mapping> 
+    <servlet>  
+    <servlet-name>ChangeRegistrationDetailsServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.ChangeRegistrationDetailsServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>ChangeRegistrationDetailsServlet</servlet-name>  
+    <url-pattern>/ChangeRegistrationDetailsServlet</url-pattern>  
+    </servlet-mapping> 
+    <servlet>  
+    <servlet-name>DeleteUserServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.DeleteUserServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>DeleteUserServlet</servlet-name>  
+    <url-pattern>/DeleteUserServlet</url-pattern>  
+    </servlet-mapping> 
 <!-- <servlet>
     <servlet-name>WelcomeServlet</servlet-name>
     <servlet-class>uts.isd.Controller.WelcomeServlet</servlet-class>
