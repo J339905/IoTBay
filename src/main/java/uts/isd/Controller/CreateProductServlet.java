@@ -1,4 +1,4 @@
-package uts.isd.Controller;
+package uts.isd.Controller;  // Correct package name should be all lowercase.
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -18,12 +18,12 @@ public class CreateProductServlet extends HttpServlet {
     private ProductDAO dao;
 
     @Override
-    public void init() {
-        db = new DBConnector();
+    public void init() throws ServletException {
         try {
+            db = new DBConnector();
             dao = new ProductDAO(db.openConnection());
         } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println(ex.getMessage());
+            throw new ServletException("DB connection error", ex);
         }
     }
 
@@ -43,14 +43,17 @@ public class CreateProductServlet extends HttpServlet {
             response.sendRedirect("ProductList.jsp"); // Redirect to the product list page
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("CreateProduct.jsp"); // Stay on the creation page if there's an error
+            request.setAttribute("errorMessage", "Error creating product: " + e.getMessage());
+            request.getRequestDispatcher("CreateProduct.jsp").forward(request, response); // Return to the creation page if there's an error
         }
     }
 
     @Override
     public void destroy() {
         try {
-            db.closeConnection();
+            if (db != null) {
+                db.closeConnection();
+            }
         } catch (SQLException e) {
             System.err.println("Failed to close database connection.");
         }
