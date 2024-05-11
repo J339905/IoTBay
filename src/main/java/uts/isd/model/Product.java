@@ -1,57 +1,74 @@
 package uts.isd.model;
 
 public class Product {
-    protected int productid;
-	protected String productName;
-	protected String productType;
-	protected String description;
-	protected Double price;
-	protected int quantity;
-    public Product(int productId, String ProductName, String productType, String description, Double price, int quantity){
-        this.productid = productId;
-        this.productName = ProductName;
-        this.productType = productType;
-        this.description = description;
-        this.price = price;
-        this.quantity = quantity;
+    private int productId;   
+    private String productCategory;  
+    private String productName;   
+    private int productStock;    
+    private double productPrice;    
+    private String productDescription; 
+
+    // Updated constructor parameters and variable assignments to match the fields
+    public Product(int productId, String productName, String productCategory, String productDescription, double productPrice, int productStock) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productCategory = productCategory;
+        this.productDescription = productDescription;
+        this.productPrice = productPrice;
+        this.productStock = productStock;
     }
-    public int getProductid() {
-        return productid;
+
+    // Getter and setter for productId
+    public int getProductId() {
+        return productId;
     }
-    public void setProductid(int productid) {
-        this.productid = productid;
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
+
+    // Getter and setter for productName
     public String getProductName() {
         return productName;
     }
+
     public void setProductName(String productName) {
         this.productName = productName;
     }
-    public String getProductType() {
-        return productType;
-    }
-    public void setProductType(String productType) {
-        this.productType = productType;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public Double getPrice() {
-        return price;
-    }
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-    public int getQuantity() {
-        return quantity;
-    }
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+
+    // Getter and setter for productCategory
+    public String getProductCategory() {
+        return productCategory;
     }
 
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
+    }
 
-    
+    // Getter and setter for productDescription
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    // Getter and setter for productPrice
+    public double getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    // Getter and setter for productStock
+    public int getProductStock() {
+        return productStock;
+    }
+
+    public void setProductStock(int productStock) {
+        this.productStock = productStock;
+    }
 }
