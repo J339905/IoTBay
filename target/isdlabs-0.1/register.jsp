@@ -1,80 +1,44 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.Random"%>
-<%@page import="uts.isd.model.*"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Link to the external CSS file -->
-    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body { padding-top: 40px; padding-bottom: 40px; background-color: #f5f5f5; }
+        .form-register { max-width: 210px; padding: 15px; margin: auto; }
+    </style>
 </head>
 <body>
-    <div class="registration-form">
-    <h2>REGISTRATION FORM</h2>
-    <form action="RegisterController" method="post">
-
-        <%-- Server-side script --%>
-        <%
-
-            String email = request.getParameter("email");
-            String name = request.getParameter("name");
-            // String password = request.getParameter("password");
-            // String favCol = request.getParameter("favcol");
-            // String gender = request.getParameter("gender");
-            // String tos = request.getParameter("tos");
-            String submitted = request.getParameter("submitted");
-
-            // if (submitted != null){
-            //     User user = new User(email, name, "", password, gender, favCol);
-            //     session.setAttribute("user", user);
-            // }
-        %>
-
-        <% if (submitted != null) { %>
-            <h1>Welcome</h1>
-            <h2>Email: <%= email%></h2>
-            <h2>Name: <%= name%></h2>
-            
-        <% } else { %>
-            <form>
-                <div class="form-control">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
-                </div>
-                <div class="form-control">
-                    <label for="name">Name:</label>
-                    <input name="name" id="name" placeholder="Enter your name" required>
-                </div>
-                <div class="form-control">
-                    <label for="password">Password:</label>
-                    <input type="password" name="password" id="password" placeholder="Create a password" required>
-                </div>
-                <div class="form-control">
-                <label for="gender">Gender:</label>
-                <select id="gender" name="gender" required>
-                    <option value="">Select gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
-                </div>
-                <div class="form-control">
-                    <label for="favcol">Favourite Colour:</label>
-                    <input type="color" name="favcol" id="favcol">
-                </div>
-                <div class="form-control">
-                    <input type="checkbox" name="tos" id="tos" required>
-                    <label for="tos">Agree to Terms of Service</label>
-                </div>
-                <input type="hidden" name="submitted" value="true">
-                <button type="submit">Register Account</button>
-                <a href="/">Cancel Registration</a>
-            </form>
-        <% } %>
+ <%
+        String emailErr = (String) session.getAttribute("emailErr");
+        
+    %>
+    <form class="form-register" method="POST" action="/RegisterServlet">
+        <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
+        <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
+        <%-- <% if(emailErr != null) { %>
+                <h1><%=emailErr%></h1>
+            <% } %> --%>
+        <input type="text" name="firstname" class="form-control" placeholder="First Name" required>
+        <input type="text" name="lastname" class="form-control" placeholder="Last Name" required>
+        
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+        <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+        <select class="form-control" name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+        <input type="color" name="favcol" class="form-control" placeholder="Favourite Colour" required>
+        <div class="checkbox mb-3">
+            <label><input type="checkbox" name="tos" value="agree" required> Agree to Terms of Service</label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+        <div class="mt-3">Already have an account? <a href="login.jsp">Click here</a></div>
     </form>
-    </div>
 </body>
 </html>
