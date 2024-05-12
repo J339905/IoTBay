@@ -14,6 +14,6 @@
         <button type="submit">Delete My Account</button>
     </form>
 
-    <a href="profile.jsp">Cancel and return to Profile</a>
+    <a href="welcome.jsp">Cancel and return to Profile</a>
 </body>
 </html>

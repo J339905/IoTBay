@@ -60,19 +60,64 @@ public class ChangeRegistrationDetailsServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         if (user != null) {
+
             String firstname = request.getParameter("firstname");
             String lastname = request.getParameter("lastname");
-            int phone = Integer.parseInt(request.getParameter("phone"));
+            String phoneStr = request.getParameter("phone");
             String password = request.getParameter("password");
             String gender = request.getParameter("gender");
             String role = "Customer";
             String status = "Current User";
             System.out.println(user.getEmail());
+            String phoneRegex = "^\\d+$";
+            String emailRegex = "^.+@.+\\.com$";
+            String nameRegex = "^[a-zA-Z\\s'-]+$";
+            if (firstname == null || firstname.trim().isEmpty() || lastname == null ||
+                    lastname.trim().isEmpty()
+                    || phoneStr == null || phoneStr.trim().isEmpty() ||
+                    password == null || password.trim().isEmpty() || gender == null ||
+                    gender.trim().isEmpty()
+                    || role == null || role.trim().isEmpty()) {
+                session.setAttribute("nullErr", "Please fill in all the fields given.");
+                request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
+                        response);
+                return; // Important to stop further processing if validation fails
+            }
+            if (!firstname.matches(nameRegex) || !lastname.matches(nameRegex)) {
+                session.setAttribute("nametypeErr", "Names must contain letters only");
+                request.getRequestDispatcher("changeregistrationdetails.jsp").include(request, response);
+                return;
+            }
+            if (!phoneStr.matches(phoneRegex)) {
+                session.setAttribute("phoneErr", "Phone number must consist of numbers");
+                request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
+                        response);
+                return; // Important to stop further processing if validation fails
+            }
+            int phone = Integer.parseInt(phoneStr);
+
+            if (password.length() < 6) {
+                session.setAttribute("passwordErr", "Password must have a length of at least 5 characters");
+                request.getRequestDispatcher("/changeregistrationdetails.jsp").include(request, response);
+                return;
+            }
+            try {
+                User checkuser = userDAO.findExistingUser(user.getEmail());
+                if (checkuser != null) {
+                    session.setAttribute("userexistsErr", "This user already exists");
+                    request.getRequestDispatcher("changeregistrationdetails.jsp").include(request, response);
+                    return;
+                }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             try {
 
-                user = userDAO.updateUser(firstname, lastname, phone, password, gender, role, user.getEmail());
+                user = userDAO.updateUser(firstname, lastname, phone, password, gender, role,
+                        user.getEmail());
                 session.setAttribute("user", user);
-                response.sendRedirect("welcome.jsp"); // Redirect to profile page or a confirmation page
+                response.sendRedirect("welcome.jsp");
             } catch (SQLException e) {
                 e.printStackTrace();
                 response.sendRedirect("error.jsp");
@@ -81,6 +126,84 @@ public class ChangeRegistrationDetailsServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
         }
     }
+    // String samedetailsErr = (String) session.getAttribute("samedetailsErr");
+
+    // protected void doPost(HttpServletRequest request, HttpServletResponse
+    // response)
+    // throws ServletException, IOException {
+    // HttpSession session = request.getSession();
+    // User currentuser = (User) session.getAttribute("user");
+    // String firstname = currentuser.getfirstName();
+    // String lastname = currentuser.getlastname();
+    // int phoneStr = currentuser.getPhone();
+    // String password = currentuser.getPassword();
+    // String gender = currentuser.getGender();
+    // System.out.println(firstname + " " + lastname + " " + phoneStr);
+    // if (currentuser != null) {
+
+    // String newfirstname = request.getParameter("firstname");
+    // String newlastname = request.getParameter("lastname");
+    // String newphoneStr = request.getParameter("phone");
+    // String newpassword = request.getParameter("password");
+    // String newgender = request.getParameter("gender");
+    // String role = "Customer";
+    // System.out.println(currentuser.getEmail());
+    // String phoneRegex = "^\\d+$";
+    // // if (firstname==newfirstname && lastname == newlastname && phoneStr ==
+    // // Integer.parseInt(newphoneStr)
+    // // && password == newpassword
+    // // && gender == newgender) {
+    // // session.setAttribute("phoneErr", "No changes have been made ");
+    // //
+    // request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
+    // // response);
+    // // return;
+    // // }
+
+    // if (newfirstname == null || newfirstname.trim().isEmpty() || newlastname ==
+    // null
+    // || newlastname.trim().isEmpty()
+    // || newphoneStr == null || newphoneStr.trim().isEmpty() ||
+    // newpassword == null || newpassword.trim().isEmpty() || newgender == null
+    // || newgender.trim().isEmpty()) {
+    // session.setAttribute("nullErr", "Please fill in all the fields given.");
+    // request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
+    // response);
+    // return; // Important to stop further processing if validation fails
+    // }
+    // if (firstname.equals(newfirstname) && lastname.equals(newlastname)
+    // && phoneStr == Integer.parseInt(newphoneStr)
+    // && password.equals(newpassword)
+    // && gender.equals(newgender)) {
+    // session.setAttribute("samedetailsErr", "No changes have been made ");
+    // request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
+    // response);
+    // return;
+    // }
+
+    // if (!newphoneStr.matches(phoneRegex)) {
+    // session.setAttribute("phoneErr", "Phone number must consist of numbers");
+    // request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
+    // response);
+    // return; // Important to stop further processing if validation fails
+    // }
+    // int newphone = Integer.parseInt(newphoneStr);
+    // try {
+
+    // currentuser = userDAO.updateUser(firstname, lastname, newphone, password,
+    // gender, role,
+    // currentuser.getEmail());
+    // session.setAttribute("user", currentuser);
+    // response.sendRedirect("welcome.jsp"); // Redirect to profile page or a
+    // confirmation page
+    // } catch (SQLException e) {
+    // e.printStackTrace();
+    // response.sendRedirect("error.jsp");
+    // }
+    // } else {
+    // response.sendRedirect("login.jsp");
+    // }
+    // }
 
     public void destroy() {
         try {

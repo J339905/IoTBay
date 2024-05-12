@@ -144,6 +144,28 @@ public class UserDAO {
         }
         return null;
     }
+    public User findExistingUser(String email) throws SQLException {
+        String sql = "SELECT * FROM user WHERE email = ?";
+        try (PreparedStatement st = conn.prepareStatement(sql)) {
+            st.setString(1, email);
+
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    int userID = retrieveUserId(email, "", false);
+                    return new User(
+                            userID,
+                            rs.getString("FirstName"),
+                            rs.getString("LastName"),
+                            rs.getString("Email"),
+                            rs.getInt("Phone_Number"),
+                            rs.getString("Password"),
+                            rs.getString("Gender"),
+                            rs.getString("Role"));
+                }
+            }
+        }
+        return null;
+    }
 
     public int retrieveUserId(String email, String password, boolean usePassword) throws SQLException {
         String sql = "SELECT UserID FROM user WHERE Email = ?";
