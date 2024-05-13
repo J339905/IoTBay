@@ -16,7 +16,7 @@ import uts.isd.model.dao.UserDAO;
 public class AdminReadUsersServlet extends HttpServlet {
 
     private DBConnector db; // Declare DBConnector
- 
+
     @Override
     public void init() throws ServletException {
         super.init();
@@ -28,28 +28,29 @@ public class AdminReadUsersServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         System.out.println("read users");
-       
+
         HttpSession session = request.getSession();
-        
+
         ArrayList<User> users = new ArrayList<User>();
         try {
             UserDAO userDAO = (UserDAO) session.getAttribute("userDAO");
-    
+
             if (userDAO == null) {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "UserDAO not initialized.");
                 return;
             }
             users = userDAO.readAllUsers();
             request.setAttribute("users", users); // Set users in request scope
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } 
+        }
 
         response.sendRedirect("/admin/viewUsers.jsp");
     }
- 
+
     @Override
     public void destroy() {
         super.destroy();
@@ -61,5 +62,5 @@ public class AdminReadUsersServlet extends HttpServlet {
             System.err.println("Failed to close database connection.");
         }
     }
-    
+
 }

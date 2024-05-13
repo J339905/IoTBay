@@ -15,8 +15,7 @@ body {
 }
 
 .custom-background {
-    /* background-image: url('/css/Mountain-Background.jpeg'); */
-    background-image: url('/css/indexbackg.png');
+    background-image: url('/css/Mountain-Background.jpeg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

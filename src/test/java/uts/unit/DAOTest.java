@@ -38,6 +38,7 @@ public class DAOTest {
 	public void testConnection() throws SQLException {
 		assertNotNull(conn);
 	}
+<<<<<<< HEAD
 	@Test
 	public void testSelectAllTables() throws SQLException {
 		ArrayList<User> users = userDAO.fetchUsers();
@@ -52,4 +53,45 @@ public class DAOTest {
 	userDAO.createUser("John", "Doe", "john.doe@example.com", 1234567890, "password123", "Male", "Customer");
 
 	}
+=======
+	// @Test
+	// public void testSelectAllTables() throws SQLException {
+	// ArrayList<User> users = userDAO.fetchUsers();
+	// ArrayList<Logs> logs = LogsDAO.fetchLogs();
+	// // ArrayList<Staff> staff = StaffDAO.fetchStaff();
+	// // ArrayList<Staff> products = products.fetchStaff();
+	// assertTrue(users.size()>0);
+	// assertTrue(logs.size()>0);
+
+	// // assertTrue(staff.size()>0);
+	// }
+	// @Test
+	// public void testcreateuser() throws SQLException{
+	// // Correct usage with an integer phone number
+	// userDAO.createUser("John", "Doe", "john.doe@example.com", 1234567890,
+	// "password123", "Male", "Customer");
+
+	// }
+	// @Test
+	// public void testcreatelog() throws SQLException{
+	// LogsDAO.createLog(2,"2024-07-06 15:53:30", "Logged");
+
+	// }
+	// @Test
+	// public void testSelectLogs() throws SQLException {
+	// ArrayList<Logs> Logs = LogsDAO.fetchUserLogs();
+	// assertTrue(Logs.size() > 0);
+	// }
+	// @Test
+	// public void testSelectLogs() throws SQLException {
+	// 	ArrayList<Logs> Logs = LogsDAO.fetchSpecificUserLogs(24);
+	// 	assertTrue(Logs.size() > 0);
+	// }
+
+	// @Test
+	// public void testDeletUser() throws SQLException {
+	// 	userDAO.deleteUser(37);
+	// }
+
+>>>>>>> NasBranch-LogAccess
 }

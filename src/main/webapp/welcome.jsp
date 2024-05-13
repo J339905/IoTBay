@@ -34,6 +34,7 @@
     </style>
 </head>
 <body>
+<<<<<<< HEAD
     <div class="container text-center">
         <% User user = (User) session.getAttribute("user"); %>
         <% String logout = request.getParameter("logout"); %>
@@ -54,6 +55,17 @@
             <a href="login.jsp" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Login</a>
             <a href="register.jsp" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Register</a>
         <% } %>
+=======
+    <div class="container mt-5">
+        <h1>Welcome, ${user.getfirstName()}!</h1>
+        <div class="mt-3">
+            <a href="/dashboard.jsp" class="btn btn-primary">Go to Dashboard</a>
+            <a href="/LogoutServlet" class="btn btn-danger">Logout</a>
+            <a href="/viewregistrationdetails.jsp" class="btn btn-primary">View Registration Details</a>
+            <a href="/viewactivitylogs.jsp" class="btn btn-primary">View Your Activity</a>
+            <a href="/deleteuser.jsp" class="btn btn-danger">Delete Your Account</a>
+        </div>
+>>>>>>> NasBranch-LogAccess
     </div>
      
 </body>
