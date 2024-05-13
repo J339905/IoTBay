@@ -14,6 +14,9 @@ import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
 import uts.isd.model.dao.UserDAO;
 import uts.isd.model.dao.logDAO;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.ServletException;
+
 
 @WebServlet(name = "ListProductServlet", urlPatterns = {"/ListProductServlet"})
 public class ListProductServlet extends HttpServlet {
@@ -27,7 +30,7 @@ public class ListProductServlet extends HttpServlet {
         try {
             db = new DBConnector();
             Connection conn = db.openConnection();
-            productDAO = new ProductDAO(conn);
+            dao = new ProductDAO(conn);
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
@@ -36,7 +39,6 @@ public class ListProductServlet extends HttpServlet {
     @Override
     protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        Product product = (Product) session.getAttribute("product");
         try {
             ArrayList<Product> productList = dao.fetchProduct();
             request.setAttribute("productList", productList);

@@ -22,6 +22,16 @@
    <servlet-name>welcome.jsp</servlet-name>
    <url-pattern>/welcome/*</url-pattern>
   </servlet-mapping> -->
+  <servlet>
+    <servlet-name>productlist.jsp</servlet-name>
+    <jsp-file>productlist.jsp</jsp-file>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>productlist.jsp</servlet-name>
+   <url-pattern>/productlist/*</url-pattern>
+  </servlet-mapping>
+  
   <servlet>  
     <servlet-name>ConnServlet</servlet-name>  
     <servlet-class>uts.isd.Controller.ConnServlet</servlet-class>  
