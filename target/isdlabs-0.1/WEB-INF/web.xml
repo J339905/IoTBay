@@ -79,6 +79,15 @@
     <url-pattern>/WelcomeServlet</url-pattern>
 </servlet-mapping> -->
 
+<servlet>
+    <servlet-name>ListProductServlet</servlet-name>
+    <servlet-class>uts.isd.Controller.ListProductServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>ListProductServlet</servlet-name>
+    <url-pattern>/ListProductServlet</url-pattern>
+</servlet-mapping>
+
     <servlet>  
     <servlet-name>AdminCreateUserServlet</servlet-name>  
     <servlet-class>uts.isd.Controller.AdminCreateUserServlet</servlet-class>  

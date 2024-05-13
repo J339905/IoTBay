@@ -42,7 +42,7 @@ public class ListProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // Fetch the list of products from the database using the correctly named DAO
-            ArrayList<Product> productList = dao.getAllProducts();
+            ArrayList<Product> productList = dao.fetchProduct();
             // Set the product list as a request attribute
             request.setAttribute("productList", productList);
             // Forward the request to the JSP page

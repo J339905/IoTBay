@@ -1,34 +1,49 @@
 package uts.isd.model.dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
 import uts.isd.model.Product;
 
+
+
+
 public class ProductDAO {
-    private Connection conn;
+private PreparedStatement readst;
+private String readQuery = "SELECT ProductID, ProductName, ProductCategory, ProductDescription, ProductPrice, ProductStock  from Product";
+// private String insertQuery = "SELECT S, FirstName, LastName from Account";
 
-    public ProductDAO(Connection connection) {
-        this.conn = connection;
-    }
 
-    // Method to fetch all products
-    public ArrayList<Product> getAllProducts() throws SQLException {
-        ArrayList<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM Product";
-        try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                Product product = new Product(
-                    rs.getInt("ProductID"),
-                    rs.getString("ProductName"),
-                    rs.getString("ProductCategory"),
-                    rs.getString("ProductDescription"),
-                    rs.getDouble("ProductPrice"),
-                    rs.getInt("ProductStock")
-                );
-                products.add(product);
-            }
-        }
-        return products;
+public ProductDAO(Connection connection) throws SQLException{
+    connection.setAutoCommit(true);
+    readst = connection.prepareStatement(readQuery);
+}
+
+
+public ArrayList<Product> fetchProduct() throws SQLException{
+    ResultSet rs = readst.executeQuery();
+    ArrayList<Product> products = new ArrayList<Product>();
+   
+    while(rs.next()){
+    int ProductID = rs.getInt(1);
+    String ProductCategory = rs.getString(3);
+    String ProductName = rs.getString(2);
+    int ProductStock = rs.getInt(6);
+    double ProductPrice = rs.getDouble(5);
+    String ProductDescription = rs.getString(4);
+   
+    Product p = new Product(ProductID, ProductName, ProductCategory, ProductDescription, ProductPrice, ProductStock);
+   
+
+
+System.out.println(ProductName + " " + ProductCategory);
+
+products.add(p);
     }
+    return products;
+}
+
 }
