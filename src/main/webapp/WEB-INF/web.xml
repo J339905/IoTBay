@@ -22,6 +22,16 @@
    <servlet-name>welcome.jsp</servlet-name>
    <url-pattern>/welcome/*</url-pattern>
   </servlet-mapping> -->
+  <servlet>
+    <servlet-name>productlist.jsp</servlet-name>
+    <jsp-file>/productlist.jsp</jsp-file>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>productlist.jsp</servlet-name>
+   <url-pattern>/productlist/*</url-pattern>
+  </servlet-mapping>
+
   <servlet>  
     <servlet-name>ConnServlet</servlet-name>  
     <servlet-class>uts.isd.Controller.ConnServlet</servlet-class>  
@@ -70,14 +80,6 @@
     <servlet-name>ViewActivityLogsServlet</servlet-name>  
     <url-pattern>/ViewActivityLogsServlet</url-pattern>  
     </servlet-mapping> 
-<!-- <servlet>
-    <servlet-name>WelcomeServlet</servlet-name>
-    <servlet-class>uts.isd.Controller.WelcomeServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>WelcomeServlet</servlet-name>
-    <url-pattern>/WelcomeServlet</url-pattern>
-</servlet-mapping> -->
 
 <servlet>
     <servlet-name>ListProductServlet</servlet-name>
@@ -87,7 +89,6 @@
     <servlet-name>ListProductServlet</servlet-name>
     <url-pattern>/ListProductServlet</url-pattern>
 </servlet-mapping>
-
 
     <servlet>  
     <servlet-name>AdminCreateUserServlet</servlet-name>  

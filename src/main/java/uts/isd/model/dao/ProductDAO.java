@@ -9,13 +9,11 @@ import java.util.ArrayList;
 import uts.isd.model.Product;
 
 
-
-
 public class ProductDAO {
 private PreparedStatement readst;
-private String readQuery = "SELECT ProductID, ProductName, ProductCategory, ProductDescription, ProductPrice, ProductStock  from Product";
+private String readQuery = "SELECT ProductID, ProductName, ProductCategory, ProductDescription, ProductPrice, ProductStock from Product";
 // private String insertQuery = "SELECT S, FirstName, LastName from Account";
-
+// read query, try select * instead of certain columns
 
 public ProductDAO(Connection connection) throws SQLException{
     connection.setAutoCommit(true);
@@ -29,11 +27,11 @@ public ArrayList<Product> fetchProduct() throws SQLException{
    
     while(rs.next()){
     int ProductID = rs.getInt(1);
-    String ProductCategory = rs.getString(3);
     String ProductName = rs.getString(2);
-    int ProductStock = rs.getInt(6);
-    double ProductPrice = rs.getDouble(5);
+    String ProductCategory = rs.getString(3);
     String ProductDescription = rs.getString(4);
+    double ProductPrice = rs.getDouble(5);
+    int ProductStock = rs.getInt(6);
    
     Product p = new Product(ProductID, ProductName, ProductCategory, ProductDescription, ProductPrice, ProductStock);
    
