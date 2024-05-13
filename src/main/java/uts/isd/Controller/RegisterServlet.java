@@ -1,10 +1,9 @@
 
-
- 
 package uts.isd.Controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -16,50 +15,38 @@ import javax.servlet.http.HttpSession;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.UserDAO;
- 
+import uts.isd.model.dao.logDAO;
+
 public class RegisterServlet extends HttpServlet {
- 
-    private DBConnector db; // Declare DBConnector
- 
+
+    private DBConnector db;
+    private UserDAO userDAO;
+    private logDAO logDao;
+
     @Override
     public void init() throws ServletException {
         super.init();
         try {
-            db = new DBConnector(); // Initialize the DBConnector in the init method
+            db = new DBConnector();
+            Connection conn = db.openConnection();
+            userDAO = new UserDAO(conn);
+            logDao = new logDAO(conn);
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
     }
- 
- 
+
     @Override
-<<<<<<< HEAD
-public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    HttpSession session = request.getSession();
- 
-    String email = request.getParameter("email");
-    String firstname = request.getParameter("firstname");
-    String lastname = request.getParameter("secondname");
-    String password = request.getParameter("password");
-    int phone = Integer.parseInt(request.getParameter("phone"));
-    String gender = request.getParameter("gender");  // Retrieve gender from request
-    System.out.println("Received gender: " + gender); // This should print the gender value or null
-    String role = "Customer";
- 
-    // Print the gender to see what is being received from the form
-    System.out.println("Gender from form: " + gender);
- 
-    try {
-        UserDAO userDAO = (UserDAO) session.getAttribute("userDAO");
- 
-        if (userDAO == null) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "UserDAO not initialized.");
-            return;
-=======
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
         session.removeAttribute("emailErr");
+        session.removeAttribute("nametypeErr");
+        session.removeAttribute("nullErr");
+        session.removeAttribute("phoneErr");
+        session.removeAttribute("passwordErr");
+        session.removeAttribute("tosErr");
+        session.removeAttribute("userexistsErr");
 
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
@@ -72,7 +59,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
 
         boolean hasError = false;
         String emailRegex = "^.+@.+\\.com$";
-        String phoneRegex = "^\\d{10}+$";
+        String phoneRegex = "^\\d+$";
         String nameRegex = "^[a-zA-Z\\s'-]+$";
 
         if (firstname == null || firstname.trim().isEmpty() || lastname == null || lastname.trim().isEmpty() ||
@@ -102,7 +89,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
         }
 
         if (!phoneStr.matches(phoneRegex)) {
-            session.setAttribute("phoneErr", "Phone number must consist of 10 numbers");
+            session.setAttribute("phoneErr", "Phone number must consist of numbers only");
             request.getRequestDispatcher("register.jsp").include(request, response);
             return;
         }
@@ -144,11 +131,16 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error.");
->>>>>>> NasBranch-LogAccess
         }
 
-        userDAO.adminCreateUser(firstname, lastname, email, phone, password, gender, role);
- 
+        // try {
+        // userDAO.adminCreateUser(firstname, lastname, email, phone, password, gender,
+        // role);
+        // } catch (SQLException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+
         User user = new User();
         user.setfirstName(firstname);
         user.setlastname(lastname);
@@ -157,19 +149,10 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
         user.setPhone(phone);
         user.setGender(gender);
         session.setAttribute("user", user);
- 
-        response.sendRedirect("welcome.jsp");
-    } catch (Exception e) {
-        e.printStackTrace();
-        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error.");
-    }
-<<<<<<< HEAD
-}
- 
- 
-=======
 
->>>>>>> NasBranch-LogAccess
+        response.sendRedirect("welcome.jsp");
+    }
+
     @Override
     public void destroy() {
         super.destroy();

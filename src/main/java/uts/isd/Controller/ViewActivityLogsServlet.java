@@ -32,6 +32,7 @@ public class ViewActivityLogsServlet extends HttpServlet {
             throw new ServletException("DBConnector initialization failed.", e);
         }
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,6 +43,9 @@ public class ViewActivityLogsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+
+        session.removeAttribute("nologsErr");
+        
         User user = (User) session.getAttribute("user");
         String date = request.getParameter("date");
 
@@ -52,7 +56,10 @@ public class ViewActivityLogsServlet extends HttpServlet {
                     System.out.println(date);
                     logs = logDAO.fetchSpecificUserLogsByDate(user.getUserID(), date);
                     if (logs.size() == 0) {
-                        request.setAttribute("message", "No activity logs found for the selected date.");
+
+                        session.setAttribute("nologsErr", "No activity logs found for the selected date.");
+                        request.getRequestDispatcher("viewactivitylogs.jsp").include(request, response);
+                        return;
                     } else {
                         request.setAttribute("activitylogs", logs);
                     }

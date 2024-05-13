@@ -8,7 +8,6 @@
 </head>
 <body>
 
-    <!-- Navigation Bar -->
     <nav>
         <ul>
             <li><a href="/admin.jsp">AdminPage</a></li>
@@ -19,18 +18,15 @@
         </ul>
     </nav>
 
-    <!-- Page Content -->
     <div class="content">
         <h1>Admin User Management</h1>
         <p>Manage customer and staff users from this page.</p>
 
-        <!-- Actions Section -->
         <div class="actions">
             <a href="/admin/createUser.jsp" class="btn btn-primary">Create New User</a>
             <a href="/admin/viewUsers.jsp" class="btn btn-secondary">View All Users</a>
         </div>
 
-        <!-- User Search Form -->
         <form action="/SearchUserServlet" method="get" class="search-form">
             <label for="search-name">First Name:</label>
             <input type="text" id="search-name" name="firstName">

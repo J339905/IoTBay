@@ -9,15 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
- 
+
+import uts.isd.model.Logs;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.UserDAO;
- 
+import uts.isd.model.dao.logDAO;
+
 public class LoginServlet extends HttpServlet {
- 
+
     private DBConnector db;
-@Override
+    private UserDAO userDAO;
+    private logDAO logDAO;
+
+    @Override
     public void init() throws ServletException {
         super.init();
         try {
@@ -30,27 +35,33 @@ public class LoginServlet extends HttpServlet {
             throw new ServletException("DBConnector initialization failed.", e);
         }
     }
- 
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-
+        if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+            session.setAttribute("nullErr", "Please fill in all the fields given.");
+            request.getRequestDispatcher("login.jsp").include(request, response);
+            return;
+        }
         try {
             User user = userDAO.findUser(email, password);
             if (user != null) {
                 session.setAttribute("user", user);
                 logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
-
-                response.sendRedirect("welcome.jsp");
+                if (user.getRole().equals("Customer")) {
+                    response.sendRedirect("welcome.jsp");
+                } else {
+                    response.sendRedirect("admin.jsp");
+                }
             } else {
                 session.setAttribute("loginErr", "Invalid login details or inactive account");
                 response.sendRedirect("login.jsp");
             }
-        }
-        else{
+        } catch (SQLException e) {
             session.setAttribute("loginErr", "Invalid email/password");
             response.sendRedirect("login.jsp");
         }

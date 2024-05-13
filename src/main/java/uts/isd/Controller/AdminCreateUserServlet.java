@@ -36,7 +36,6 @@ public class AdminCreateUserServlet extends HttpServlet {
         int phone = Integer.parseInt(request.getParameter("phone"));
         String gender = request.getParameter("gender"); // Retrieve gender from request
         String role = request.getParameter("role");
-        String status = "Current User";
 
         try {
             UserDAO userDAO = (UserDAO) session.getAttribute("userDAO");

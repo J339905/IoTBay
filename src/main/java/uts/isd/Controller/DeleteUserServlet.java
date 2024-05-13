@@ -28,8 +28,8 @@ public class DeleteUserServlet extends HttpServlet {
                 userDAO.deleteUser(userId);
                 db.closeConnection();
 
-                session.invalidate(); 
-                response.sendRedirect("index.jsp"); 
+                session.invalidate();
+                response.sendRedirect("index.jsp");
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error during deletion.");

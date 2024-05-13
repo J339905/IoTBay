@@ -23,9 +23,9 @@ public class ChangeRegistrationDetailsServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         try {
-            db = new DBConnector(); 
-            Connection conn = db.openConnection(); 
-            userDAO = new UserDAO(conn); 
+            db = new DBConnector();
+            Connection conn = db.openConnection();
+            userDAO = new UserDAO(conn);
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
@@ -56,6 +56,12 @@ public class ChangeRegistrationDetailsServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
+        session.removeAttribute("nametypeErr");
+        session.removeAttribute("nullErr");
+        session.removeAttribute("phoneErr");
+        session.removeAttribute("passwordErr");
+        session.removeAttribute("samedetailsErr");
+
         if (user != null) {
 
             String firstname = request.getParameter("firstname");
@@ -65,8 +71,9 @@ public class ChangeRegistrationDetailsServlet extends HttpServlet {
             String gender = request.getParameter("gender");
             String role = "Customer";
             System.out.println(user.getEmail());
-            String phoneRegex = "^\\d+$";
             String nameRegex = "^[a-zA-Z\\s'-]+$";
+            String phoneRegex = "^\\d+$";
+
             if (firstname == null || firstname.trim().isEmpty() || lastname == null ||
                     lastname.trim().isEmpty()
                     || phoneStr == null || phoneStr.trim().isEmpty() ||
@@ -76,35 +83,26 @@ public class ChangeRegistrationDetailsServlet extends HttpServlet {
                 session.setAttribute("nullErr", "Please fill in all the fields given.");
                 request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
                         response);
-                return; 
+                return;
             }
+            if (!phoneStr.matches(phoneRegex)) {
+                session.setAttribute("phoneErr", "Phone number must consist of numbers only");
+                request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
+                        response);
+                return;
+            }
+            int phone = Integer.parseInt(phoneStr);
+
             if (!firstname.matches(nameRegex) || !lastname.matches(nameRegex)) {
                 session.setAttribute("nametypeErr", "Names must contain letters only");
                 request.getRequestDispatcher("changeregistrationdetails.jsp").include(request, response);
                 return;
             }
-            if (!phoneStr.matches(phoneRegex)) {
-                session.setAttribute("phoneErr", "Phone number must consist of numbers");
-                request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
-                        response);
-                return; 
-            }
-            int phone = Integer.parseInt(phoneStr);
 
             if (password.length() < 6) {
                 session.setAttribute("passwordErr", "Password must have a length of at least 5 characters");
-                request.getRequestDispatcher("/changeregistrationdetails.jsp").include(request, response);
+                request.getRequestDispatcher("changeregistrationdetails.jsp").include(request, response);
                 return;
-            }
-            try {
-                User checkuser = userDAO.findExistingUser(user.getEmail());
-                if (checkuser != null) {
-                    session.setAttribute("userexistsErr", "This user already exists");
-                    request.getRequestDispatcher("changeregistrationdetails.jsp").include(request, response);
-                    return;
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
             try {
 
@@ -120,6 +118,7 @@ public class ChangeRegistrationDetailsServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
         }
     }
+
     public void destroy() {
         try {
             if (db != null) {

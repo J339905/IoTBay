@@ -7,15 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
 import uts.isd.model.User;
 
 public class UserDAO {
+
     private PreparedStatement readst;
-    private String readQuery = "SELECT UserID, FirstName, LastName from User";
+    private String readQuery = "SELECT * from user";
     private Connection conn;
-    // private String insertQuery = "SELECT AccountID, FirstName, LastName from
-    // Account";
 
     public UserDAO(Connection connection) throws SQLException {
         this.conn = connection;
@@ -23,20 +21,21 @@ public class UserDAO {
         readst = connection.prepareStatement(readQuery);
     }
 
+    public void adminCreateUser(String firstname, String lastname, String email, int phone, String password,
+            String gender, String role) throws SQLException {
 
-    public void adminCreateUser(String firstname, String lastname, String email, int phone, String password, String gender, String role) throws SQLException {
-
-      PreparedStatement st = conn.prepareStatement("Insert into user(FirstName, LastName , email, Phone_Number, password ,gender, Role) Values(?,?,?,?,?,?,?)");
-      st.setString(1, firstname);
-          st.setString(2, lastname);
-      st.setString(3, email);
-      st.setInt(4, phone);
-      st.setString(5, password);
-          st.setString(6, gender);
-          st.setString(7, role);
-      st.executeUpdate();
+        PreparedStatement st = conn.prepareStatement(
+                "Insert into user(FirstName, LastName , email, Phone_Number, password ,gender, Role) Values(?,?,?,?,?,?,?)");
+        st.setString(1, firstname);
+        st.setString(2, lastname);
+        st.setString(3, email);
+        st.setInt(4, phone);
+        st.setString(5, password);
+        st.setString(6, gender);
+        st.setString(7, role);
+        st.executeUpdate();
     }
-  
+
     public int createUser(String firstname, String lastname, String email, int phone, String password, String gender,
             String role) throws SQLException {
         String sql = "INSERT INTO user (FirstName, LastName, Email, Phone_Number, Password, Gender, Role) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -49,7 +48,7 @@ public class UserDAO {
         st.setString(6, gender);
         st.setString(7, role);
         st.executeUpdate();
- 
+
         ResultSet rs = st.getGeneratedKeys();
         if (rs.next()) {
             return rs.getInt(1);
@@ -59,28 +58,29 @@ public class UserDAO {
     }
 
     public void adminUpdateUser(User user) throws SQLException {
-      PreparedStatement st = conn.prepareStatement("UPDATE user SET FirstName = ?, LastName = ?, Phone_Number = ?, gender = ?, Role = ? WHERE UserID = ?");
-          st.setString(1, user.getfirstName());
-          st.setString(2, user.getlastname());
-          st.setInt(3, user.getPhone());
-          st.setString(4, user.getGender());
-          st.setString(5, user.getRole());
-          st.setInt(6, user.getUserID());
+        PreparedStatement st = conn.prepareStatement(
+                "UPDATE user SET FirstName = ?, LastName = ?, Phone_Number = ?, gender = ?, Role = ? WHERE UserID = ?");
+        st.setString(1, user.getfirstName());
+        st.setString(2, user.getlastname());
+        st.setInt(3, user.getPhone());
+        st.setString(4, user.getGender());
+        st.setString(5, user.getRole());
+        st.setInt(6, user.getUserID());
 
-          st.executeUpdate();
+        st.executeUpdate();
     }
 
-    public ArrayList<User> fetchUsers() throws SQLException {
-        ResultSet rs = readst.executeQuery();
-        ArrayList<User> users = new ArrayList<User>();
+    // public ArrayList<User> fetchUsers() throws SQLException {
+    // ResultSet rs = readst.executeQuery();
+    // ArrayList<User> users = new ArrayList<User>();
 
-        ResultSet rs = st.getGeneratedKeys();
-        if (rs.next()) {
-            return rs.getInt(1); 
-        } else {
-            throw new SQLException("Creating user failed, no ID obtained.");
-        }
-    }
+    // ResultSet rs = st.getGeneratedKeys();
+    // if (rs.next()) {
+    // return rs.getInt(1);
+    // } else {
+    // throw new SQLException("Creating user failed, no ID obtained.");
+    // }
+    // }
 
     public User updateUser(String firstname, String lastname, int phone, String password, String gender, String role,
             String email) throws SQLException {
@@ -102,6 +102,7 @@ public class UserDAO {
                     selectStmt.setString(1, email);
                     try (ResultSet rs = selectStmt.executeQuery()) {
                         if (rs.next()) {
+
                             // Return the updated user
                             return new User(
                                     rs.getInt("UserID"),
@@ -118,9 +119,9 @@ public class UserDAO {
                 }
             }
         }
-        return null; 
+        return null;
     }
-  
+
     public void deleteUser(int userID) throws SQLException {
         try {
             conn.setAutoCommit(false);
@@ -143,7 +144,6 @@ public class UserDAO {
             conn.setAutoCommit(true);
         }
     }
-
 
     public User findExistingUser(String email) throws SQLException {
         String sql = "SELECT * FROM user WHERE email = ?";
@@ -186,7 +186,7 @@ public class UserDAO {
                 }
             }
         }
-        return 0; 
+        return 0;
     }
 
     public boolean doesUserExist(int userID) throws SQLException {
@@ -201,8 +201,6 @@ public class UserDAO {
         }
         return false;
     }
-    
-
 
     public ArrayList<User> readAllUsers() throws SQLException {
         ResultSet rs = readst.executeQuery();
@@ -214,63 +212,64 @@ public class UserDAO {
             String lastName = rs.getString(3);
             String email = rs.getString(4);
 
-            int phone = Integer.parseInt(rs.getString(5));
-            String password = rs.getString(6);
+            int phone = Integer.parseInt(rs.getString(6));
             String role = rs.getString(7);
             String gender = rs.getString(8);
 
-            User u = new User(userId, firstName, lastName, email, phone, password, gender, role);
+            User u = new User(userId, firstName, lastName, email, phone, gender, role);
             users.add(u);
         }
         return users;
-    } 
+    }
 
-    public User findUser(String email, String password) throws SQLException{
+    public User findUser(String email, String password) throws SQLException {
         PreparedStatement st = conn.prepareStatement("Select * from user where email = ? and password =?");
         st.setString(1, email);
         st.setString(2, password);
-        
+
         ResultSet rs = st.executeQuery();
-        if(rs.next()){
+        if (rs.next()) {
             return new User(
-            rs.getString("FirstName"),
-            rs.getString("LastName"),
-            rs.getString("Email"),
-            rs.getInt("Phone_Number"),  // Make sure this column exists in your DB
-            rs.getString("Password"),
-            rs.getString("Gender"),     // Make sure this column exists in your DB
-            rs.getString("Role")  );
-        }//get from sql table
+                    rs.getInt("UserID"),
+                    rs.getString("FirstName"),
+                    rs.getString("LastName"),
+                    rs.getString("Email"),
+                    rs.getInt("Phone_Number"), // Make sure this column exists in your DB
+                    rs.getString("Password"),
+                    rs.getString("Gender"), // Make sure this column exists in your DB
+                    rs.getString("Role"));
+        } // get from sql table
         return null;
     }
 
-    public User findUserById(String userId) throws SQLException{
+    public User findUserById(String userId) throws SQLException {
         PreparedStatement st = conn.prepareStatement("Select * from user where UserID = ?");
         st.setString(1, userId);
-        
+
         ResultSet rs = st.executeQuery();
-        if(rs.next()){
+        if (rs.next()) {
             return new User(
-                rs.getInt("UserID"),
-                rs.getString("FirstName"),
-                rs.getString("LastName"),
-                rs.getString("Email"),
-                rs.getInt("Phone_Number"),  // Make sure this column exists in your DB
-                rs.getString("Gender"),     // Make sure this column exists in your DB
-                rs.getString("Role"));
-        }//get from sql table
+                    rs.getInt("UserID"),
+                    rs.getString("FirstName"),
+                    rs.getString("LastName"),
+                    rs.getString("Email"),
+                    rs.getInt("Phone_Number"), // Make sure this column exists in your DB
+                    rs.getString("Gender"), // Make sure this column exists in your DB
+                    rs.getString("Role"));
+        } // get from sql table
         return null;
     }
-    
-    public ArrayList<User> findUsersByNameNPhone(String fisrtName, String lastName ,String phone) throws SQLException{
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM user WHERE FirstName LIKE ? AND LastName Like ? AND phone_number LIKE ?");
+
+    public ArrayList<User> findUsersByNameNPhone(String fisrtName, String lastName, String phone) throws SQLException {
+        PreparedStatement st = conn.prepareStatement(
+                "SELECT * FROM user WHERE FirstName LIKE ? AND LastName Like ? AND phone_number LIKE ?");
         st.setString(1, "%" + fisrtName + "%");
         st.setString(2, "%" + lastName + "%");
         st.setString(3, "%" + phone + "%");
         ArrayList<User> users = new ArrayList<User>();
-        
+
         ResultSet rs = st.executeQuery();
-        while (rs.next()){
+        while (rs.next()) {
             int userId = Integer.parseInt(rs.getString(1));
             String _firstName = rs.getString(2);
             String _lastName = rs.getString(3);
@@ -282,7 +281,7 @@ public class UserDAO {
             User u = new User(userId, _firstName, _lastName, email, _phone, gender, role);
             users.add(u);
         }
-        
+
         return users;
     }
 }
