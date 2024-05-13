@@ -21,25 +21,6 @@ public class UserDAO {
         readst = connection.prepareStatement(readQuery);
     }
 
-    // public void createUser(String firstname, String lastname, String email, int phone, String password, String gender, String role)
-    //         throws SQLException {
-    //     // PreparedStatement st = conn.prepareStatement("Insert into User(UserID,
-    //     // firstname, lastname, email,password, phone_number,role)
-    //     // Values(?,?,?,?,?,?,?,?)");
-    //     // st.setInt(1, UserID);
-    //     // st.setString(2, firstname);
-    //     // st.setString(3, lastname);
-    //     // st.setString(4, email);
-    //     // st.setInt(5, phone);
-    //     // st.setString(6, password);
-    //     // st.setString(7, role);
-    //     // st.executeUpdate();
-        
-    //     Statement st = conn.createStatement();
-    //     st.executeUpdate("Insert into user(FirstName, LastName , email,password, Phone_Number ,Role, gender) Values('as','ds','gsd','sad',2343424,'dss', 'Male')");
-
-    // }
-
     public void adminCreateUser(String firstname, String lastname, String email, int phone, String password, String gender, String role) throws SQLException {
 		PreparedStatement st = conn.prepareStatement("Insert into user(FirstName, LastName , email, Phone_Number, password ,gender, Role) Values(?,?,?,?,?,?,?)");
 		st.setString(1, firstname);
