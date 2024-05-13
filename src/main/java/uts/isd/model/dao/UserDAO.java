@@ -40,7 +40,7 @@ public class UserDAO {
 
     // }
 
-    public void createUser(String firstname, String lastname, String email, int phone, String password, String gender, String role) throws SQLException {
+    public void adminCreateUser(String firstname, String lastname, String email, int phone, String password, String gender, String role) throws SQLException {
 		PreparedStatement st = conn.prepareStatement("Insert into user(FirstName, LastName , email, Phone_Number, password ,gender, Role) Values(?,?,?,?,?,?,?)");
 		st.setString(1, firstname);
         st.setString(2, lastname);
@@ -52,7 +52,7 @@ public class UserDAO {
 		st.executeUpdate();
 	}
 
-    public void updateUser(User user) throws SQLException {
+    public void adminUpdateUser(User user) throws SQLException {
 		PreparedStatement st = conn.prepareStatement("UPDATE user SET FirstName = ?, LastName = ?, Phone_Number = ?, gender = ?, Role = ? WHERE UserID = ?");
         st.setString(1, user.getfirstName());
         st.setString(2, user.getlastname());
@@ -106,7 +106,7 @@ public class UserDAO {
         PreparedStatement st = conn.prepareStatement("Select * from user where email = ? and password =?");
         st.setString(1, email);
         st.setString(2, password);
-     
+        
         ResultSet rs = st.executeQuery();
         if(rs.next()){
             return new User(
@@ -119,26 +119,25 @@ public class UserDAO {
             rs.getString("Role")  );
         }//get from sql table
         return null;
-     
-        }
+    }
 
-        public User findUserById(String userId) throws SQLException{
-            PreparedStatement st = conn.prepareStatement("Select * from user where UserID = ?");
-            st.setString(1, userId);
-         
-            ResultSet rs = st.executeQuery();
-            if(rs.next()){
-                return new User(
-                    rs.getInt("UserID"),
-                    rs.getString("FirstName"),
-                    rs.getString("LastName"),
-                    rs.getString("Email"),
-                    rs.getInt("Phone_Number"),  // Make sure this column exists in your DB
-                    rs.getString("Gender"),     // Make sure this column exists in your DB
-                    rs.getString("Role"));
-            }//get from sql table
-            return null;
-        }
+    public User findUserById(String userId) throws SQLException{
+        PreparedStatement st = conn.prepareStatement("Select * from user where UserID = ?");
+        st.setString(1, userId);
+        
+        ResultSet rs = st.executeQuery();
+        if(rs.next()){
+            return new User(
+                rs.getInt("UserID"),
+                rs.getString("FirstName"),
+                rs.getString("LastName"),
+                rs.getString("Email"),
+                rs.getInt("Phone_Number"),  // Make sure this column exists in your DB
+                rs.getString("Gender"),     // Make sure this column exists in your DB
+                rs.getString("Role"));
+        }//get from sql table
+        return null;
+    }
     
     public ArrayList<User> findUsersByNameNPhone(String fisrtName, String lastName ,String phone) throws SQLException{
         PreparedStatement st = conn.prepareStatement("SELECT * FROM user WHERE FirstName LIKE ? AND LastName Like ? AND phone_number LIKE ?");

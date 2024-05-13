@@ -56,7 +56,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response) thr
             return;
         }
 
-        userDAO.createUser(firstname, lastname, email, phone, password, gender, role);
+        userDAO.adminCreateUser(firstname, lastname, email, phone, password, gender, role);
  
         User user = new User();
         user.setfirstName(firstname);

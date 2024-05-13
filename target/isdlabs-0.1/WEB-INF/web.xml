@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+ 
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
@@ -13,33 +13,69 @@
    <servlet-name>index.jsp</servlet-name>
    <url-pattern>/index/*</url-pattern>
   </servlet-mapping>
-
-    <servlet>  
-    <servlet-name>RegisterController</servlet-name>  
-    <servlet-class>uts.isd.controller.RegisterController</servlet-class>  
+  <servlet>
+    <servlet-name>welcome.jsp</servlet-name>
+    <jsp-file>/welcome.jsp</jsp-file>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>welcome.jsp</servlet-name>
+   <url-pattern>/welcome/*</url-pattern>
+  </servlet-mapping>
+  <servlet>  
+    <servlet-name>ConnServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.ConnServlet</servlet-class>  
     </servlet>  
     <servlet-mapping>  
-    <servlet-name>RegisterController</servlet-name>  
-    <url-pattern>/RegisterController</url-pattern>  
+    <servlet-name>ConnServlet</servlet-name>  
+    <url-pattern>/ConnServlet</url-pattern>  
     </servlet-mapping>  
-
     <servlet>  
-    <servlet-name>LoginController</servlet-name>  
-    <servlet-class>uts.isd.controller.LoginController</servlet-class>  
+    <servlet-name>RegisterServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.RegisterServlet</servlet-class>  
     </servlet>  
     <servlet-mapping>  
-    <servlet-name>LoginController</servlet-name>  
-    <url-pattern>/LoginController</url-pattern>  
-    </servlet-mapping>  
-
+    <servlet-name>RegisterServlet</servlet-name>  
+    <url-pattern>/RegisterServlet</url-pattern>  
+    </servlet-mapping> 
     <servlet>  
-    <servlet-name>LogoutController</servlet-name>  
-    <servlet-class>uts.isd.controller.LogoutController</servlet-class>  
+    <servlet-name>LoginServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.LoginServlet</servlet-class>  
     </servlet>  
     <servlet-mapping>  
-    <servlet-name>LogoutController</servlet-name>  
-    <url-pattern>/LogoutController</url-pattern>  
-    </servlet-mapping>  
-
-
+    <servlet-name>LoginServlet</servlet-name>  
+    <url-pattern>/LoginServlet</url-pattern>  
+    </servlet-mapping> 
+    <servlet>  
+    <servlet-name>AdminCreateUserServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.AdminCreateUserServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>AdminCreateUserServlet</servlet-name>  
+    <url-pattern>/AdminCreateUserServlet</url-pattern>  
+    </servlet-mapping> 
+    <servlet>  
+    <servlet-name>AdminReadUsersServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.AdminReadUsersServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>AdminReadUsersServlet</servlet-name>  
+    <url-pattern>/AdminReadUsersServlet</url-pattern>  
+    </servlet-mapping> 
+    <servlet>  
+    <servlet-name>SearchUserServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.SearchUserServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>SearchUserServlet</servlet-name>  
+    <url-pattern>/SearchUserServlet</url-pattern>  
+    </servlet-mapping> 
+    <servlet>  
+    <servlet-name>EditUserServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.EditUserServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>EditUserServlet</servlet-name>  
+    <url-pattern>/EditUserServlet</url-pattern>  
+    </servlet-mapping> 
 </web-app>

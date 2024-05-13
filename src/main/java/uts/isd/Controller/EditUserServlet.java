@@ -85,7 +85,7 @@ public class EditUserServlet extends HttpServlet {
             user.setGender(gender);
             user.setRole(role);
 
-            userDAO.updateUser(user);
+            userDAO.adminUpdateUser(user);
             session.setAttribute("message", "User updated successfully.");
             response.sendRedirect("/admin.jsp"); 
         } catch (NumberFormatException | SQLException e) {
