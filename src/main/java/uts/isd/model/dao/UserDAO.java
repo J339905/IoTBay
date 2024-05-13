@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.ws.rs.DELETE;
 
 import uts.isd.model.User;
 
@@ -37,7 +36,7 @@ public class UserDAO {
 
         ResultSet rs = st.getGeneratedKeys();
         if (rs.next()) {
-            return rs.getInt(1); // Return the UserID of the newly inserted user
+            return rs.getInt(1); 
         } else {
             throw new SQLException("Creating user failed, no ID obtained.");
         }
@@ -45,7 +44,6 @@ public class UserDAO {
 
     public User updateUser(String firstname, String lastname, int phone, String password, String gender, String role,
             String email) throws SQLException {
-        // SQL statement to update user details
         String sqlUpdate = "UPDATE user SET FirstName = ?, LastName = ?, Phone_Number = ?, Password = ?, Gender = ?, Role = ? WHERE Email = ?";
         try (PreparedStatement st = conn.prepareStatement(sqlUpdate)) {
             st.setString(1, firstname);
@@ -58,9 +56,7 @@ public class UserDAO {
 
             int affectedRows = st.executeUpdate();
 
-            // Check if the update was successful
             if (affectedRows > 0) {
-                // SQL to retrieve the updated user details
                 String sqlSelect = "SELECT * FROM user WHERE Email = ?";
                 try (PreparedStatement selectStmt = conn.prepareStatement(sqlSelect)) {
                     selectStmt.setString(1, email);
@@ -82,41 +78,27 @@ public class UserDAO {
                 }
             }
         }
-        return null; // Return null if no update occurred or user not found
+        return null; 
     }
-
-    // public void deleteUser(int userID) throws SQLException {
-    // String sql = "DELETE FROM user WHERE UserID = ?";
-    // try (PreparedStatement st = conn.prepareStatement(sql)) {
-    // st.setInt(1, userID);
-    // st.executeUpdate();
-    // }
-    // }
     public void deleteUser(int userID) throws SQLException {
         try {
-            // Start transaction
             conn.setAutoCommit(false);
 
-            // Delete related records in activitylogs
             try (PreparedStatement st1 = conn.prepareStatement("DELETE FROM logs WHERE UserID = ?")) {
                 st1.setInt(1, userID);
                 st1.executeUpdate();
             }
 
-            // Delete user
             try (PreparedStatement st2 = conn.prepareStatement("DELETE FROM user WHERE UserID = ?")) {
                 st2.setInt(1, userID);
                 st2.executeUpdate();
             }
 
-            // Commit transaction
             conn.commit();
         } catch (SQLException e) {
-            // Rollback transaction in case of error
             conn.rollback();
             throw e;
         } finally {
-            // Set auto commit back to true
             conn.setAutoCommit(true);
         }
     }
@@ -185,7 +167,7 @@ public class UserDAO {
                 }
             }
         }
-        return -1; // Return -1 if no matching user found
+        return 0; 
     }
 
     public boolean doesUserExist(int userID) throws SQLException {
@@ -200,28 +182,7 @@ public class UserDAO {
         }
         return false;
     }
-    // public ArrayList<User> fetchUsers() throws SQLException {
-    // ResultSet rs = readst.executeQuery();
-
-    // ArrayList<User> users = new ArrayList<User>();
-    // while (rs.next()) {
-    // String name = rs.getString(1);
-    // String password = rs.getString(2);
-    // String phone = rs.getString(3);
-    // String email = rs.getString(4);
-    // User u = new User();
-    // u.setName(name);
-    // u.setPassword(password);
-    // u.setPhone(phone);
-    // u.setEmail(email);
-
-    // System.out.println(u.getName());
-
-    // users.add(u);
-    // }
-
-    // return users;
-    // }
+    
 
     public ArrayList<User> readAllUsers() throws SQLException {
         ResultSet rs = readst.executeQuery();

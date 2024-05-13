@@ -40,9 +40,7 @@
         <div class="alert alert-danger"><%= emailErr %></div>
     <% } %>
     <input type="text" name="firstname" class="form-control" placeholder="First Name" required>
-    <%-- <% if(nametypeErr != null) { %>
-        <div class="alert alert-danger"><%= nametypeErr %></div>
-    <% } %> --%>
+
     <input type="text" name="lastname" class="form-control" placeholder="Last Name" required>
     <% if(nametypeErr != null) { %>
         <div class="alert alert-danger"><%= nametypeErr %></div>

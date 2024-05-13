@@ -9,13 +9,10 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Welcome, ${user.getfirstName()}!</h1>
+        <h1>Welcome, dear user!</h1>
         <div class="mt-3">
             <a href="/dashboard.jsp" class="btn btn-primary">Go to Dashboard</a>
-            <a href="/LogoutServlet" class="btn btn-danger">Logout</a>
-            <a href="/viewregistrationdetails.jsp" class="btn btn-primary">View Registration Details</a>
-            <a href="/viewactivitylogs.jsp" class="btn btn-primary">View Your Activity</a>
-            <a href="/deleteuser.jsp" class="btn btn-danger">Delete Your Account</a>
+            <a href="/index.jsp" class="btn btn-primary">Go back to homepage</a>
         </div>
     </div>
 </body>

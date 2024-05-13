@@ -15,10 +15,6 @@
 
     <div class="navbar navbar-custom">
         <a class="navbar-brand" href="#">IOTBAY</a>
-        <%-- <div class="navbar-nav">
-            <a class="nav-link" href="/register.jsp">Register</a>
-            <a class="nav-link" href="/login.jsp">Login</a>
-        </div> --%>
     </div>
 
     <div class="container mt-5">
@@ -26,8 +22,8 @@
         <p>Welcome to IOTBAY, your portal for managing IoT devices efficiently and securely.</p>
         <a href="/register.jsp" class="btn btn-accent mt-3">Register an Account</a>
         <a href="/login.jsp" class="btn btn-accent mt-3">Login to your Account</a>
+        <a href="/anonymoususerwelcomepage.jsp" class="btn btn-accent mt-3">Continue Anyways</a>
     </div>
-
     <script>
         function startTime() {
             const today = new Date();

@@ -25,10 +25,10 @@ public class LoginServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         try {
-            db = new DBConnector(); // Initialize the DBConnector.
-            Connection conn = db.openConnection(); // Open a connection
-            userDAO = new UserDAO(conn); // Initialize UserDAO
-            logDAO = new logDAO(conn); // Initialize logDAO
+            db = new DBConnector();
+            Connection conn = db.openConnection();
+            userDAO = new UserDAO(conn);
+            logDAO = new logDAO(conn);
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
@@ -42,15 +42,15 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            User user = userDAO.findUser(email, password); // Attempt to find user
-            if (user != null) { // Check if user exists and is active
-                session.setAttribute("user", user); // Set user attribute in session
-                logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login"); // Log login
-                                                                                                       // activity
-                response.sendRedirect("welcome.jsp"); // Redirect to welcome page
+            User user = userDAO.findUser(email, password);
+            if (user != null) {
+                session.setAttribute("user", user);
+                logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
+
+                response.sendRedirect("welcome.jsp");
             } else {
                 session.setAttribute("loginErr", "Invalid login details or inactive account");
-                response.sendRedirect("login.jsp"); // Redirect back to login page with error
+                response.sendRedirect("login.jsp");
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -13,22 +13,19 @@ import javax.servlet.http.HttpSession;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.UserDAO;
-import uts.isd.model.dao.logDAO;
 
 public class ChangeRegistrationDetailsServlet extends HttpServlet {
 
     private DBConnector db;
     private UserDAO userDAO;
-    private logDAO logDAO;
 
     @Override
     public void init() throws ServletException {
         super.init();
         try {
-            db = new DBConnector(); // Initialize the DBConnector.
-            Connection conn = db.openConnection(); // Open a connection
-            userDAO = new UserDAO(conn); // Initialize UserDAO
-            logDAO = new logDAO(conn); // Initialize logDAO
+            db = new DBConnector(); 
+            Connection conn = db.openConnection(); 
+            userDAO = new UserDAO(conn); 
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
@@ -67,10 +64,8 @@ public class ChangeRegistrationDetailsServlet extends HttpServlet {
             String password = request.getParameter("password");
             String gender = request.getParameter("gender");
             String role = "Customer";
-            String status = "Current User";
             System.out.println(user.getEmail());
             String phoneRegex = "^\\d+$";
-            String emailRegex = "^.+@.+\\.com$";
             String nameRegex = "^[a-zA-Z\\s'-]+$";
             if (firstname == null || firstname.trim().isEmpty() || lastname == null ||
                     lastname.trim().isEmpty()
@@ -81,7 +76,7 @@ public class ChangeRegistrationDetailsServlet extends HttpServlet {
                 session.setAttribute("nullErr", "Please fill in all the fields given.");
                 request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
                         response);
-                return; // Important to stop further processing if validation fails
+                return; 
             }
             if (!firstname.matches(nameRegex) || !lastname.matches(nameRegex)) {
                 session.setAttribute("nametypeErr", "Names must contain letters only");
@@ -92,7 +87,7 @@ public class ChangeRegistrationDetailsServlet extends HttpServlet {
                 session.setAttribute("phoneErr", "Phone number must consist of numbers");
                 request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
                         response);
-                return; // Important to stop further processing if validation fails
+                return; 
             }
             int phone = Integer.parseInt(phoneStr);
 
@@ -109,7 +104,6 @@ public class ChangeRegistrationDetailsServlet extends HttpServlet {
                     return;
                 }
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             try {
@@ -126,85 +120,6 @@ public class ChangeRegistrationDetailsServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
         }
     }
-    // String samedetailsErr = (String) session.getAttribute("samedetailsErr");
-
-    // protected void doPost(HttpServletRequest request, HttpServletResponse
-    // response)
-    // throws ServletException, IOException {
-    // HttpSession session = request.getSession();
-    // User currentuser = (User) session.getAttribute("user");
-    // String firstname = currentuser.getfirstName();
-    // String lastname = currentuser.getlastname();
-    // int phoneStr = currentuser.getPhone();
-    // String password = currentuser.getPassword();
-    // String gender = currentuser.getGender();
-    // System.out.println(firstname + " " + lastname + " " + phoneStr);
-    // if (currentuser != null) {
-
-    // String newfirstname = request.getParameter("firstname");
-    // String newlastname = request.getParameter("lastname");
-    // String newphoneStr = request.getParameter("phone");
-    // String newpassword = request.getParameter("password");
-    // String newgender = request.getParameter("gender");
-    // String role = "Customer";
-    // System.out.println(currentuser.getEmail());
-    // String phoneRegex = "^\\d+$";
-    // // if (firstname==newfirstname && lastname == newlastname && phoneStr ==
-    // // Integer.parseInt(newphoneStr)
-    // // && password == newpassword
-    // // && gender == newgender) {
-    // // session.setAttribute("phoneErr", "No changes have been made ");
-    // //
-    // request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
-    // // response);
-    // // return;
-    // // }
-
-    // if (newfirstname == null || newfirstname.trim().isEmpty() || newlastname ==
-    // null
-    // || newlastname.trim().isEmpty()
-    // || newphoneStr == null || newphoneStr.trim().isEmpty() ||
-    // newpassword == null || newpassword.trim().isEmpty() || newgender == null
-    // || newgender.trim().isEmpty()) {
-    // session.setAttribute("nullErr", "Please fill in all the fields given.");
-    // request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
-    // response);
-    // return; // Important to stop further processing if validation fails
-    // }
-    // if (firstname.equals(newfirstname) && lastname.equals(newlastname)
-    // && phoneStr == Integer.parseInt(newphoneStr)
-    // && password.equals(newpassword)
-    // && gender.equals(newgender)) {
-    // session.setAttribute("samedetailsErr", "No changes have been made ");
-    // request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
-    // response);
-    // return;
-    // }
-
-    // if (!newphoneStr.matches(phoneRegex)) {
-    // session.setAttribute("phoneErr", "Phone number must consist of numbers");
-    // request.getRequestDispatcher("changeregistrationdetails.jsp").include(request,
-    // response);
-    // return; // Important to stop further processing if validation fails
-    // }
-    // int newphone = Integer.parseInt(newphoneStr);
-    // try {
-
-    // currentuser = userDAO.updateUser(firstname, lastname, newphone, password,
-    // gender, role,
-    // currentuser.getEmail());
-    // session.setAttribute("user", currentuser);
-    // response.sendRedirect("welcome.jsp"); // Redirect to profile page or a
-    // confirmation page
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // response.sendRedirect("error.jsp");
-    // }
-    // } else {
-    // response.sendRedirect("login.jsp");
-    // }
-    // }
-
     public void destroy() {
         try {
             if (db != null) {

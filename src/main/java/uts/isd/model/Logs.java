@@ -3,9 +3,9 @@ package uts.isd.model;
 
 public class Logs {
 
-    protected int UserID;
-	protected String ActivityTime;
-	protected String ActivityType;
+    private int UserID;
+	private String ActivityTime;
+	private String ActivityType;
     public Logs(){
         
     }

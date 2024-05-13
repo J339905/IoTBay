@@ -23,8 +23,6 @@
         <div class="mt-3">
             <a href="/welcome.jsp" class="btn btn-primary">Go back to welcome page</a>
             <a href="/changeregistrationdetails.jsp" class="btn btn-primary">Change Registration</a>
-
-            <%-- <a href="/logout.jsp" class="btn btn-danger">Logout</a> --%>
         </div>
     </div>
 </body>

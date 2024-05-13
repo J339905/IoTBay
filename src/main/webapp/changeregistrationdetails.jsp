@@ -39,7 +39,6 @@
     <% } %>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" value="${user.getPassword()}" required><br>
-        <%-- <label for="gender">Gender:</label> --%>
         <% if (passwordErr != null) { %>
         <div class="alert alert-danger"><%= passwordErr %></div>
     <% } %>
@@ -51,9 +50,6 @@
                 <% if(samedetailsErr != null) { %>
         <div class="alert alert-danger"><%= samedetailsErr %></div>
     <% } %>
-        <%-- <input type="text" id="gender" name="gender" value="${user.getGender()}" required><br> --%>
-        <%-- <label for="role">Role:</label>
-        <input type="text" id="role" name="role" value="${user.role}" required><br>  --%>
         <button type="submit">Update Details</button>
 
     </form>

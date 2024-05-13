@@ -21,21 +21,21 @@ public class DeleteUserServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         if (user != null) {
-            int userId = user.getUserID(); // Get the logged-in user's ID from the session
+            int userId = user.getUserID();
             try {
                 DBConnector db = new DBConnector();
                 UserDAO userDAO = new UserDAO(db.openConnection());
                 userDAO.deleteUser(userId);
                 db.closeConnection();
 
-                session.invalidate(); // Invalidate session to log out the user after deletion
-                response.sendRedirect("index.jsp"); // Redirect to a confirmation page
+                session.invalidate(); 
+                response.sendRedirect("index.jsp"); 
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error during deletion.");
             }
         } else {
-            response.sendRedirect("login.jsp"); // Redirect to login page if no user is found in session
+            response.sendRedirect("login.jsp");
         }
     }
 }

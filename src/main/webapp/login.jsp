@@ -70,6 +70,7 @@
         </div>
         <input type="hidden" name="loginAttempt" value="true">
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        
     </form>
     
 </body>

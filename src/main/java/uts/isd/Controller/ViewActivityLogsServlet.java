@@ -15,12 +15,10 @@ import javax.servlet.http.HttpSession;
 import uts.isd.model.Logs;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBConnector;
-import uts.isd.model.dao.UserDAO;
 import uts.isd.model.dao.logDAO;
 
 public class ViewActivityLogsServlet extends HttpServlet {
     private DBConnector db;
-    private UserDAO userDAO;
     private logDAO logDAO;
 
     @Override
@@ -29,16 +27,14 @@ public class ViewActivityLogsServlet extends HttpServlet {
         try {
             db = new DBConnector();
             Connection conn = db.openConnection();
-            userDAO = new UserDAO(conn);
             logDAO = new logDAO(conn);
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
     }
-
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Forward GET requests to doPost to handle in one method
         doPost(request, response);
     }
 
@@ -54,7 +50,7 @@ public class ViewActivityLogsServlet extends HttpServlet {
                 ArrayList<Logs> logs;
                 if (date != null && !date.isEmpty()) {
                     System.out.println(date);
-                    logs = logDAO.fetchSpecificUserLogsByDate(user.getUserID(), date); // Fetch logs for specific date
+                    logs = logDAO.fetchSpecificUserLogsByDate(user.getUserID(), date);
                     if (logs.size() == 0) {
                         request.setAttribute("message", "No activity logs found for the selected date.");
                     } else {
@@ -62,7 +58,7 @@ public class ViewActivityLogsServlet extends HttpServlet {
                     }
                 } else {
                     logs = logDAO.fetchSpecificUserLogs(user.getUserID());
-                    request.setAttribute("activitylogs", logs); // Fallback to all logs if no date is specified
+                    request.setAttribute("activitylogs", logs);
                 }
             } catch (SQLException e) {
                 request.setAttribute("error", "Error retrieving activity logs: " + e.getMessage());
@@ -70,7 +66,7 @@ public class ViewActivityLogsServlet extends HttpServlet {
             }
             request.getRequestDispatcher("viewactivitylogs.jsp").forward(request, response);
         } else {
-            response.sendRedirect("login.jsp"); // Redirect to login page if no user is found in session
+            response.sendRedirect("login.jsp");
         }
     }
 

@@ -34,85 +34,39 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 
-    // @Override
-    // public void doPost(HttpServletRequest request, HttpServletResponse response)
-    // throws ServletException, IOException {
-    // HttpSession session = request.getSession();
-
-    // String firstname = request.getParameter("firstname");
-    // String lastname = request.getParameter("lastname");
-    // String email = request.getParameter("email");
-    // int phone = Integer.parseInt(request.getParameter("phone"));
-    // String password = request.getParameter("password");
-    // String gender = request.getParameter("gender");
-    // String role = "Customer"; // Default role for new registrations
-    // try {
-    // int userId = userDAO.createUser(firstname, lastname, email, phone, password,
-    // gender, role);
-    // User user = new User(userId, firstname, lastname, email, phone, password,
-    // gender, role);
-    // user.setUserID(userId);
-    // session.setAttribute("user", user);
-
-    // // Log the activity
-    // logDao.createLog(userId, java.time.LocalDateTime.now().toString(),
-    // "Registered");
-
-    // // Redirect to welcome page after registration
-    // response.sendRedirect("welcome.jsp");
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database
-    // error during registration.");
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal
-    // server error.");
-    // }
-    // }
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        // Reset error message
         session.removeAttribute("emailErr");
 
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String email = request.getParameter("email");
-        String phoneStr = request.getParameter("phone"); // phone as String to check for numeric
+        String phoneStr = request.getParameter("phone");
         String password = request.getParameter("password");
         String gender = request.getParameter("gender");
-        String tos = request.getParameter("tos"); // Check if terms of service is agreed
-        String role = "Customer"; // Default role for new registrations
+        String tos = request.getParameter("tos");
+        String role = "Customer";
 
         boolean hasError = false;
         String emailRegex = "^.+@.+\\.com$";
-        String phoneRegex = "^\\d+$";
-        // String nameRegex = "^[^\d]*$";
+        String phoneRegex = "^\\d{10}+$";
         String nameRegex = "^[a-zA-Z\\s'-]+$";
 
-        // Validate email
-        // if (firstname == null || lastname == null || email == null || phoneStr ==
-        // null || password == null
-        // || gender == null || tos == null || role == null) {
-        // session.setAttribute("nullErr", "please fill in all the fields given.");
-        // request.getRequestDispatcher("register.jsp").include(request, response);
-        // return; // Important to stop further processing if validation fails
-        // }
         if (firstname == null || firstname.trim().isEmpty() || lastname == null || lastname.trim().isEmpty() ||
                 email == null || email.trim().isEmpty() || phoneStr == null || phoneStr.trim().isEmpty() ||
                 password == null || password.trim().isEmpty() || gender == null || gender.trim().isEmpty() ||
                 role == null || role.trim().isEmpty()) {
             session.setAttribute("nullErr", "Please fill in all the fields given.");
             request.getRequestDispatcher("register.jsp").include(request, response);
-            return; // Important to stop further processing if validation fails
+            return;
         }
 
         if (!email.matches(emailRegex)) {
             session.setAttribute("emailErr", "Email format wrong, try again!");
             request.getRequestDispatcher("register.jsp").include(request, response);
-            return; // Important to stop further processing if validation fails
+            return;
         }
 
         if (!firstname.matches(nameRegex) || !lastname.matches(nameRegex)) {
@@ -127,27 +81,16 @@ public class RegisterServlet extends HttpServlet {
         }
 
         if (!phoneStr.matches(phoneRegex)) {
-            session.setAttribute("phoneErr", "Phone number must consist of numbers");
+            session.setAttribute("phoneErr", "Phone number must consist of 10 numbers");
             request.getRequestDispatcher("register.jsp").include(request, response);
-            return; // Important to stop further processing if validation fails
+            return;
         }
-        int phone = Integer.parseInt(phoneStr); // Convert to integer
+        int phone = Integer.parseInt(phoneStr);
 
-        // Validate email
-        // if (email == null || !email.contains("@") || !email.endsWith(".com")) {
-        // session.setAttribute("emailErr", "Email must contain '@' and end with
-        // '.com'.");
-        // hasError = true;
-        // }
-
-        // Validate phone number
-
-        // Validate terms of service
         if (tos == null) {
             session.setAttribute("tosErr", "You must agree to the terms of service.");
             request.getRequestDispatcher("register.jsp").include(request, response);
             return;
-            // hasError = true;
         }
         try {
             User checkuser = userDAO.findExistingUser(email);
@@ -157,26 +100,22 @@ public class RegisterServlet extends HttpServlet {
                 return;
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         if (hasError) {
-            response.sendRedirect("register.jsp"); // Redirect back to the registration form
-            return; // Stop further processing
+            response.sendRedirect("register.jsp");
+            return;
         }
 
         try {
-            // No validation errors, proceed with user registration
             int userId = userDAO.createUser(firstname, lastname, email, phone, password, gender, role);
             User user = new User(userId, firstname, lastname, email, phone, password, gender, role);
             user.setUserID(userId);
             session.setAttribute("user", user);
 
-            // Log the activity
             logDao.createLog(userId, java.time.LocalDateTime.now().toString(), "Registered");
 
-            // Redirect to welcome page after successful registration
             response.sendRedirect("welcome.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
