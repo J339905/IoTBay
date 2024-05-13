@@ -1,74 +1,71 @@
 package uts.isd.model;
 
-public class Product {
-    private int productID;   
-    private String productCategory;  
-    private String productName;   
-    private int productStock;    
-    private double productPrice;    
-    private String productDescription; 
+import java.io.Serializable;
 
-    // Updated constructor parameters and variable assignments to match the fields
-    public Product(int productID, String productName, String productCategory, String productDescription, double productPrice, int productStock) {
-        this.productID = productID;
-        this.productName = productName;
-        this.productCategory = productCategory;
-        this.productDescription = productDescription;
-        this.productPrice = productPrice;
-        this.productStock = productStock;
+public class Product implements Serializable {
+    private int productid;
+    private String productname;  // Corrected the String type
+    private String productcategory;  // Corrected the String type
+    private String productdescription;  // Corrected the String type
+    private double productprice;
+    private int productstock;
+
+    public Product(int productid, String productname, String productcategory, String productdescription, double productprice, int productstock) {
+        this.productid = productid;
+        this.productname = productname;
+        this.productcategory = productcategory;
+        this.productdescription = productdescription;
+        this.productprice = productprice;
+        this.productstock = productstock;      
     }
 
-    // Getter and setter for productId
-    public int getProductID() {
-        return productID;
+    public Product(){}
+
+    public int getProductid() {
+        return productid;
     }
 
-    public void setProductID(int productID) {
-        this.productID = productID;
+    public void setProductid(int productid) {
+        this.productid = productid;
     }
 
-    // Getter and setter for productName
-    public String getProductName() {
-        return productName;
+    public String getProductname() {
+        return productname;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProductname(String productname) {
+        this.productname = productname;
     }
 
-    // Getter and setter for productCategory
-    public String getProductCategory() {
-        return productCategory;
+    public String getProductcategory() {
+        return productcategory;
     }
 
-    public void setProductCategory(String productCategory) {
-        this.productCategory = productCategory;
+    public void setProductcategory(String productcategory) {
+        this.productcategory = productcategory;
     }
 
-    // Getter and setter for productDescription
-    public String getProductDescription() {
-        return productDescription;
+    public String getProductdescription() {
+        return productdescription;
     }
 
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
+    public void setProductdescription(String productdescription) {
+        this.productdescription = productdescription;
     }
 
-    // Getter and setter for productPrice
-    public double getProductPrice() {
-        return productPrice;
+    public double getProductprice() {
+        return productprice;
     }
 
-    public void setProductPrice(double productPrice) {
-        this.productPrice = productPrice;
+    public void setProductprice(double productprice) {  
+        this.productprice = productprice;
     }
 
-    // Getter and setter for productStock
-    public int getProductStock() {
-        return productStock;
+    public int getProductstock() {
+        return productstock;
     }
 
-    public void setProductStock(int productStock) {
-        this.productStock = productStock;
+    public void setProductstock(int productstock) {
+        this.productstock = productstock;
     }
 }

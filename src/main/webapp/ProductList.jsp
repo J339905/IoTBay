@@ -1,38 +1,46 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="uts.isd.model.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Product List</title>
-    <link rel="stylesheet" href="css/productlist.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Product List</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${productList}" var="product">
-                    <tr>
-                        <td><c:out value="${product.productID}"/></td>
-                        <td><c:out value="${product.productName}"/></td>
-                        <td><c:out value="${product.productCategory}"/></td>
-                        <td><c:out value="${product.productDescription}"/></td>
-                        <td><c:out value="${product.productPrice}"/></td>
-                        <td><c:out value="${product.productStock}"/></td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </div>
+    <h1>Product List</h1>
+    <table border="1">
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock</th>
+        </tr>
+        <%
+            ArrayList<Product> productList = (ArrayList<Product>) session.getAttribute("productList");
+            if (productList != null && !productList.isEmpty()) {
+                for (Product product : productList) {
+        %>
+        <tr>
+            <td><%= product.getProductid() %></td>
+            <td><%= product.getProductname() %></td>
+            <td><%= product.getProductcategory() %></td>
+            <td><%= product.getProductdescription() %></td>
+            <td><%= product.getProductprice() %></td>
+            <td><%= product.getProductstock() %></td>
+        </tr>
+        <%
+                }
+            } else {
+        %>
+        <tr>
+            <td colspan="6">No products available.</td>
+        </tr>
+        <%
+            }
+        %>
+    </table>
 </body>
 </html>

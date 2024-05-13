@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
@@ -21,29 +20,24 @@ public class ListProductServlet extends HttpServlet {
     
     private DBConnector db;
     private ProductDAO dao; 
-    private UserDAO userDAO;
-    private logDAO logDAO;
 
     @Override
     public void init() throws ServletException {
         super.init();
         try {
-            db = new DBConnector(); 
-            Connection conn = db.openConnection();  
-            dao = new ProductDAO(conn);  
-            userDAO = new UserDAO(conn); 
-            logDAO = new logDAO(conn); 
+            db = new DBConnector();
+            Connection conn = db.openConnection();
+            productDAO = new ProductDAO(conn);
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         Product product = (Product) session.getAttribute("product");
         try {
-
             ArrayList<Product> productList = dao.fetchProduct();
             request.setAttribute("productList", productList);
             request.getRequestDispatcher("/productlist.jsp").forward(request, response);
