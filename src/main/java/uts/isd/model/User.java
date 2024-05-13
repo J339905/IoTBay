@@ -2,16 +2,16 @@ package uts.isd.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
-	protected int userId;
-	protected String email;
-	protected String firstname;
-	protected String lastname;
-	protected int phone;
-	protected String password;
-	protected String gender;
-	protected String favCol;
-	protected String role;
-
+	private int userId;
+	private String email;
+	private String firstname;
+	private String lastname;
+	private int phone;
+	private String password;
+	private String gender;
+	private String favCol;
+	private String role;
+	private String status;
  
 	public User() {
 	}    
@@ -75,7 +75,13 @@ public class User implements Serializable {
 	public void setRole(String value) {
 		this.role = value;
 	}
+<<<<<<< HEAD
 
+=======
+	public void setStatus(String value) {
+		this.status = value;
+	}
+>>>>>>> NasBranch-LogAccess
 	public int getUserID(){
 		return this.userId;
 	}
@@ -111,8 +117,9 @@ public class User implements Serializable {
 	public String getRole(){
 		return this.role;
 	}
-	public boolean checkPassword(String username) {
-	return this.password.equals(password);
+	public String getStatus(){
+		return this.status;
 	}
-} //register login and logout
+	
+}
 

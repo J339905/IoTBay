@@ -42,7 +42,6 @@ public class ConnServlet extends HttpServlet {
 		}
 
 		session.setAttribute("userDAO", userDAO);
-		// request.getRequestDispatcher("index.jsp").include(request, response);
 	}
 
 	@Override

@@ -47,7 +47,16 @@
     </style>
 </head>
 <body class="text-center">
+<<<<<<< HEAD
     <form class="form-signin" action="/LoginServlet" method="post">
+=======
+<%
+        String loginErr = (String) session.getAttribute("loginErr");
+        
+        
+    %>
+    <form class="form-login" method="POST" action="/LoginServlet" novalidate>
+>>>>>>> NasBranch-LogAccess
         <img class="mb-4" src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <% 
@@ -70,12 +79,15 @@
         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus name="email">
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
+        <% if(loginErr != null) { %>
+        <div class="alert alert-danger"><%= loginErr %></div>
+    <% } %>
         <div class="mt-3">
             Don't have an account? <a href="register.jsp">Press here</a>
         </div>
         <input type="hidden" name="loginAttempt" value="true">
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
+        
     </form>
     
 </body>

@@ -9,51 +9,51 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
- 
+
 import uts.isd.model.User;
 import uts.isd.model.dao.DBConnector;
-import uts.isd.model.dao.UserDAO;
- 
-public class LoginServlet extends HttpServlet {
- 
+import uts.isd.model.dao.logDAO;
+
+public class LogoutServlet extends HttpServlet {
+
     private DBConnector db;
-@Override
+    private logDAO logDAO;
+
+    @Override
     public void init() throws ServletException {
         super.init();
         try {
             db = new DBConnector();
             Connection conn = db.openConnection();
-            userDAO = new UserDAO(conn);
             logDAO = new logDAO(conn);
-            db = new DBConnector(); // Initialize the DBConnector in the init method
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
     }
- 
+
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        User user = (User) session.getAttribute("user");
 
-        try {
-            User user = userDAO.findUser(email, password);
-            if (user != null) {
-                session.setAttribute("user", user);
-                logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
-
-                response.sendRedirect("welcome.jsp");
-            } else {
-                session.setAttribute("loginErr", "Invalid login details or inactive account");
-                response.sendRedirect("login.jsp");
+        if (user != null) {
+            String currentTime = java.time.LocalDateTime.now().toString();
+            int userId = user.getUserID();
+            try {
+                logDAO.createLog(userId, currentTime, "Logout");
+                System.out.println("Logout activity logged successfully.");
+            } catch (SQLException e) {
+                System.err.println("Error logging logout activity: " + e.getMessage());
             }
+
+            session.invalidate();
+            System.out.println("User logged out successfully.");
+        } else {
+            System.out.println("No user session found.");
         }
-        else{
-            session.setAttribute("loginErr", "Invalid email/password");
-            response.sendRedirect("login.jsp");
-        }
+
+        response.sendRedirect("login.jsp");
     }
 
     @Override
