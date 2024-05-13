@@ -46,7 +46,7 @@ public class AdminCreateUserServlet extends HttpServlet {
                 return;
             }
 
-            userDAO.createUser(firstname, lastname, email, phone, password, gender, role);
+            userDAO.adminCreateUser(firstname, lastname, email, phone, password, gender, role);
             response.sendRedirect("/admin.jsp");
 
         } catch (Exception e) {

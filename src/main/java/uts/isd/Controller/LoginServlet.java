@@ -14,7 +14,7 @@ import uts.isd.model.User;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.UserDAO;
  
-public class LoginServlet  extends HttpServlet {
+public class LoginServlet extends HttpServlet {
  
     private DBConnector db;
 @Override
