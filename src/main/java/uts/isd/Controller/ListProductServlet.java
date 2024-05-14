@@ -9,11 +9,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.annotation.WebServlet;
 
 import uts.isd.model.Product;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
 
+@WebServlet("/listProducts")
 public class ListProductServlet extends HttpServlet {
     private DBConnector db;
     private ProductDAO productDAO;
@@ -36,7 +38,7 @@ public class ListProductServlet extends HttpServlet {
         try {
             List<Product> products = productDAO.getAllProducts();
             request.setAttribute("products", products);
-            request.getRequestDispatcher("products.jsp").forward(request, response);
+            request.getRequestDispatcher("productlist.jsp").forward(request, response);
         } catch (SQLException e) {
             throw new ServletException("Error retrieving products", e);
         }

@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Products</title>
+    <title>Create New Product</title>
     <link rel="stylesheet" href="/css/admin.css">
 
     <!-- Inline Styles for the form -->
@@ -88,19 +88,20 @@
             <li><a href="/admin/createUser.jsp">Create User</a></li>
             <li><a href="/admin/viewUsers.jsp">View Users</a></li>
             <li><a href="/admin/searchUsers.jsp">Search Users</a></li>
-            <li><a href=/productlist.jsp>View Product List</a></li>
-            <li><a href=/addProduct.jsp>Add Products</a></li>
-            <li><a href=/productlist.jsp>Update Products</a></li>
+            <li><a href="/listProducts">View Product List</a></li>
+            <li><a href="/addProduct.jsp">Add Products</a></li>
+            <li><a href="/productlist.jsp">Update Products</a></li>
             <li><a href="/admin/logout.jsp">Logout</a></li>
         </ul>
     </nav>
+
     <!-- Page Content -->
     <div class="content">
         <h1>Create a New Product</h1>
         <p>Fill out the form below to add a new product.</p>
 
         <!-- Product Creation Form -->
-        <form action="/CreateProductServlet" method="post" class="product-form">
+        <form action="/createProduct" method="post" class="product-form">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
 

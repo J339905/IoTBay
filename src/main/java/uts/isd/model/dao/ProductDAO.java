@@ -15,8 +15,7 @@ public class ProductDAO {
     private PreparedStatement updateStmt;
     private PreparedStatement deleteStmt;
     private String readQuery = "SELECT * from product";
-    private String createQuery = "INSERT INTO product (productname, productcategory, productdescription, productprice, productstock) VALUES (?, ?, ?, ?, ?)";
-    private String updateQuery = "UPDATE product SET productname = ?, productcategory = ?, productdescription = ?, productprice = ?, productstock = ? WHERE productid = ?";
+    private String createQuery = "INSERT INTO product (productname, productcategory, productdescription, productprice, productstock) VALUES (?, ?, ?, ?, ?)";    private String updateQuery = "UPDATE product SET productname = ?, productcategory = ?, productdescription = ?, productprice = ?, productstock = ? WHERE productid = ?";
     private String deleteQuery = "DELETE FROM product WHERE productid = ?";
 
     public ProductDAO(Connection connection) throws SQLException {

@@ -1,9 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="uts.isd.model.Product"%>
 <!DOCTYPE html>
 <html lang="en">
-<html>
 <head>
     <title>Product List</title>
     <style>
