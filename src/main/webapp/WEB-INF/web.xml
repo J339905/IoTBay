@@ -93,6 +93,15 @@
         <url-pattern>/CreateProductServlet</url-pattern>
     </servlet-mapping>
 
+        <servlet>
+        <servlet-name>UpdateProductServlet</servlet-name>
+        <servlet-class>uts.isd.Controller.UpdateProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateProductServlet</servlet-name>
+        <url-pattern>/UpdateProductServlet</url-pattern>
+    </servlet-mapping>
+
     <!-- ViewActivityLogsServlet Configuration -->
     <servlet>
         <servlet-name>ViewActivityLogsServlet</servlet-name>
