@@ -33,8 +33,17 @@ public class ListProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String name = request.getParameter("name");
+        String type = request.getParameter("type");
+
         try {
-            List<Product> products = productDAO.getAllProducts();
+            List<Product> products;
+            if (name != null && !name.isEmpty() || (type != null && !type.isEmpty())) {
+                products = productDAO.searchProducts(name, type);
+            } else {
+                products = productDAO.getAllProducts();
+            }
+
             request.setAttribute("products", products);
             request.getRequestDispatcher("products.jsp").forward(request, response);
         } catch (SQLException e) {
@@ -45,6 +54,9 @@ public class ListProductServlet extends HttpServlet {
     @Override
     public void destroy() {
         try {
+            if (productDAO != null) {
+                productDAO.close();
+            }
             if (db != null) {
                 db.closeConnection();
             }

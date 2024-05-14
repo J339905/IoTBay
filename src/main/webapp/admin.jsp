@@ -15,6 +15,9 @@
             <li><a href="/admin/viewUsers.jsp">View Users</a></li>
             <li><a href="/admin/searchUsers.jsp">Search Users</a></li>
             <li><a href="/admin/logout.jsp">Logout</a></li>
+            <li><a href=/productlist.jsp>View Product List</a></li>
+            <li><a href="/admin/addproduct.jsp">Add New Product</a></li>
+            <li><a href="/admin/removeproduct.jsp">Update Product</a></li>
         </ul>
     </nav>
 
@@ -39,6 +42,15 @@
 
             <button type="submit" class="btn btn-search">Search</button>
         </form>
+
+        <h2>Product Management</h2>
+        <div class="actions">
+            <a href="/addProduct.jsp" class="btn btn-success">Add New Product</a>
+            <a href="/updateProduct.jsp" class="btn btn-warning">Update Product</a>
+        </div>
+
+        <a href="/productlist.jsp" class="btn btn-primary">View Product List</a>
+        <a href="/searchProduct.jsp" class="btn btn-secondary">Search Products</a>
     </div>
 
 </body>

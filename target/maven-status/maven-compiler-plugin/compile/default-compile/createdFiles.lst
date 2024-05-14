@@ -1,3 +1,4 @@
+uts/isd/controller/UpdateProductServlet.class
 uts/isd/controller/ChangeRegistrationDetailsServlet.class
 uts/isd/controller/RemoveUserServlet.class
 uts/isd/controller/DeleteUserServlet.class

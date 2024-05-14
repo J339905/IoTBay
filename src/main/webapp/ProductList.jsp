@@ -21,6 +21,13 @@
 </head>
 <body>
     <h1>Product List</h1>
+    <form action="ListProductServlet" method="get">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <label for="type">Type:</label>
+        <input type="text" id="type" name="type">
+        <button type="submit">Search</button>
+    </form>
     <table>
         <tr>
             <th>Product ID</th>

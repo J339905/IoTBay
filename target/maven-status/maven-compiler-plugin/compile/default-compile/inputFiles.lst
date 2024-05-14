@@ -21,7 +21,6 @@
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/LoginServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/model/dao/logDAO.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/RemoveUserServlet.java
-/Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/SearchProductServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/SearchUserServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/PaymentProcessorController.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/UpdateProductServlet.java
