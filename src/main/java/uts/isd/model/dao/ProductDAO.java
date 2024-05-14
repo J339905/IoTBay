@@ -15,7 +15,8 @@ public class ProductDAO {
     private PreparedStatement updateStmt;
     private PreparedStatement deleteStmt;
     private String readQuery = "SELECT * from product";
-    private String createQuery = "INSERT INTO product (productname, productcategory, productdescription, productprice, productstock) VALUES (?, ?, ?, ?, ?)";    private String updateQuery = "UPDATE product SET productname = ?, productcategory = ?, productdescription = ?, productprice = ?, productstock = ? WHERE productid = ?";
+    private String createQuery = "INSERT INTO product (productname, productcategory, productdescription, productprice, productstock) VALUES (?, ?, ?, ?, ?)";
+    private String updateQuery = "UPDATE product SET productname = ?, productcategory = ?, productdescription = ?, productprice = ?, productstock = ? WHERE productid = ?";
     private String deleteQuery = "DELETE FROM product WHERE productid = ?";
 
     public ProductDAO(Connection connection) throws SQLException {
@@ -63,6 +64,27 @@ public class ProductDAO {
         updateStmt.setInt(5, product.getProductstock());
         updateStmt.setInt(6, product.getProductid());
         updateStmt.executeUpdate();
+    }
+    
+    public Product getProductById(int id) throws SQLException {
+        String query = "SELECT * FROM product WHERE productid = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, id);
+        ResultSet rs = stmt.executeQuery();
+        
+        if (rs.next()) {
+            int productId = rs.getInt("productid");
+            String name = rs.getString("productname");
+            String category = rs.getString("productcategory");
+            String description = rs.getString("productdescription");
+            double price = rs.getDouble("productprice");
+            int stock = rs.getInt("productstock");
+            rs.close();
+            return new Product(productId, name, category, description, price, stock);
+        } else {
+            rs.close();
+            throw new SQLException("Product not found");
+        }
     }
 
     public void deleteProduct(int productId) throws SQLException {
