@@ -1,4 +1,3 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.User"%>
 <!DOCTYPE html>
@@ -40,10 +39,10 @@
     <div class="container mt-5 text-center">
         <h1>Welcome to your dashboard, ${user.getfirstName()}!</h1>
         <div class="mt-4">
-            <a href="/productlist.jsp" class="btn btn-primary">View Products</a>
+            <a href="/listProducts" class="btn btn-primary">View Products</a>
             <a href="/orderlist.jsp" class="btn btn-info">View Your Orders</a>
             <a href="/welcome.jsp" class="btn btn-danger">Return to home</a>
         </div>
     </div>
-    <
-  
+</body>
+</html>
