@@ -90,6 +90,7 @@ public class DAOTest {
     // userDAO.deleteUser(user.getUserID());
     // }
 
+    // All testcases below are related to theJunit test cases in the assignment 2 marking criteria
     @Test
     public void testSuccessfulLogin() throws SQLException {
         User user = userDAO.findUser("taejun@hotmail.com", "hello");

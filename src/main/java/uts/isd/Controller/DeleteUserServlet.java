@@ -14,12 +14,16 @@ import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.UserDAO;
 
 public class DeleteUserServlet extends HttpServlet {
+    // THis handles Post requests for deleting a user
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
+        // If user is logged in, their id is retrieved, which will be used for the
+        // parameter for the deleteUser method to remove user from database. Session will also invalidate.
         if (user != null) {
             int userId = user.getUserID();
             try {

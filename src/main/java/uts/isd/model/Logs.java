@@ -5,17 +5,17 @@ public class Logs {
 
     private int UserID;
 	private String ActivityTime;
-	private String ActivityType;
+	private String ActivityType;            //properties
     public Logs(){
         
     }
     public Logs(int UserID, String ActivityTime,String ActivityType ){
         this.UserID = UserID;
-        this.ActivityTime = ActivityTime;
+        this.ActivityTime = ActivityTime;   //constructor
         this.ActivityType = ActivityType;
     }
 
-    public int getUserID() {
+    public int getUserID() {    //just all getters and setters
         return UserID;
     }
 
@@ -39,6 +39,6 @@ public class Logs {
         ActivityType = activityType;
     }
 	public String toString(){
-        return UserID + " " + ActivityTime + " " + ActivityType;
+        return UserID + " " + ActivityTime + " " + ActivityType;    
     }
 }

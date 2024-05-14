@@ -8,7 +8,7 @@ public class User implements Serializable {
 	private String firstname;
 	private String lastname;
 	private int phone;
-	private String password;
+	private String password;			//properties
 	private String gender;
 	private String favCol;
 	private String role;
@@ -17,24 +17,13 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	// public User(/*int userId,*/ String firstname, String lastname, String email,
-	// int phone, String password, String gender, String role) {
-	// this.userId = userId;
-	// this.email = email;
-	// this.firstname = firstname;
-	// this.lastname = lastname;
-	// this.phone = phone;
-	// this.password = password;
-	// this.gender = gender;
-	// this.role =role;
-
-	// }
+	
 
 	public User(int userId, String firstname, String lastname, String email, int phone, String password, String gender,
 			String role) {
 		this.userId = userId;
 		this.email = email;
-		this.firstname = firstname;
+		this.firstname = firstname;			//this constructor is used for code in USERDAO in relation to user such as create user
 		this.lastname = lastname;
 		this.phone = phone;
 		this.password = password;
@@ -46,13 +35,13 @@ public class User implements Serializable {
 		this.userId = userId;
 		this.email = email;
 		this.firstname = firstname;
-		this.lastname = lastname;
+		this.lastname = lastname;			//this constructor is used for code in USERDAO for admin use such as admincreateuser
 		this.phone = phone;
 		this.gender = gender;
 		this.role = role;
 	}
 
-	public void setUserID(int i) {
+	public void setUserID(int i) {			//getters and setters
 		this.userId = i;
 	}
 

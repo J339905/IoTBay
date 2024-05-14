@@ -19,6 +19,8 @@ public class logDAO {
         readst = connection.prepareStatement(readQuery);
     }
 
+    // A new log is inserted into database when User logs in, logs out or registers
+    // for a new account
     public void createLog(int UserID, String ActivityTime, String ActivityType) throws SQLException {
 
         try (PreparedStatement st = conn
@@ -48,19 +50,9 @@ public class logDAO {
         return logs;
     }
 
-    public boolean doesUserExist(int userID) throws SQLException {
-        String sql = "SELECT COUNT(1) FROM user WHERE UserID = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, userID);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1) > 0;
-                }
-            }
-        }
-        return false;
-    }
-
+    // Logs are retrieved based on the UserID which gets only one user's records
+    // This is done through creating arraylist and adding users to the list to be
+    // displayed
     public ArrayList<Logs> fetchSpecificUserLogs(int UserID) throws SQLException {
         String sqlcheck = "Select UserID, ActivityTime, ActivityType from logs where UserID = ?";
         PreparedStatement ps = conn.prepareStatement(sqlcheck);
@@ -76,14 +68,14 @@ public class logDAO {
             l.setActivityTime(ActivityTime);
             l.setActivityType(ActvityType);
 
-            System.out.println(specificUserID + " " + ActivityTime + " " + ActvityType);
-
             logs.add(l);
         }
 
         return logs;
     }
 
+    // Logs are retrieved based on the data of activity of the User within the
+    // database
     public ArrayList<Logs> fetchSpecificUserLogsByDate(int userID, String date) throws SQLException {
         ArrayList<Logs> logs = new ArrayList<Logs>();
         String sql = "SELECT UserID, ActivityTime, ActivityType FROM logs WHERE UserID = ? AND DATE(ActivityTime) = ?";
