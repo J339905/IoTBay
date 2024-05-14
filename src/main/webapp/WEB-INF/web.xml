@@ -84,25 +84,6 @@
         <url-pattern>/ListProductServlet</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>AddProductServlet</servlet-name>
-        <servlet-class>uts.isd.Controller.AddProductServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AddProductServlet</servlet-name>
-        <url-pattern>/AddProductServlet</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>UpdateProductServlet</servlet-name>
-        <servlet-class>uts.isd.Controller.UpdateProductServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>UpdateProductServlet</servlet-name>
-        <url-pattern>/UpdateProductServlet</url-pattern>
-    </servlet-mapping>
-
-
     <!-- ViewActivityLogsServlet Configuration -->
     <servlet>
         <servlet-name>ViewActivityLogsServlet</servlet-name>

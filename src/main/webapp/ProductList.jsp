@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="uts.isd.model.Product"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,13 +22,6 @@
 </head>
 <body>
     <h1>Product List</h1>
-    <form action="ListProductServlet" method="get">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
-        <label for="type">Type:</label>
-        <input type="text" id="type" name="type">
-        <button type="submit">Search</button>
-    </form>
     <table>
         <tr>
             <th>Product ID</th>
