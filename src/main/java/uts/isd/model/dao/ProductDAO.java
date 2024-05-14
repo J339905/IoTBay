@@ -5,45 +5,47 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import uts.isd.model.Product;
 
-
-
-
 public class ProductDAO {
-private PreparedStatement readst;
-private String readQuery = "SELECT ProductID, ProductName, ProductType, ProductDescription, ProductPrice, ProductStock  from Product";
-// private String insertQuery = "SELECT S, FirstName, LastName from Account";
+    private Connection conn;
+    private PreparedStatement readst;
+    private String readQuery = "SELECT * from product";
 
-
-public ProductDAO(Connection connection) throws SQLException{
-    connection.setAutoCommit(true);
-    readst = connection.prepareStatement(readQuery);
-}
-
-
-public ArrayList<Product> fetchProduct() throws SQLException{
-    ResultSet rs = readst.executeQuery();
-    ArrayList<Product> products = new ArrayList<Product>();
-   
-    while(rs.next()){
-    int productId = rs.getInt(1);
-    String ProductType = rs.getString(3);
-    String ProductName = rs.getString(2);
-    int ProductStock = rs.getInt(6);
-    double ProductPrice = rs.getDouble(5);
-    String ProductDescription = rs.getString(4);
-   
-    Product p = new Product(productId, ProductName, ProductType, ProductDescription, ProductPrice, ProductStock);
-   
-
-
-System.out.println(ProductName + " " + ProductType);
-
-products.add(p);
+    public ProductDAO(Connection connection) throws SQLException {
+        this.conn = connection;
+        this.conn.setAutoCommit(true);
+        this.readst = connection.prepareStatement(readQuery);
     }
-    return products;
-}
 
+    public List<Product> getAllProducts() throws SQLException {
+        List<Product> products = new ArrayList<>();
+        ResultSet rs = readst.executeQuery();
+        
+        while (rs.next()) {
+            int id = rs.getInt("productid");
+            String name = rs.getString("productname");
+            String category = rs.getString("productcategory");
+            String description = rs.getString("productdescription");
+            double price = rs.getDouble("productprice");
+            int stock = rs.getInt("productstock");
+
+            products.add(new Product(id, name, category, description, price, stock));
+        }
+        
+        rs.close();
+        return products;
+    }
+
+    // Close the connection when it's no longer needed
+    public void close() throws SQLException {
+        if (readst != null && !readst.isClosed()) {
+            readst.close();
+        }
+        if (conn != null && !conn.isClosed()) {
+            conn.close();
+        }
+    }
 }
