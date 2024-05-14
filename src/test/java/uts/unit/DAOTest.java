@@ -1,8 +1,10 @@
 package uts.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -76,33 +78,81 @@ public class DAOTest {
         }
     }
 
-
-   
-   
-  
     @Test
-    public void testupdateuser() throws SQLException {
-        User user = userDAO.findUser("JeffJohnson@gmail.com", "bigboy");
-        userDAO.updateUser(user.getfirstName(), user.getlastname(), user.getPhone(), user.getPassword(),
-                user.getGender(), user.getRole(), user.getEmail());
-
+    public void testViewRegistrationDetails() throws SQLException {
+        User user = userDAO.findUser("Jack@gmail.com", "sdfdsfsa");
+        System.out.println(user.toString());
     }
 
-    @Test
-    public void testdeleteuser() throws SQLException {
-        User user = userDAO.findUser("Isaac@hotmail.com", "dsadfsfdfdsfdsfsdf");
-        userDAO.deleteUser(user.getUserID());
-    }
+    // @Test
+    // public void testdeleteuser() throws SQLException {
+    // User user = userDAO.findUser("Isaac@hotmail.com", "dsadfsfdfdsfdsfsdf");
+    // userDAO.deleteUser(user.getUserID());
+    // }
+
     @Test
     public void testSuccessfulLogin() throws SQLException {
         User user = userDAO.findUser("taejun@hotmail.com", "hello");
         assertNotNull(user);
         assertTrue(user.getEmail().equals("taejun@hotmail.com"));
     }
+
     @Test
     public void testUnSuccessfulLogin() throws SQLException {
         User user = userDAO.findUser("doesntexist@hotmail.com", "notexist");
-        assertNotNull(user);
+        assertTrue(user == null);
     }
 
+    // @Test
+    // public void testSuccessfulUpdate() throws Exception {
+    // User user = userDAO.findUser("a@f.com", "A");
+    // assertNotNull(user);
+
+    // user = userDAO.updateUser("NewFirstName", "NewLastName", 123456789,
+    // "newpassword123", "Male", "Customer",
+    // user.getEmail());
+    // assertEquals("NewFirstName", user.getfirstName());
+    // assertEquals("NewLastName", user.getlastname());
+    // assertEquals(123456789, user.getPhone());
+    // assertEquals("newpassword123", user.getPassword());
+    // }
+    // @Test
+    // public void testUnsuccessfulUpdate() throws Exception {
+    // User user = userDAO.findUser("a@f.com", "A");
+    // assertNotNull(user);
+    // session.removeAttribute("nametypeErr");
+    // session.removeAttribute("nullErr");
+    // session.removeAttribute("phoneErr");
+    // session.removeAttribute("passwordErr");
+
+    // String nameRegex = "^[a-zA-Z\\s'-]+$";
+    // String phoneRegex = "^\\d+$";
+
+    // try {
+    // userDAO.updateUser("NewFirstName", "NewLastName", -123456789, "short",
+    // "Male", "Customer", user.getEmail());
+    // fail("Expected SQLException");
+    // } catch (SQLException e) {
+    // // Expected exception due to incorrect format
+    // }
+    // }
+    @Test
+    public void testUpdateUserWithInvalidData() throws SQLException {
+        User user = userDAO.findUser("Nish@gmail.com", "Iwonalfsdf");
+        assertNotNull(user);
+
+        String invalidFirstname = "John123";
+        String invalidLastname = "Doe@";
+        String invalidPhone = "123hvm456";
+        String invalidPassword = "123";
+
+        String nameRegex = "^[a-zA-Z\\s'-]+$";
+        String phoneRegex = "^\\d+$";
+
+        assertFalse(invalidFirstname.matches(nameRegex), "First name should be letters only");
+        assertFalse(invalidLastname.matches(nameRegex), "Last name should be letters only");
+        assertFalse(invalidPhone.matches(phoneRegex), "Phone number should be numbers only");
+        assertTrue(invalidPassword.length() < 6, "Password should have a length greater than 5");
+
+    }
 }

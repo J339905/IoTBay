@@ -60,7 +60,6 @@ public class ChangeRegistrationDetailsServlet extends HttpServlet {
         session.removeAttribute("nullErr");
         session.removeAttribute("phoneErr");
         session.removeAttribute("passwordErr");
-        session.removeAttribute("samedetailsErr");
 
         if (user != null) {
 
