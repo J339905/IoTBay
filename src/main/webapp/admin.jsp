@@ -7,16 +7,16 @@
 </head>
 <body>
 
-    <nav class="nav-container">
-        <ul class="main-nav">
+    <nav>
+        <ul>
             <li><a href="/admin.jsp">AdminPage</a></li>
             <li><a href="/admin/createUser.jsp">Create User</a></li>
             <li><a href="/admin/viewUsers.jsp">View Users</a></li>
             <li><a href="/admin/searchUsers.jsp">Search Users</a></li>
+            <li><a href=/productlist.jsp>View Product List</a></li>
+            <li><a href=/productlist.jsp>Add Products</a></li>
+            <li><a href=/productlist.jsp>Update Products</a></li>
             <li><a href="/admin/logout.jsp">Logout</a></li>
-        </ul>
-        <ul class="product-nav">
-            <li><a href="/productlist.jsp">View Product List</a></li>
         </ul>
     </nav>
 
