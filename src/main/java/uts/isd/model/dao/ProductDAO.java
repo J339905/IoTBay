@@ -14,7 +14,6 @@ public class ProductDAO {
     
 
     public ProductDAO(Connection connection) throws SQLException {
-        this.conn = connection;
         connection.setAutoCommit(true);
         readst = conn.prepareStatement(readQuery);
     }
