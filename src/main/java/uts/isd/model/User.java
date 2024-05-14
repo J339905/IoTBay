@@ -91,6 +91,7 @@ public class User implements Serializable {
 	public void setStatus(String value) {
 		this.status = value;
 	}
+
 	public int getUserID() {
 		return this.userId;
 	}
@@ -131,4 +132,8 @@ public class User implements Serializable {
 		return this.status;
 	}
 
+	public String toString() {
+		return userId + " " + email + " " + firstname + " " + lastname + " " + phone + " " + password + " " + gender
+				+ " " + role + " " + status;
+	}
 }

@@ -7,49 +7,7 @@
     <meta charset="UTF-8">
     <title>Login Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <%-- <style>
-        body { padding-top: 40px; padding-bottom: 40px; background-color: #f5f5f5; }
-        .form-login {
-             max-width: 330px;  
-             padding: 15px;
-             margin: auto;
-}
-    </style> --%>
-    <%-- <style>
-        body { 
-            padding-top: 40px; 
-            padding-bottom: 40px; 
-            background-color: #f5f5f5; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .form-login {
-            width: 100%;
-            max-width: 330px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .form-control {
-            position: relative;
-            box-sizing: border-box;
-            height: auto;
-            padding: 10px;
-            font-size: 16px;
-        }
-        .form-control:focus {
-            z-index: 2;
-        }
-        .form-register input[type="color"] {
-            height: auto;
-        }
-        .form-register button {
-            margin-top: 10px;
-        }--%>
+    
         <style> 
        body { 
             padding-top: 40px; 

@@ -38,5 +38,7 @@ public class Logs {
     public void setActivityType(String activityType) {
         ActivityType = activityType;
     }
-	
+	public String toString(){
+        return UserID + " " + ActivityTime + " " + ActivityType;
+    }
 }
