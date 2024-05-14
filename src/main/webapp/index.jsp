@@ -25,12 +25,12 @@
             background: white;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin: 0 auto; /* Center horizontally */
-            margin-top: 40px; /* Add space from top */
+            margin: 0 auto; 
+            margin-top: 40px; 
             padding: 20px;
         }
         .container {
-            text-align: center; /* Center align all content inside container */
+            text-align: center; 
         }
     </style>
 </head>

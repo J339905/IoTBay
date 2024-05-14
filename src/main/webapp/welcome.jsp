@@ -45,10 +45,8 @@
             <a href="/viewactivitylogs.jsp" class="btn btn-info">View Your Activity</a>
             <a href="/LogoutServlet" class="btn btn-danger">Logout</a>
              <a href="/deleteuser.jsp" class="btn btn-danger">Delete Your Account</a>
-            <!-- Trigger modal button -->
         </div>
     </div>
 
-    <!-- Modal -->
-    <
+    
   

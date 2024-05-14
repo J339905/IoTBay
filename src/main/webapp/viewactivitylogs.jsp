@@ -53,7 +53,6 @@
     <div class="container mt-5">
         <h1>Your Activity Logs</h1>
 
-        <!-- Form for date input -->
         <form action="ViewActivityLogsServlet" method="post" class="form-log">
             <div class="form-group">
                 <label for="date">Enter Date:</label>
@@ -62,12 +61,10 @@
             <button type="submit" class="btn btn-primary">Search Logs by Date</button>
         </form>
 
-        <!-- Display error messages if any -->
-        <c:if test="${not empty nologsErr}">
+=        <c:if test="${not empty nologsErr}">
             <div class="alert alert-danger">${nologsErr}</div>
         </c:if>
 
-        <!-- Table to display logs if available -->
         <c:if test="${not empty activitylogs}">
             <table class="table">
                 <thead>

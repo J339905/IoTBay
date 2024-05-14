@@ -37,7 +37,7 @@
             height: auto;
             padding: 10px;
             font-size: 16px;
-            margin-bottom: 15px; /* Added space for visual comfort */
+            margin-bottom: 15px; 
         }
         .form-control:focus {
             z-index: 2;
@@ -48,10 +48,9 @@
         .back-home {
             display: block;
             width: 100%;
-            margin-top: 20px; /* Space between register and back home button */
+            margin-top: 20px; 
         }
     </style>
-    <%-- </style> --%>
 </head>
 <body>
  <% 
