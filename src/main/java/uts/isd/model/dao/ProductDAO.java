@@ -5,49 +5,50 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import uts.isd.model.Product;
 
 public class ProductDAO {
     private PreparedStatement readst;
     private String readQuery = "SELECT ProductID, ProductName, ProductCategory, ProductDescription, ProductPrice, ProductStock FROM Product";
-    private Connection conn; // Added instance variable to store connection
-    
+    private Connection conn;
 
     public ProductDAO(Connection connection) throws SQLException {
-        connection.setAutoCommit(true);
+        this.conn = connection;
+        conn.setAutoCommit(true);
         readst = conn.prepareStatement(readQuery);
+        System.out.println("ProductDAO initialized with query: " + readQuery);
     }
-    public ArrayList<Product> fetchProduct() throws SQLException {
+
+    public List<Product> getAllProducts() throws SQLException {
         ResultSet rs = null;
-        ArrayList<Product> products = new ArrayList<>();
+        List<Product> products = new ArrayList<>();
+        System.out.println("Executing query to fetch all products.");
 
         try {
             rs = readst.executeQuery();
             while (rs.next()) {
-                int productId = rs.getInt(1);
-                String productName = rs.getString(2);
-                String productCategory = rs.getString(3);
-                String productDescription = rs.getString(4);
-                double productPrice = rs.getDouble(5);
-                int productStock = rs.getInt(6);
+                int productId = rs.getInt("ProductID");
+                String productName = rs.getString("ProductName");
+                String productCategory = rs.getString("ProductCategory");
+                String productDescription = rs.getString("ProductDescription");
+                double productPrice = rs.getDouble("ProductPrice");
+                int productStock = rs.getInt("ProductStock");
 
                 Product p = new Product(productId, productName, productCategory, productDescription, productPrice, productStock);
                 products.add(p);
+                System.out.println("Fetched product: " + productName);
             }
         } catch (SQLException e) {
-            // Log SQLException
-            e.printStackTrace();
-            throw e; // Rethrow the exception
+            System.err.println("Error fetching products: " + e.getMessage());
+            throw e;
         } finally {
-            // Close resources in finally block to ensure they are always closed
             if (rs != null) {
                 rs.close();
+                System.out.println("ResultSet closed.");
             }
         }
 
         return products;
     }
-
-
-    }
-
+}

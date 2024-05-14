@@ -1,28 +1,23 @@
-package uts.isd.Controller; 
+package uts.isd.Controller;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
+import java.util.List;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.ServletException;
 import uts.isd.model.Product;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
-import uts.isd.model.dao.UserDAO;
-import uts.isd.model.dao.logDAO;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.ServletException;
-
 
 @WebServlet(name = "ListProductServlet", urlPatterns = {"/ListProductServlet"})
 public class ListProductServlet extends HttpServlet {
-    
+
     private DBConnector db;
-    private ProductDAO dao; 
+    private ProductDAO dao;
 
     @Override
     public void init() throws ServletException {
@@ -31,19 +26,29 @@ public class ListProductServlet extends HttpServlet {
             db = new DBConnector();
             Connection conn = db.openConnection();
             dao = new ProductDAO(conn);
+            System.out.println("Database connection and ProductDAO initialization successful.");
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
     }
 
     @Override
-    protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+        if (session == null) {
+            System.out.println("No session found.");
+        } else {
+            System.out.println("Session found.");
+        }
+
         try {
-            ArrayList<Product> productList = dao.fetchProduct();
+            List<Product> productList = dao.getAllProducts();
+            System.out.println("Fetched products: " + productList.size());
             request.setAttribute("productList", productList);
             request.getRequestDispatcher("/productlist.jsp").forward(request, response);
+            System.out.println("Product list forwarded to JSP.");
         } catch (SQLException e) {
+            System.err.println("Error retrieving products: " + e.getMessage());
             throw new ServletException("Error retrieving products", e);
         }
     }
@@ -53,6 +58,7 @@ public class ListProductServlet extends HttpServlet {
         try {
             if (db != null) {
                 db.closeConnection();
+                System.out.println("Database connection closed successfully.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
