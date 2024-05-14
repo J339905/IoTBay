@@ -14,7 +14,7 @@ import uts.isd.model.Product;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
 
-public class ListProductServlet extends HttpServlet {
+public class SearchProductServlet extends HttpServlet {
     private DBConnector db;
     private ProductDAO productDAO;
 
@@ -33,8 +33,11 @@ public class ListProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String name = request.getParameter("name");
+        String type = request.getParameter("type");
+
         try {
-            List<Product> products = productDAO.getAllProducts();
+            List<Product> products = productDAO.searchProducts(name, type);
             request.setAttribute("products", products);
             request.getRequestDispatcher("products.jsp").forward(request, response);
         } catch (SQLException e) {
@@ -45,6 +48,9 @@ public class ListProductServlet extends HttpServlet {
     @Override
     public void destroy() {
         try {
+            if (productDAO != null) {
+                productDAO.close();
+            }
             if (db != null) {
                 db.closeConnection();
             }

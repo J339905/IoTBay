@@ -29,14 +29,23 @@
 <body>
     <div class="container text-center">
         <% User user = (User) session.getAttribute("user"); %>
-        <% if(user != null) { %>
+        <% if (user != null) { %>
             <h1>Welcome, <%= user.getfirstName() %>!</h1>
-            <div class="mt-3">
-                <a href="/productlist.jsp" class="btn btn-primary btn-lg">View Product List</a>
-            </div>
         <% } else { %>
-            <h1>Please login or register.</h1>
-            <a href="login.jsp" class="btn btn-primary btn-lg">Login</a>
+            <h1>Welcome to the IoT Device Catalogue</h1>
+        <% } %>
+        <div class="mt-3">
+            <a href="/productlist.jsp" class="btn btn-primary btn-lg">View Product List</a>
+            <a href="/searchproduct.jsp" class="btn btn-secondary btn-lg">Search Products</a>
+            <% if (user != null && "staff".equals(user.getRole())) { %>
+                <a href="/addproduct.jsp" class="btn btn-success btn-lg">Add New Product</a>
+                <a href="/updateproduct.jsp" class="btn btn-warning btn-lg">Update Product</a>
+            <% } %>
+        </div>
+        <% if (user == null) { %>
+            <div class="mt-3">
+                <a href="login.jsp" class="btn btn-primary btn-lg">Login</a>
+            </div>
         <% } %>
     </div>
 </body>

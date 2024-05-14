@@ -3,18 +3,17 @@ package uts.isd.Controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import uts.isd.model.Product;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
 
-public class ListProductServlet extends HttpServlet {
+public class DeleteProductServlet extends HttpServlet {
     private DBConnector db;
     private ProductDAO productDAO;
 
@@ -33,18 +32,29 @@ public class ListProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            List<Product> products = productDAO.getAllProducts();
-            request.setAttribute("products", products);
-            request.getRequestDispatcher("products.jsp").forward(request, response);
-        } catch (SQLException e) {
-            throw new ServletException("Error retrieving products", e);
+        HttpSession session = request.getSession();
+        String role = (String) session.getAttribute("role");
+
+        if (role != null && role.equals("staff")) {
+            int id = Integer.parseInt(request.getParameter("id"));
+
+            try {
+                productDAO.deleteProduct(id);
+                response.sendRedirect("listProducts");
+            } catch (SQLException e) {
+                throw new ServletException("Error deleting product", e);
+            }
+        } else {
+            response.sendRedirect("unauthorized.jsp");
         }
     }
 
     @Override
     public void destroy() {
         try {
+            if (productDAO != null) {
+                productDAO.close();
+            }
             if (db != null) {
                 db.closeConnection();
             }
