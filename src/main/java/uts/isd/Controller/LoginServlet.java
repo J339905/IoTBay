@@ -17,15 +17,20 @@ import uts.isd.model.dao.UserDAO;
 public class LoginServlet  extends HttpServlet {
  
     private DBConnector db;
+    private UserDAO userDAO;
+
+    
 @Override
-    public void init() throws ServletException {
-        super.init();
-        try {
-            db = new DBConnector(); // Initialize the DBConnector in the init method
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new ServletException("DBConnector initialization failed.", e);
-        }
+public void init() throws ServletException {
+    super.init();
+    try {
+        db = new DBConnector(); // Initialize the DBConnector
+        Connection conn = db.openConnection(); // Open a connection
+        userDAO = new UserDAO(conn); // Initialize UserDAO with the connection
+    } catch (ClassNotFoundException | SQLException e) {
+        throw new ServletException("DBConnector initialization failed.", e);
     }
+}
  
     @Override
 public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
