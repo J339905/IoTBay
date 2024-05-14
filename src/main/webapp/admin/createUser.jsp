@@ -88,10 +88,12 @@
             <li><a href="/admin/createUser.jsp">Create User</a></li>
             <li><a href="/admin/viewUsers.jsp">View Users</a></li>
             <li><a href="/admin/searchUsers.jsp">Search Users</a></li>
+            <li><a href=/productlist.jsp>View Product List</a></li>
+            <li><a href=/productlist.jsp>Add Products</a></li>
+            <li><a href=/productlist.jsp>Update Products</a></li>
             <li><a href="/admin/logout.jsp">Logout</a></li>
         </ul>
     </nav>
-
     <!-- Page Content -->
     <div class="content">
         <h1>Create a New User</h1>

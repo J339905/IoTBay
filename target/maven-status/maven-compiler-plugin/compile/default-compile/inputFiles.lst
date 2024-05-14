@@ -22,11 +22,14 @@
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/RemoveUserServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/SearchUserServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/PaymentProcessorController.java
+/Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/UpdateProductServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/model/dao/DB.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/model/Payment.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/AdminCreateUserServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/model/User.java
+/Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/DeleteProductServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/model/dao/DBConnector.java
+/Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/CreateProductServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/TestServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/model/Logs.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/model/Product.java
