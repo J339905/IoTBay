@@ -13,7 +13,11 @@
    <servlet-name>index.jsp</servlet-name>
    <url-pattern>/index/*</url-pattern>
   </servlet-mapping>
+<<<<<<< HEAD
   <!-- <servlet>
+=======
+  <servlet>
+>>>>>>> main
     <servlet-name>welcome.jsp</servlet-name>
     <jsp-file>/welcome.jsp</jsp-file>
     <load-on-startup>1</load-on-startup>
@@ -21,6 +25,7 @@
   <servlet-mapping>
    <servlet-name>welcome.jsp</servlet-name>
    <url-pattern>/welcome/*</url-pattern>
+<<<<<<< HEAD
   </servlet-mapping> -->
   <servlet>
     <servlet-name>productlist.jsp</servlet-name>
@@ -32,6 +37,9 @@
    <url-pattern>/productlist/*</url-pattern>
   </servlet-mapping>
   
+=======
+  </servlet-mapping>
+>>>>>>> main
   <servlet>  
     <servlet-name>ConnServlet</servlet-name>  
     <servlet-class>uts.isd.Controller.ConnServlet</servlet-class>  
@@ -56,6 +64,7 @@
     <servlet-name>LoginServlet</servlet-name>  
     <url-pattern>/LoginServlet</url-pattern>  
     </servlet-mapping> 
+<<<<<<< HEAD
      <servlet>
     <servlet-name>LogoutServlet</servlet-name>
     <servlet-class>uts.isd.Controller.LogoutServlet</servlet-class>
@@ -98,6 +107,8 @@
     <url-pattern>/ListProductServlet</url-pattern>
 </servlet-mapping>
 
+=======
+>>>>>>> main
     <servlet>  
     <servlet-name>AdminCreateUserServlet</servlet-name>  
     <servlet-class>uts.isd.Controller.AdminCreateUserServlet</servlet-class>  
@@ -114,4 +125,23 @@
     <servlet-name>AdminReadUsersServlet</servlet-name>  
     <url-pattern>/AdminReadUsersServlet</url-pattern>  
     </servlet-mapping> 
+<<<<<<< HEAD
+=======
+    <servlet>  
+    <servlet-name>SearchUserServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.SearchUserServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>SearchUserServlet</servlet-name>  
+    <url-pattern>/SearchUserServlet</url-pattern>  
+    </servlet-mapping> 
+    <servlet>  
+    <servlet-name>EditUserServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.EditUserServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>EditUserServlet</servlet-name>  
+    <url-pattern>/EditUserServlet</url-pattern>  
+    </servlet-mapping> 
+>>>>>>> main
 </web-app>

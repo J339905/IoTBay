@@ -1,4 +1,3 @@
-
 package uts.isd.Controller;
 
 import java.io.IOException;
@@ -43,7 +42,6 @@ public class ConnServlet extends HttpServlet {
 		}
 
 		session.setAttribute("userDAO", userDAO);
-		// request.getRequestDispatcher("index.jsp").include(request, response);
 	}
 
 	@Override
