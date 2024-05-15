@@ -1,41 +1,24 @@
 package uts.isd.model;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
-public class Payment {
-
+public class Payment implements Serializable {
     private int paymentId;
     private int orderId;
-    private int amount;
-    private LocalDateTime paymentDate;
+    private double amount;
     private String paymentMethod;
-    private String cvv;
-    private String nameOnCard;
-    private LocalDateTime expiryDate;
-    private LocalDateTime datePaid;
-    private String transactionStatus;
-    private String confirmationNumber;
-    private int userId; // Assuming each payment is linked to a specific user
+    private String paymentDate;
 
-    // Constructor
-    public Payment(int paymentId, int orderId, int amount, LocalDateTime paymentDate, String paymentMethod,
-                   String cvv, String nameOnCard, LocalDateTime expiryDate, LocalDateTime datePaid,
-                   String transactionStatus, String confirmationNumber, int userId) {
+    public Payment(int paymentId, int orderId, double amount, String paymentMethod, String paymentDate) {
         this.paymentId = paymentId;
         this.orderId = orderId;
         this.amount = amount;
-        this.paymentDate = paymentDate;
         this.paymentMethod = paymentMethod;
-        this.cvv = cvv;
-        this.nameOnCard = nameOnCard;
-        this.expiryDate = expiryDate;
-        this.datePaid = datePaid;
-        this.transactionStatus = transactionStatus;
-        this.confirmationNumber = confirmationNumber;
-        this.userId = userId;
+        this.paymentDate = paymentDate;
     }
 
-    // Getters and Setters
+    public Payment() {}
+
     public int getPaymentId() {
         return paymentId;
     }
@@ -52,20 +35,12 @@ public class Payment {
         this.orderId = orderId;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
-    }
-
-    public LocalDateTime getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDateTime paymentDate) {
-        this.paymentDate = paymentDate;
     }
 
     public String getPaymentMethod() {
@@ -76,59 +51,11 @@ public class Payment {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getCVV() {
-        return cvv;
+    public String getPaymentDate() {
+        return paymentDate;
     }
 
-    public void setCVV(String cvv) {
-        this.cvv = cvv;
-    }
-
-    public String getNameOnCard() {
-        return nameOnCard;
-    }
-
-    public void setNameOnCard(String nameOnCard) {
-        this.nameOnCard = nameOnCard;
-    }
-
-    public LocalDateTime getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(LocalDateTime expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
-    public LocalDateTime getDatePaid() {
-        return datePaid;
-    }
-
-    public void setDatePaid(LocalDateTime datePaid) {
-        this.datePaid = datePaid;
-    }
-
-    public String getTransactionStatus() {
-        return transactionStatus;
-    }
-
-    public void setTransactionStatus(String transactionStatus) {
-        this.transactionStatus = transactionStatus;
-    }
-
-    public String getConfirmationNumber() {
-        return confirmationNumber;
-    }
-
-    public void setConfirmationNumber(String confirmationNumber) {
-        this.confirmationNumber = confirmationNumber;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setPaymentDate(String paymentDate) {
+        this.paymentDate = paymentDate;
     }
 }

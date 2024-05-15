@@ -182,4 +182,45 @@
         <url-pattern>/EditUserServlet</url-pattern>
     </servlet-mapping>
 
+        <!-- PaymentServlet Configuration -->
+    <servlet>
+        <servlet-name>CreatePaymentDetailsServlet</servlet-name>
+        <servlet-class>uts.isd.Controller.CreatePaymentDetailsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreatePaymentDetailsServlet</servlet-name>
+        <url-pattern>/CreatePaymentDetailsServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- UpdatePaymentDetailsServlet Configuration -->
+    <servlet>
+        <servlet-name>UpdatePaymentDetailsServlet</servlet-name>
+        <servlet-class>uts.isd.Controller.UpdatePaymentDetailsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdatePaymentDetailsServlet</servlet-name>
+        <url-pattern>/UpdatePaymentDetailsServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- DeletePaymentDetailsServlet Configuration -->
+    <servlet>
+        <servlet-name>DeletePaymentDetailsServlet</servlet-name>
+        <servlet-class>uts.isd.Controller.DeletePaymentDetailsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeletePaymentDetailsServlet</servlet-name>
+        <url-pattern>/DeletePaymentDetailsServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- ListPaymentDetailsServlet Configuration -->
+    <servlet>
+        <servlet-name>ListPaymentDetailsServlet</servlet-name>
+        <servlet-class>uts.isd.Controller.ListPaymentDetailsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListPaymentDetailsServlet</servlet-name>
+        <url-pattern>/ListPaymentDetailsServlet</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
