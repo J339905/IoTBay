@@ -12,9 +12,16 @@
         <h1>Product List</h1>
         <form action="listProducts" method="get" class="search-form">
             <input type="text" name="name" placeholder="Search by name..." value="${param.name}">
-            <input type="text" name="category" placeholder="Search by category..." value="${param.category}">
+            <select name="category">
+                <option value="">All Categories</option>
+                <option value="Actuator" ${"Actuator".equals(param.category) ? "selected" : ""}>Actuator</option>
+                <option value="Gateway" ${"Gateway".equals(param.category) ? "selected" : ""}>Gateway</option>
+                <option value="Sensor" ${"Sensor".equals(param.category) ? "selected" : ""}>Sensor</option>
+                <option value="Other" ${"Other".equals(param.category) ? "selected" : ""}>Other</option>
+            </select>
             <button type="submit">Search</button>
         </form>
+
     </header>
 
     <main>
