@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
+import uts.isd.model.dao.UserDAO;
 
 @WebServlet("/deleteProduct")
 public class DeleteProductServlet extends HttpServlet {
     private DBConnector db;
     private ProductDAO productDAO;
+    
 
     @Override
     public void init() throws ServletException {

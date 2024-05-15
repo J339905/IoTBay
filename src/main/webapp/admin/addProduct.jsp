@@ -1,4 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="uts.isd.model.User"%>
+<%
+    User user = (User) session.getAttribute("user");
+    if (user == null || !(user.getRole().equalsIgnoreCase("Admin") || user.getRole().equalsIgnoreCase("Staff"))) {
+        response.sendRedirect("/accessDenied.jsp"); // Redirect to access denied page if not logged in or not authorized
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,7 +84,6 @@
         .btn-secondary:hover {
             background-color: #27ae60;
         }
-
     </style>
 </head>
 <body>
@@ -90,7 +97,6 @@
             <li><a href="/admin/searchUsers.jsp">Search Users</a></li>
             <li><a href="/listProductsAdmin">View Products</a></li>
             <li><a href="/admin/addProduct.jsp">Add Products</a></li>
-    
             <li><a href="/admin/logout.jsp">Logout</a></li>
         </ul>
     </nav>
