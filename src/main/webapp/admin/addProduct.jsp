@@ -90,7 +90,7 @@
             <li><a href="/admin/searchUsers.jsp">Search Users</a></li>
             <li><a href="/listProductsAdmin">View Products</a></li>
             <li><a href="/admin/addProduct.jsp">Add Products</a></li>
-            <li><a href="/admin/updateProduct.jsp">Update Products</a></li>
+    
             <li><a href="/admin/logout.jsp">Logout</a></li>
         </ul>
     </nav>
@@ -106,7 +106,12 @@
             <input type="text" id="name" name="name" required>
 
             <label for="category">Category:</label>
-            <input type="text" id="category" name="category" required>
+            <select id="category" name="category" required>
+                <option value="Actuator">Actuator</option>
+                <option value="Gateway">Gateway</option>
+                <option value="Sensor">Sensor</option>
+                <option value="Other">Other</option>
+            </select>
 
             <label for="description">Description:</label>
             <input type="text" id="description" name="description" required>

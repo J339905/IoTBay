@@ -61,6 +61,7 @@
             cursor: pointer;
             text-decoration: none;
             text-align: center;
+            background-color: #3498db;
         }
 
         .btn-update {
@@ -79,6 +80,15 @@
 
         .btn-delete:hover {
             background-color: #c9302c;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
         }
 
         .modal {
@@ -120,6 +130,9 @@
         .btn-cancel {
             background-color: #5bc0de;
             color: white;
+            padding: 10px 30px; /* Increase padding for more horizontal space */
+            min-width: 100px;   /* Optional: increase min-width for a wider button */
+}
         }
 
         .btn-cancel:hover {
@@ -145,7 +158,6 @@
             <li><a href="/admin/searchUsers.jsp">Search Users</a></li>
             <li><a href="/listProductsAdmin">View Products</a></li>
             <li><a href="/admin/addProduct.jsp">Add Products</a></li>
-            <li><a href="/admin/updateProduct.jsp">Update Products</a></li>
             <li><a href="/admin/logout.jsp">Logout</a></li>
         </ul>
     </nav>
@@ -164,34 +176,47 @@
                     <th>Name</th>
                     <th>Category</th>
                     <th>Description</th>
-                    <th>Price</th>
+                    <th>Price ($)</th>
                     <th>Stock</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="product" items="${products}">
-                    <tr>
-                        <td>${product.productid}</td>
-                        <td>${product.productname}</td>
-                        <td>${product.productcategory}</td>
-                        <td>${product.productdescription}</td>
-                        <td>${product.productprice}</td>
-                        <td>${product.productstock}</td>
-                        <td class="action-buttons">
-                            <form action="/updateProduct" method="get" style="display:inline;">
-                                <input type="hidden" name="id" value="${product.productid}">
-                                <button type="submit" class="btn btn-update">Update</button>
-                            </form>
-                            <form id="deleteForm-${product.productid}" action="/deleteProduct" method="post" style="display:inline;">
-                                <input type="hidden" name="id" value="${product.productid}">
-                                <button type="button" class="btn btn-delete" onclick="confirmDelete(${product.productid})">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
+                <c:choose>
+                    <c:when test="${not empty products}">
+                        <c:forEach var="product" items="${products}">
+                            <tr>
+                                <td>${product.productid}</td>
+                                <td>${product.productname}</td>
+                                <td>${product.productcategory}</td>
+                                <td>${product.productdescription}</td>
+                                <td>${product.productprice}</td>
+                                <td>${product.productstock}</td>
+                                <td class="action-buttons">
+                                    <form action="/updateProduct" method="get" style="display:inline;">
+                                        <input type="hidden" name="id" value="${product.productid}">
+                                        <button type="submit" class="btn btn-update">Update</button>
+                                    </form>
+                                    <form id="deleteForm-${product.productid}" action="/deleteProduct" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="${product.productid}">
+                                        <button type="button" class="btn btn-delete" onclick="confirmDelete(${product.productid})">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <tr>
+                            <td colspan="7" class="not-found">Product not found</td>
+                        </tr>
+                    </c:otherwise>
+                </c:choose>
             </tbody>
         </table>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/admin/addProduct.jsp" class="btn btn-primary" style="padding: 10px 50px; min-width: 140px;">Add New Product</a>   
+
+        </div>
     </div>
 
     <!-- The Modal -->

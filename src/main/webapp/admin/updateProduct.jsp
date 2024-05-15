@@ -37,7 +37,7 @@
             margin: 10px 0 5px 0;
             color: #34495e;
         }
-        .product-form input {
+        .product-form input, .product-form select {
             padding: 10px;
             border: 1px solid #bdc3c7;
             border-radius: 5px;
@@ -68,13 +68,18 @@
 <body>
     <div class="content">
         <h1>Update Product</h1>
-        <p>Update the details of the product below.</p>
+        <p>Fill out the form below to update the product.</p>
         <form action="/updateProduct" method="post" class="product-form">
-            <input type="hidden" id="id" name="id" value="${product.productid}">
+            <input type="hidden" name="id" value="${product.productid}">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" value="${product.productname}" required>
             <label for="category">Category:</label>
-            <input type="text" id="category" name="category" value="${product.productcategory}" required>
+            <select id="category" name="category" required>
+                <option value="Actuator" ${product.productcategory == 'Actuator' ? 'selected' : ''}>Actuator</option>
+                <option value="Gateway" ${product.productcategory == 'Gateway' ? 'selected' : ''}>Gateway</option>
+                <option value="Sensor" ${product.productcategory == 'Sensor' ? 'selected' : ''}>Sensor</option>
+                <option value="Other" ${product.productcategory == 'Other' ? 'selected' : ''}>Other</option>
+            </select>
             <label for="description">Description:</label>
             <input type="text" id="description" name="description" value="${product.productdescription}" required>
             <label for="price">Price:</label>

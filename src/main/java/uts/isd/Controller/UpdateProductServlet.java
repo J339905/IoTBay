@@ -36,11 +36,11 @@ public class UpdateProductServlet extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             Product product = productDAO.getProductById(id);
             request.setAttribute("product", product);
-            request.getRequestDispatcher("updateProduct.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin/updateProduct.jsp").forward(request, response);
         } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product ID.");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product ID format.");
         } catch (SQLException e) {
-            throw new ServletException("Error retrieving product", e);
+            throw new ServletException("Error retrieving product details.", e);
         }
     }
 
@@ -57,11 +57,9 @@ public class UpdateProductServlet extends HttpServlet {
 
             Product product = new Product(id, name, category, description, price, stock);
             productDAO.updateProduct(product);
-            response.sendRedirect("listProducts");
-        } catch (NumberFormatException e) {
+            response.sendRedirect("/listProductsAdmin");
+        } catch (NumberFormatException | SQLException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid input for product details.");
-        } catch (SQLException e) {
-            throw new ServletException("Error updating product", e);
         }
     }
 
