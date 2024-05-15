@@ -111,12 +111,31 @@
     <servlet-name>SearchUserServlet</servlet-name>  
     <url-pattern>/SearchUserServlet</url-pattern>  
     </servlet-mapping> 
+
     <servlet>  
-    <servlet-name>EditUserServlet</servlet-name>  
-    <servlet-class>uts.isd.Controller.EditUserServlet</servlet-class>  
+    <servlet-name>AdminEditUserServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.AdminEditUserServlet</servlet-class>  
     </servlet>  
     <servlet-mapping>  
-    <servlet-name>EditUserServlet</servlet-name>  
-    <url-pattern>/EditUserServlet</url-pattern>  
+    <servlet-name>AdminEditUserServlet</servlet-name>  
+    <url-pattern>/AdminEditUserServlet</url-pattern>  
+    </servlet-mapping> 
+
+    <servlet>  
+    <servlet-name>AdminDeleteUserServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.AdminDeleteUserServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>AdminDeleteUserServlet</servlet-name>  
+    <url-pattern>/AdminDeleteUserServlet</url-pattern>  
+    </servlet-mapping> 
+
+    <servlet>  
+    <servlet-name>AdminLogoutServlet</servlet-name>  
+    <servlet-class>uts.isd.Controller.AdminLogoutServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+    <servlet-name>AdminLogoutServlet</servlet-name>  
+    <url-pattern>/AdminLogoutServlet</url-pattern>  
     </servlet-mapping> 
 </web-app>

@@ -21,11 +21,11 @@ public class UserDAO {
         readst = connection.prepareStatement(readQuery);
     }
 
-    public void adminCreateUser(String firstname, String lastname, String email, int phone, String password,
+    public int adminCreateUser(String firstname, String lastname, String email, int phone, String password,
             String gender, String role) throws SQLException {
 
         PreparedStatement st = conn.prepareStatement(
-                "Insert into user(FirstName, LastName , email, Phone_Number, password ,gender, Role) Values(?,?,?,?,?,?,?)");
+                "Insert into user(FirstName, LastName , email, Phone_Number, password ,gender, Role) Values(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
         st.setString(1, firstname);
         st.setString(2, lastname);
         st.setString(3, email);
@@ -34,6 +34,13 @@ public class UserDAO {
         st.setString(6, gender);
         st.setString(7, role);
         st.executeUpdate();
+
+        ResultSet rs = st.getGeneratedKeys();
+        if (rs.next()) {
+            return rs.getInt(1);
+        } else {
+            throw new SQLException("Creating user failed, no ID obtained.");
+        }
     }
 
     public int createUser(String firstname, String lastname, String email, int phone, String password, String gender,

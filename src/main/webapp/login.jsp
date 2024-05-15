@@ -119,3 +119,4 @@
  <a href="index.jsp" class="btn btn-lg btn-secondary btn-block back-home">Back to Home</a>
     <div class="mt-3">Don't have an account? <a href="register.jsp">Click here</a></div>
 </form>
+<jsp:include page="/ConnServlet" flush="true"/>

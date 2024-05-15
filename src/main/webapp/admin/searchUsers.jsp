@@ -1,4 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    String role = (String) session.getAttribute("role");
+    if (role == null || !role.equals("Admin")) {
+        response.sendRedirect("/unauthorized.jsp"); 
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +84,7 @@
             <li><a href="/admin/createUser.jsp">Create User</a></li>
             <li><a href="/admin/viewUsers.jsp">View Users</a></li>
             <li><a href="/admin/searchUsers.jsp">Search Users</a></li>
-            <li><a href="/admin/logout.jsp">Logout</a></li>
+            <li><a href="/LogoutServlet">Logout</a></li>
         </ul>
     </nav>
 

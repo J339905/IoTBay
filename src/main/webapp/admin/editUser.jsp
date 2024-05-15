@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="uts.isd.model.User"%>
+<%
+    String role = (String) session.getAttribute("role");
+    if (role == null || (!role.equals("Admin"))) {
+        response.sendRedirect("/unauthorized.jsp"); 
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +76,7 @@
             <li><a href="/admin/createUser.jsp">Create User</a></li>
             <li><a href="/admin/viewUsers.jsp">View Users</a></li>
             <li><a href="/admin/searchUsers.jsp">Search Users</a></li>
-            <li><a href="/admin/logout.jsp">Logout</a></li>
+            <li><a href="/LogoutServlet">Logout</a></li>
         </ul>
     </nav>
 
@@ -80,7 +87,7 @@
 
         <!-- User Edit Form -->
         <% User user = (User) request.getAttribute("user"); %>
-        <form action="/EditUserServlet" method="post" class="user-form">
+        <form action="/AdminEditUserServlet" method="post" class="user-form">
             <input type="hidden" name="userId" value="<%= user.getUserID() %>">
 
             <label for="first-name">First Name:</label>
@@ -100,11 +107,18 @@
             </select>
 
             <label for="role">Role:</label>
-            <select id="role" name="role" required>
-                <option value="Customer" <%= user.getRole().equals("Customer") ? "selected" : "" %>>Customer</option>
-                <option value="Staff" <%= user.getRole().equals("Staff") ? "selected" : "" %>>Staff</option>
-                <option value="Admin" <%= user.getRole().equals("Admin") ? "selected" : "" %>>Admin</option>
-            </select>
+            <% if (!user.getRole().equals("Admin")) { %>
+                <select id="role" name="role" required>
+                    <option value="Customer" <%= user.getRole().equals("Customer") ? "selected" : "" %>>Customer</option>
+                    <option value="Staff" <%= user.getRole().equals("Staff") ? "selected" : "" %>>Staff</option>
+                    <%-- <option value="Admin" <%= user.getRole().equals("Admin") ? "selected" : "" %>>Admin</option> --%>
+                </select>
+            <% } 
+            else {%>
+                <select id="role" name="role" required>
+                    <option value="Admin" <%= user.getRole().equals("Admin") ? "selected" : "" %>>Admin</option>
+                </select>
+            <% } %>
 
             <button type="submit" class="btn btn-primary">Update User</button>
         </form>

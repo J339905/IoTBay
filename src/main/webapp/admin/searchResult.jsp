@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="uts.isd.model.User"%>
+<%
+    String role = (String) session.getAttribute("role");
+    if (role == null || (!role.equals("Staff") && !role.equals("Admin"))) {
+        response.sendRedirect("/unauthorized.jsp"); 
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,7 +98,7 @@
             <li><a href="/admin/createUser.jsp">Create User</a></li>
             <li><a href="/admin/viewUsers.jsp">View Users</a></li>
             <li><a href="/admin/searchUsers.jsp">Search Users</a></li>
-            <li><a href="/admin/logout.jsp">Logout</a></li>
+            <li><a href="/LogoutServlet">Logout</a></li>
         </ul>
     </nav>
 
@@ -126,8 +133,8 @@
                                 <td><%= user.getRole() %></td>
                                 <td><%= user.getGender() %></td>
                                 <td>
-                                    <a href="/EditUserServlet?userId=<%= user.getUserID() %>" class="btn btn-secondary">Update</a>
-                                    <a href="/admin/deleteUser?userId=<%= user.getUserID() %>" class="btn btn-primary">Delete</a>
+                                    <a href="/AdminEditUserServlet?userId=<%= user.getUserID() %>" class="btn btn-secondary">Update</a>
+                                    <a href="/AdminDeleteUserServlet?userId=<%= user.getUserID() %>" class="btn btn-primary">Delete</a>
                                 </td>
                             </tr>
                 <%

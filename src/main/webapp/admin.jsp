@@ -1,4 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    String role = (String) session.getAttribute("role");
+    if (role == null || (!role.equals("Staff") && !role.equals("Admin"))) {
+        response.sendRedirect("unauthorized.jsp"); 
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +21,7 @@
             <li><a href="/admin/createUser.jsp">Create User</a></li>
             <li><a href="/admin/viewUsers.jsp">View Users</a></li>
             <li><a href="/admin/searchUsers.jsp">Search Users</a></li>
-            <li><a href="/admin/logout.jsp">Logout</a></li>
+            <li><a href="/LogoutServlet">Logout</a></li>
         </ul>
     </nav>
 
@@ -28,11 +35,11 @@
         </div>
 
         <form action="/SearchUserServlet" method="get" class="search-form">
-            <label for="search-name">First Name:</label>
-            <input type="text" id="search-name" name="firstName">
+            <label for="search-first-name">First Name:</label>
+            <input type="text" id="search-first-name" name="firstName">
 
-            <label for="search-name">Last Name:</label>
-            <input type="text" id="search-name" name="lastName">
+            <label for="search-last-name">Last Name:</label>
+            <input type="text" id="search-last-name" name="lastName">
 
             <label for="search-phone">Phone Number:</label>
             <input type="text" id="search-phone" name="phoneNumber">

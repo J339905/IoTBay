@@ -30,7 +30,6 @@ public class LoginServlet extends HttpServlet {
             Connection conn = db.openConnection();
             userDAO = new UserDAO(conn);
             logDAO = new logDAO(conn);
-            db = new DBConnector(); // Initialize the DBConnector in the init method
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
@@ -54,7 +53,13 @@ public class LoginServlet extends HttpServlet {
                 logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
                 if (user.getRole().equals("Customer")) {
                     response.sendRedirect("welcome.jsp");
-                } else {
+                }
+                else if (user.getRole().equals("Staff")) {
+                    session.setAttribute("role", "Staff");
+                    response.sendRedirect("admin.jsp");
+                } 
+                else {
+                    session.setAttribute("role", "Admin");
                     response.sendRedirect("admin.jsp");
                 }
             } else {
