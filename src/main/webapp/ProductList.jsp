@@ -6,16 +6,53 @@
     <meta charset="UTF-8">
     <title>Product List</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            margin-top: 20px;
+            color: #333;
+        }
         table {
-            width: 100%;
+            width: 90%;
             border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         table, th, td {
-            border: 1px solid black;
+            border: 1px solid #ddd;
         }
         th, td {
-            padding: 10px;
-            text-align: left;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            margin: 20px 0;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -30,7 +67,6 @@
                 <th>Description</th>
                 <th>Price</th>
                 <th>Stock</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -42,13 +78,10 @@
                     <td>${product.productdescription}</td>
                     <td>${product.productprice}</td>
                     <td>${product.productstock}</td>
-                    <td>
-                        <a href="/admin/updateProduct.jsp?id=${product.productid}">Update</a>
-                        <a href="deleteProduct.jsp?id=${product.productid}&name=${product.productname}">Delete</a>
-                    </td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
+    <a href="dashboard.jsp" class="btn">Return to Dashboard</a>
 </body>
 </html>

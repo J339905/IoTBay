@@ -27,6 +27,7 @@
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/model/Payment.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/AdminCreateUserServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/model/User.java
+/Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/ListProductAdminServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/DeleteProductServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/model/dao/DBConnector.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/CreateProductServlet.java

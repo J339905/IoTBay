@@ -85,6 +85,16 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>ListProductAdminServlet</servlet-name>
+        <servlet-class>uts.isd.Controller.ListProductAdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListProductAdminServlet</servlet-name>
+        <url-pattern>/ListProductAdminServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>CreateProductServlet</servlet-name>
         <servlet-class>uts.isd.Controller.CreateProductServlet</servlet-class>
     </servlet>

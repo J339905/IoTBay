@@ -3,18 +3,20 @@ package uts.isd.Controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.annotation.WebServlet;
 
+import uts.isd.model.Product;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
 
-@WebServlet("/deleteProduct")
-public class DeleteProductServlet extends HttpServlet {
+@WebServlet("/listProductsAdmin")
+public class ListProductAdminServlet extends HttpServlet {
     private DBConnector db;
     private ProductDAO productDAO;
 
@@ -31,16 +33,14 @@ public class DeleteProductServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            productDAO.deleteProduct(id);
-            response.sendRedirect("/listProductsAdmin");
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product ID.");
+            List<Product> products = productDAO.getAllProducts();
+            request.setAttribute("products", products);
+            request.getRequestDispatcher("/admin/productlist_admin.jsp").forward(request, response);
         } catch (SQLException e) {
-            throw new ServletException("Error deleting product", e);
+            throw new ServletException("Error retrieving products", e);
         }
     }
 

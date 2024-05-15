@@ -4,4 +4,5 @@ uts/isd/controller/RemoveUserServlet.class
 uts/isd/controller/DeleteUserServlet.class
 uts/isd/controller/CreateProductServlet.class
 uts/isd/controller/ListProductServlet.class
+uts/isd/controller/ListProductAdminServlet.class
 uts/isd/controller/DeleteProductServlet.class
