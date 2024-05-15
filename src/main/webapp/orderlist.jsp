@@ -35,6 +35,16 @@
             db.closeConnection(); // Ensure you close the connection
         }
     %>
+<form action="listOrders" method="get">
+    <input type="hidden" name="sortBy" value="OrderID">
+    <input type="hidden" name="sortOrder" value="${currentSortOrder eq 'asc' && currentSortBy eq 'OrderID' ? 'desc' : 'asc'}">
+    <button type="submit">Sort by Order ID (${currentSortBy eq 'OrderID' ? currentSortOrder : 'asc'})</button>
+</form>
+<form action="listOrders" method="get">
+    <input type="hidden" name="sortBy" value="Order_Date">
+    <input type="hidden" name="sortOrder" value="${currentSortOrder eq 'asc' && currentSortBy eq 'Order_Date' ? 'desc' : 'asc'}">
+    <button type="submit">Sort by Date (${currentSortBy eq 'Order_Date' ? currentSortOrder : 'asc'})</button>
+</form>
     <table>
         <thead>
             <tr>

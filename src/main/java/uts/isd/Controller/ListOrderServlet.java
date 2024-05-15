@@ -34,17 +34,38 @@ public class ListOrderServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String currentSortBy = request.getParameter("sortBy");
+        String currentSortOrder = request.getParameter("sortOrder");
+    
+        String nextSortOrder = "asc"; // Default to ascending unless conditions below are met
+    
+        String previousSortBy = (String) request.getSession().getAttribute("prevSortBy");
+        String previousSortOrder = (String) request.getSession().getAttribute("prevSortOrder");
+    
+        // Check if the same sorting field was clicked again
+        if (currentSortBy != null && currentSortBy.equals(previousSortBy) && "asc".equals(previousSortOrder)) {
+            nextSortOrder = "desc";
+        }
+    
         try {
-            List<Order> orders = orderDAO.listAllOrders();
-            System.out.println("Orders fetched: " + orders.size());  // Add this line to check the size of the orders list
-            request.setAttribute("orderList", orders);  // Ensure this matches the name used in JSP
+            List<Order> orders = orderDAO.listAllOrders(currentSortBy, nextSortOrder);
+            request.setAttribute("orderList", orders);
+            request.setAttribute("currentSortOrder", nextSortOrder);
+            request.setAttribute("currentSortBy", currentSortBy);
+    
+            // Update session with current state
+            request.getSession().setAttribute("prevSortBy", currentSortBy);
+            request.getSession().setAttribute("prevSortOrder", nextSortOrder);
+    
             request.getRequestDispatcher("orderlist.jsp").forward(request, response);
         } catch (SQLException e) {
             throw new ServletException("Error retrieving orders", e);
         }
     }
+    
+    
+    
     
     
 

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.time.LocalDateTime;
 import uts.isd.model.Order;
 
@@ -54,6 +56,21 @@ public class OrderDAO {
         }
         return listOrder;
     }
+    
+    public ArrayList<Order> listAllOrders(String sortBy, String sortOrder) throws SQLException {
+        String query = "SELECT * FROM `Order` ORDER BY " + sortBy + " " + sortOrder;
+        PreparedStatement stmt = conn.prepareStatement(query);
+        ArrayList<Order> listOrder = new ArrayList<>();
+        ResultSet resultSet = stmt.executeQuery();
+        while (resultSet.next()) {
+            listOrder.add(extractOrderFromResultSet(resultSet));
+        }
+        resultSet.close();
+        return listOrder;
+    }
+    
+    
+    
 
     public boolean updateOrder(Order order) throws SQLException {
         updateStmt.setInt(1, order.getUserId());
