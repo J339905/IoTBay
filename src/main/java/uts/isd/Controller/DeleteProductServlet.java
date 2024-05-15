@@ -33,11 +33,12 @@ public class DeleteProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-
         try {
+            int id = Integer.parseInt(request.getParameter("id"));
             productDAO.deleteProduct(id);
-            response.sendRedirect("listProducts");
+            response.sendRedirect("/listProductsAdmin");
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product ID.");
         } catch (SQLException e) {
             throw new ServletException("Error deleting product", e);
         }

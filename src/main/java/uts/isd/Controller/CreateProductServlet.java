@@ -43,7 +43,7 @@ public class CreateProductServlet extends HttpServlet {
         Product product = new Product(0, name, category, description, price, stock);
         try {
             productDAO.addProduct(product);
-            response.sendRedirect("listProducts");
+            response.sendRedirect("/listProductsAdmin");
         } catch (SQLException e) {
             throw new ServletException("Error creating product", e);
         }
