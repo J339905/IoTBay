@@ -125,6 +125,15 @@
         .btn-cancel:hover {
             background-color: #31b0d5;
         }
+        .search-form {
+            margin-bottom: 20px;
+        }
+        .search-form input[type="text"] {
+            padding: 8px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -143,6 +152,11 @@
     <div class="content">
         <h1>Product List - Admin</h1>
         <p>Below is a list of all products available:</p>
+        <form action="listProductsAdmin" method="get" class="search-form">
+            <input type="text" name="name" placeholder="Product Name" value="${param.name}">
+            <input type="text" name="category" placeholder="Product Category" value="${param.category}">
+            <input type="submit" class="btn" value="Search">
+        </form>
         <table class="product-table">
             <thead>
                 <tr>
