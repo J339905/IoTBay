@@ -1,4 +1,3 @@
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-image: url('/css/list-background.png');
@@ -9,33 +8,69 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     min-height: 100vh;
 }
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 h1 {
     color: #495057;
+    margin-bottom: 10px;
 }
-table {
+
+.search-form {
+    margin: 10px 0;
+    display: inline-block;
+}
+
+.search-form input, .search-form button {
+    padding: 8px;
+    margin-right: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.search-form button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #0056b3;
+}
+
+main {
     width: 90%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 1200px;
+    margin: 0 auto;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
 th, td {
     padding: 12px 15px;
     border: 1px solid #dee2e6;
     text-align: left;
 }
+
 th {
     background-color: #f8f9fa;
     color: #6c757d;
 }
+
 tr:nth-child(even) {
     background-color: #f2f2f2;
 }
+
 .btn {
     padding: 8px 16px;
     font-size: 14px;
@@ -46,21 +81,30 @@ tr:nth-child(even) {
     cursor: pointer;
     text-decoration: none;
     transition: background-color 0.2s;
+    margin-right: 10px;
 }
+
+.btn:last-child {
+    margin-right: 0;
+}
+
 .btn:hover {
     background-color: #0056b3;
 }
+
 .quantity-control {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .quantity-control input {
     width: 50px;
     padding: 5px;
     border: 1px solid #ced4da;
     border-radius: 4px;
 }
+
 .quantity-control button {
     padding: 5px 8px;
     border: 1px solid #ced4da;
@@ -70,20 +114,7 @@ tr:nth-child(even) {
     border-radius: 4px;
     transition: background-color 0.2s;
 }
+
 .quantity-control button:hover {
     background-color: #e2e6ea;
-}
-.search-form input[type="text"], .search-form input[type="submit"] {
-    padding: 8px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    margin-right: 8px;
-}
-.search-form input[type="submit"] {
-    background-color: #28a745;
-    color: white;
-    cursor: pointer;
-}
-.search-form input[type="submit"]:hover {
-    background-color: #218838;
 }

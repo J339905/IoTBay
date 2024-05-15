@@ -8,56 +8,53 @@
     <link rel="stylesheet" href="/css/productlist.css">
 </head>
 <body>
-    <h1>Product List</h1>
-    <div class="search-container">
+    <header>
+        <h1>Product List</h1>
         <form action="listProducts" method="get" class="search-form">
-            <input type="text" name="name" placeholder="Product Name" value="${param.name}">
-            <label for="category">Category:</label>
-            <select id="category" name="category" required>
-                <option value="Actuator">Actuator</option>
-                <option value="Gateway">Gateway</option>
-                <option value="Sensor">Sensor</option>
-                <option value="Other">Other</option>
-            </select>
-            <input type="submit" class="btn" value="Search">
+            <input type="text" name="name" placeholder="Search by name..." value="${param.name}">
+            <input type="text" name="category" placeholder="Search by category..." value="${param.category}">
+            <button type="submit">Search</button>
         </form>
-    </div>
-    <form action="orderForm.jsp" method="post">
-        <table>
-            <thead>
-                <tr>
-                    <th>Product ID</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Order Quantity</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="product" items="${products}">
+    </header>
+
+    <main>
+        <form action="orderForm.jsp" method="post">
+            <table>
+                <thead>
                     <tr>
-                        <td>${product.productid}</td>
-                        <td>${product.productname}</td>
-                        <td>${product.productcategory}</td>
-                        <td>${product.productdescription}</td>
-                        <td>${product.productprice}</td>
-                        <td>${product.productstock}</td>
-                        <td>
-                            <div class="quantity-control">
-                                <button type="button" onclick="decrementQuantity(${product.productid})">-</button>
-                                <input type="number" name="orderQuantity_${product.productid}" id="orderQuantity_${product.productid}" value="0" min="0">
-                                <button type="button" onclick="incrementQuantity(${product.productid})">+</button>
-                            </div>
-                        </td>
+                        <th>Product ID</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Order Quantity</th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-        <input type="submit" class="btn" value="Order Selected Products">
-    </form>
-    <a href="dashboard.jsp" class="btn">Return to Dashboard</a>
+                </thead>
+                <tbody>
+                    <c:forEach var="product" items="${products}">
+                        <tr>
+                            <td>${product.productid}</td>
+                            <td>${product.productname}</td>
+                            <td>${product.productcategory}</td>
+                            <td>${product.productdescription}</td>
+                            <td>${product.productprice}</td>
+                            <td>${product.productstock}</td>
+                            <td>
+                                <div class="quantity-control">
+                                    <button type="button" onclick="decrementQuantity(${product.productid})">-</button>
+                                    <input type="number" name="orderQuantity_${product.productid}" id="orderQuantity_${product.productid}" value="0" min="0">
+                                    <button type="button" onclick="incrementQuantity(${product.productid})">+</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+            <input type="submit" class="btn" value="Order Selected Products">
+        </form>
+        <a href="dashboard.jsp" class="btn">Return to Dashboard</a>
+    </main>
 
     <script>
         function incrementQuantity(productId) {

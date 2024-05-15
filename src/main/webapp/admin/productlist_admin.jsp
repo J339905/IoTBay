@@ -171,8 +171,8 @@
     <div class="content">
         <h1>Product List - Admin</h1>
         <p>Below is a list of all products available:</p>
-        <form action="listProductsAdmin" method="get" class="search-form">
-            <input type="text" name="name" placeholder="Product Name" value="${param.name}">
+        <form action="listProducts" method="get" class="search-form">
+            <input type="text" name="name" placeholder="Search by name..." value="${param.name}">
             <select name="category">
                 <option value="">All Categories</option>
                 <option value="Actuator" ${param.category == 'Actuator' ? 'selected' : ''}>Actuator</option>
@@ -180,7 +180,7 @@
                 <option value="Sensor" ${param.category == 'Sensor' ? 'selected' : ''}>Sensor</option>
                 <option value="Other" ${param.category == 'Other' ? 'selected' : ''}>Other</option>
             </select>
-            <input type="submit" class="btn" value="Search">
+            <button type="submit">Search</button>
         </form>
         <table class="product-table">
             <thead>
