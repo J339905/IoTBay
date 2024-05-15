@@ -132,7 +132,6 @@
             color: white;
             padding: 10px 30px; /* Increase padding for more horizontal space */
             min-width: 100px;   /* Optional: increase min-width for a wider button */
-}
         }
 
         .btn-cancel:hover {
@@ -141,7 +140,7 @@
         .search-form {
             margin-bottom: 20px;
         }
-        .search-form input[type="text"] {
+        .search-form input[type="text"], .search-form select {
             padding: 8px;
             margin-right: 10px;
             border: 1px solid #ddd;
@@ -166,7 +165,13 @@
         <p>Below is a list of all products available:</p>
         <form action="listProductsAdmin" method="get" class="search-form">
             <input type="text" name="name" placeholder="Product Name" value="${param.name}">
-            <input type="text" name="category" placeholder="Product Category" value="${param.category}">
+            <select name="category">
+                <option value="">All Categories</option>
+                <option value="Actuator" ${param.category == 'Actuator' ? 'selected' : ''}>Actuator</option>
+                <option value="Gateway" ${param.category == 'Gateway' ? 'selected' : ''}>Gateway</option>
+                <option value="Sensor" ${param.category == 'Sensor' ? 'selected' : ''}>Sensor</option>
+                <option value="Other" ${param.category == 'Other' ? 'selected' : ''}>Other</option>
+            </select>
             <input type="submit" class="btn" value="Search">
         </form>
         <table class="product-table">
@@ -215,7 +220,6 @@
         </table>
         <div style="text-align: center; margin-top: 20px;">
             <a href="/admin/addProduct.jsp" class="btn btn-primary" style="padding: 10px 50px; min-width: 140px;">Add New Product</a>   
-
         </div>
     </div>
 
