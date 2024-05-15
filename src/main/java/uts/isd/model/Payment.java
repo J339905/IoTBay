@@ -1,4 +1,4 @@
-package uts.isd.model;
+package main.java.uts.isd.model;
 
 import java.io.Serializable;
 

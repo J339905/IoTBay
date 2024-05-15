@@ -11,8 +11,11 @@ C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\Pay
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\model\dao\logDAO.java
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\ListProductServlet.java
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\AdminReadUsersServlet.java
+C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\UpdatePaymentDetailsServlet.java
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\model\Connection.java
+C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\model\dao\PaymentDAO.java
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\model\OrderLineItem.java
+C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\VerifyPaymentListServlet.java
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\model\Invoice.java
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\ListProductAdminServlet.java
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\SearchUserServlet.java
@@ -20,7 +23,9 @@ C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\Wel
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\model\Payment.java
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\ChangeRegistrationDetailsServlet.java
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\RegisterServlet.java
+C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\DeletePaymentDetailsServlet.java
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\model\Application.java
+C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\CreatePaymentDetailsServlet.java
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\LoginServlet.java
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\Controller\AdminCreateUserServlet.java
 C:\Users\Vishal_New\Documents\GitHub\IoTBay\src\main\java\uts\isd\model\Shipment.java

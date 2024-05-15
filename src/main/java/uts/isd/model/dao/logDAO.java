@@ -40,8 +40,9 @@ public class logDAO {
             String ActivityType = rs.getString(3);
 
             Logs u = new Logs();
-
-            System.out.println(ActivityTime + " " + ActivityType);
+            u.setUserID(rs.getInt(1));
+            u.setActivityTime(ActivityTime);
+            u.setActivityType(ActivityType);
 
             logs.add(u);
         }
@@ -68,6 +69,7 @@ public class logDAO {
         ResultSet rs = ps.executeQuery();
         ArrayList<Logs> logs = new ArrayList<Logs>();
         while (rs.next()) {
+            @SuppressWarnings("unused")
             int specificUserID = rs.getInt(1);
             String ActivityTime = rs.getString(2);
             String ActvityType = rs.getString(3);
@@ -75,8 +77,6 @@ public class logDAO {
             l.setUserID(UserID);
             l.setActivityTime(ActivityTime);
             l.setActivityType(ActvityType);
-
-            System.out.println(specificUserID + " " + ActivityTime + " " + ActvityType);
 
             logs.add(l);
         }
@@ -88,13 +88,11 @@ public class logDAO {
         ArrayList<Logs> logs = new ArrayList<Logs>();
         String sql = "SELECT UserID, ActivityTime, ActivityType FROM logs WHERE UserID = ? AND DATE(ActivityTime) = ?";
 
-        System.out.println("user id" + userID);
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(1, userID);
         ps.setString(2, date);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            System.out.println("looping");
             Logs log = new Logs();
             log.setUserID(rs.getInt("UserID"));
             log.setActivityTime(rs.getString("ActivityTime"));
@@ -104,5 +102,4 @@ public class logDAO {
 
         return logs;
     }
-
 }
