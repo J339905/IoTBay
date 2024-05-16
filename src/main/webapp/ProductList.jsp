@@ -100,9 +100,8 @@
                         <td>${product.productprice}</td>
                         <td>${product.productstock}</td>
                         <td>
-<input type="checkbox" name="selectedProduct_${product.productid}"
-       value="${product.productid}" ${sessionScope.selectedProductIds.contains(product.productid) ? 'disabled' : ''}>
-
+                            <input type="checkbox" name="selectedProduct_${product.productid}"
+                                   value="${product.productid}" ${product.productstock == 0 ? 'disabled' : ''} ${sessionScope.selectedProductIds.contains(product.productid) ? 'disabled' : ''}>
                         </td>
                     </tr>
                 </c:forEach>

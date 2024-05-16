@@ -98,7 +98,7 @@
             <select name="paymentMethod">
                 <option value="creditCard">Credit Card</option>
                 <option value="paypal">PayPal</option>
-                <option value="bankTransfer">Bank Transfer</option>
+                <option value="applepay">Apple Pay</option>
             </select>
             <input type="submit" class="btn" value="Complete Purchase">
         </form>
