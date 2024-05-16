@@ -6,6 +6,10 @@
         response.sendRedirect("/accessDenied.jsp"); // Redirect to access denied page if not logged in or not authorized
         return;
     }
+    String errorMessage = (String) session.getAttribute("updateProductError");
+    if (errorMessage != null) {
+        session.removeAttribute("updateProductError"); // Clear after display
+    }
 %>
 <html lang="en">
 <head>
@@ -69,6 +73,14 @@
         .btn-secondary:hover {
             background-color: #27ae60;
         }
+        .error-message {
+            color: #e74c3c;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #fee;
+            border: 1px solid #e74c3c;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -76,22 +88,25 @@
         <h1>Update Product</h1>
         <p>Fill out the form below to update the product.</p>
         <form action="/updateProduct" method="post" class="product-form">
+            <% if (errorMessage != null) { %>
+                <div class="error-message"><%= errorMessage %></div>
+            <% } %>
             <input type="hidden" name="id" value="${product.productid}">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value="${product.productname}" required>
+            <input type="text" id="name" name="name" value="${product.productname}">
             <label for="category">Category:</label>
-            <select id="category" name="category" required>
+            <select id="category" name="category">
                 <option value="Actuator" ${product.productcategory == 'Actuator' ? 'selected' : ''}>Actuator</option>
                 <option value="Gateway" ${product.productcategory == 'Gateway' ? 'selected' : ''}>Gateway</option>
                 <option value="Sensor" ${product.productcategory == 'Sensor' ? 'selected' : ''}>Sensor</option>
                 <option value="Other" ${product.productcategory == 'Other' ? 'selected' : ''}>Other</option>
             </select>
             <label for="description">Description:</label>
-            <input type="text" id="description" name="description" value="${product.productdescription}" required>
+            <input type="text" id="description" name="description" value="${product.productdescription}">
             <label for="price">Price:</label>
-            <input type="number" step="0.01" id="price" name="price" value="${product.productprice}" required>
+            <input type="number" step="0.01" id="price" name="price" value="${product.productprice}">
             <label for="stock">Stock:</label>
-            <input type="number" id="stock" name="stock" value="${product.productstock}" required>
+            <input type="number" id="stock" name="stock" value="${product.productstock}">
             <button type="submit" class="btn btn-primary">Update Product</button>
         </form>
     </div>

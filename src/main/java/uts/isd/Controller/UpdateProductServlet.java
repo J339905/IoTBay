@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import uts.isd.model.Product;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
@@ -47,30 +49,69 @@ public class UpdateProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            String name = request.getParameter("name");
-            String category = request.getParameter("category");
-            String description = request.getParameter("description");
-            double price = Double.parseDouble(request.getParameter("price"));
-            int stock = Integer.parseInt(request.getParameter("stock"));
+        HttpSession session = request.getSession();
+        StringBuilder errorMessage = new StringBuilder();
+        
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name").trim();
+        String category = request.getParameter("category");
+        String description = request.getParameter("description").trim();
+        String priceStr = request.getParameter("price").trim();
+        String stockStr = request.getParameter("stock").trim();
 
-            Product product = new Product(id, name, category, description, price, stock);
-            productDAO.updateProduct(product);
-            response.sendRedirect("/listProductsAdmin");
-        } catch (NumberFormatException | SQLException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid input for product details.");
+        double price = 0;
+        int stock = 0;
+        boolean inputError = false;
+
+        // Validate fields
+        if (name.isEmpty()) {
+            errorMessage.append("Name cannot be empty. ");
+            inputError = true;
         }
-    }
 
-    @Override
-    public void destroy() {
+        if (description.isEmpty()) {
+            errorMessage.append("Description cannot be empty. ");
+            inputError = true;
+        }
+
+        // Validate price
         try {
-            if (db != null) {
-                db.closeConnection();
-            }
+            price = Double.parseDouble(priceStr);
+            if (price < 0) errorMessage.append("Price cannot be negative. ");
+        } catch (NumberFormatException e) {
+            errorMessage.append("Price must be a valid number. ");
+        }
+
+        // Validate stock
+        try {
+            stock = Integer.parseInt(stockStr);
+            if (stock < 0) errorMessage.append("Stock cannot be negative. ");
+        } catch (NumberFormatException e) {
+            errorMessage.append("Stock must be a valid number. ");
+        }
+
+        // Only proceed to update if there are no errors
+        if (errorMessage.length() > 0) {
+            session.setAttribute("updateProductError", errorMessage.toString());
+            request.getRequestDispatcher("/admin/updateProduct.jsp").forward(request, response);
+            return;
+        }
+
+        if (inputError) {
+            request.setAttribute("errorMessage", errorMessage.toString());
+            request.setAttribute("product", new Product(id, name, category, description, price, stock)); // Use submitted values
+            request.getRequestDispatcher("/admin/updateProduct.jsp").forward(request, response);
+            return;
+        }
+
+        // Update product if all validations pass
+        Product product = new Product(id, name, category, description, price, stock);
+        try {
+            productDAO.updateProduct(product);
+            session.removeAttribute("updateProductError");
+            response.sendRedirect("/listProductsAdmin");
         } catch (SQLException e) {
-            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error during product update.");
         }
     }
 }
