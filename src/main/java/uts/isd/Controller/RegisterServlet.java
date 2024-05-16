@@ -1,9 +1,8 @@
-
 package uts.isd.Controller;
 
 import java.io.IOException;
 import java.sql.Connection;
-
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -23,6 +22,7 @@ public class RegisterServlet extends HttpServlet {
     private UserDAO userDAO;
     private logDAO logDao;
 
+    // Set up database connection and DAOs
     @Override
     public void init() throws ServletException {
         super.init();
@@ -36,10 +36,13 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 
+    // handles POST requests to register a new user
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         HttpSession session = request.getSession();
 
+        // This removes preivious error messages when new errors appear
         session.removeAttribute("emailErr");
         session.removeAttribute("nametypeErr");
         session.removeAttribute("nullErr");
@@ -57,11 +60,13 @@ public class RegisterServlet extends HttpServlet {
         String tos = request.getParameter("tos");
         String role = "Customer";
 
-        boolean hasError = false;
+        // The utilisation of string regex expressions allows for efficient matchup in
+        // text fields to ensure values inputted by users are valid
         String emailRegex = "^.+@.+\\.com$";
         String phoneRegex = "^\\d+$";
         String nameRegex = "^[a-zA-Z\\s'-]+$";
 
+        // This sends an error message if a field is empty
         if (firstname == null || firstname.trim().isEmpty() || lastname == null || lastname.trim().isEmpty() ||
                 email == null || email.trim().isEmpty() || phoneStr == null || phoneStr.trim().isEmpty() ||
                 password == null || password.trim().isEmpty() || gender == null || gender.trim().isEmpty() ||
@@ -70,36 +75,38 @@ public class RegisterServlet extends HttpServlet {
             request.getRequestDispatcher("register.jsp").include(request, response);
             return;
         }
-
+        // This sends an error message for invalid email format
         if (!email.matches(emailRegex)) {
             session.setAttribute("emailErr", "Email format wrong, try again!");
             request.getRequestDispatcher("register.jsp").include(request, response);
             return;
         }
-
+        // This sends an error message for invalid name format
         if (!firstname.matches(nameRegex) || !lastname.matches(nameRegex)) {
             session.setAttribute("nametypeErr", "Names must contain letters only");
             request.getRequestDispatcher("/register.jsp").include(request, response);
             return;
         }
-        if (password.length() < 6) {
+        // This sends an error message if password is not long enough
+        if (password.length() < 5) {
             session.setAttribute("passwordErr", "Password must have a length of at least 5 characters");
             request.getRequestDispatcher("/register.jsp").include(request, response);
             return;
         }
-
+        // This sends an error message if there is a nonnummeric value inputted
         if (!phoneStr.matches(phoneRegex)) {
             session.setAttribute("phoneErr", "Phone number must consist of numbers only");
             request.getRequestDispatcher("register.jsp").include(request, response);
             return;
         }
         int phone = Integer.parseInt(phoneStr);
-
+        // error if user doesn't agree to terms and service
         if (tos == null) {
             session.setAttribute("tosErr", "You must agree to the terms of service.");
             request.getRequestDispatcher("register.jsp").include(request, response);
             return;
         }
+        // This checks for if a user with given email already exists
         try {
             User checkuser = userDAO.findExistingUser(email);
             if (checkuser != null) {
@@ -111,11 +118,8 @@ public class RegisterServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        if (hasError) {
-            response.sendRedirect("register.jsp");
-            return;
-        }
-
+        // User is created here after a userId is given, and this activity is logged
+        // into database and user is redirected into welcome page if successful
         try {
             int userId = userDAO.createUser(firstname, lastname, email, phone, password, gender, role);
             boolean isActivated = true;
@@ -134,14 +138,6 @@ public class RegisterServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error.");
         }
 
-        // try {
-        // userDAO.adminCreateUser(firstname, lastname, email, phone, password, gender,
-        // role);
-        // } catch (SQLException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
-
         User user = new User();
         user.setfirstName(firstname);
         user.setlastname(lastname);
@@ -154,12 +150,13 @@ public class RegisterServlet extends HttpServlet {
         response.sendRedirect("welcome.jsp");
     }
 
+    // close DB connection
     @Override
     public void destroy() {
         super.destroy();
         try {
             if (db != null) {
-                db.closeConnection(); // Properly close your DB connection
+                db.closeConnection();
             }
         } catch (SQLException e) {
             System.err.println("Failed to close database connection.");

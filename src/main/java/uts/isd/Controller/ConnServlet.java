@@ -15,42 +15,46 @@ import uts.isd.model.dao.UserDAO;
 
 public class ConnServlet extends HttpServlet {
 
-	private DBConnector db;
-	private UserDAO userDAO;
-	private Connection conn;
+    private DBConnector db;
+    private UserDAO userDAO;
+    private Connection conn;
 
-	@Override
-	public void init() {
-		try {
-			db = new DBConnector();
-		} catch (ClassNotFoundException | SQLException ex) {
-			System.out.println(ex);
-		}
-	}
+    // Set up database connection and DAOs
+    @Override
+    public void init() {
+        try {
+            db = new DBConnector();
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+    }
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		System.out.println("db conn");
-		response.setContentType("text/html;charset=UTF-8");
-		HttpSession session = request.getSession();
-		conn = db.openConnection();
+    // This is what connects UserDAO to the session
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        System.out.println("db conn");
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        conn = db.openConnection();
 
-		try {
-			userDAO = new UserDAO(conn);
-		} catch (SQLException e) {
-			System.out.print(e);
-		}
+        try {
+            userDAO = new UserDAO(conn);
+        } catch (SQLException e) {
+            System.out.print(e);
+        }
 
-		session.setAttribute("userDAO", userDAO);
-	}
+        session.setAttribute("userDAO", userDAO);
+    }
+    
+    // close DB connection
+    @Override
+    public void destroy() {
+        try {
+            db.closeConnection();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 
-	@Override
-	public void destroy() {
-		try {
-			db.closeConnection();
-		} catch (SQLException e) {
-			System.out.println(e);
-		}
-	}
-	
 }

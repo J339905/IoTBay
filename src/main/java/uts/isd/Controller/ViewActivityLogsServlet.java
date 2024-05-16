@@ -1,4 +1,3 @@
-
 package uts.isd.Controller;
 
 import java.io.IOException;
@@ -21,6 +20,7 @@ public class ViewActivityLogsServlet extends HttpServlet {
     private DBConnector db;
     private logDAO logDAO;
 
+    // Initialize the servlet and set up database connection and DAO
     @Override
     public void init() throws ServletException {
         super.init();
@@ -33,11 +33,13 @@ public class ViewActivityLogsServlet extends HttpServlet {
         }
     }
 
+    // Redirect GET requests to the POST handler
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
     }
+    // Handle POST requests to view activity logs
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -45,25 +47,27 @@ public class ViewActivityLogsServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         session.removeAttribute("nologsErr");
-        
+
         User user = (User) session.getAttribute("user");
         String date = request.getParameter("date");
+        // This checks if user is logged in, and date is not null
 
+        // otherwise, an error message will appear saying there are no logs
         if (user != null) {
             try {
                 ArrayList<Logs> logs;
-                if (date != null && !date.isEmpty()) {
-                    System.out.println(date);
+                if (date != null && !date.isEmpty()) { // the logs of that specific date should be retrieved if date is
+                                                       // not null;
                     logs = logDAO.fetchSpecificUserLogsByDate(user.getUserID(), date);
                     if (logs.size() == 0) {
-
+                        // If there are zero logs then log error validation appears
                         session.setAttribute("nologsErr", "No activity logs found for the selected date.");
                         request.getRequestDispatcher("viewactivitylogs.jsp").include(request, response);
                         return;
                     } else {
                         request.setAttribute("activitylogs", logs);
                     }
-                } else {
+                } else { // All user logs are retrieved based on the user id
                     logs = logDAO.fetchSpecificUserLogs(user.getUserID());
                     request.setAttribute("activitylogs", logs);
                 }
@@ -77,6 +81,7 @@ public class ViewActivityLogsServlet extends HttpServlet {
         }
     }
 
+    // close database connection
     @Override
     public void destroy() {
         super.destroy();

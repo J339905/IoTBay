@@ -1,20 +1,22 @@
 package uts.isd.model;
 
-
 public class Logs {
 
     private int UserID;
-	private String ActivityTime;
-	private String ActivityType;
-    public Logs(){
-        
-    }
-    public Logs(int UserID, String ActivityTime,String ActivityType ){
-        this.UserID = UserID;
-        this.ActivityTime = ActivityTime;
-        this.ActivityType = ActivityType;
+    private String ActivityTime; // properties
+    private String ActivityType;
+
+    public Logs() {
+
     }
 
+    public Logs(int UserID, String ActivityTime, String ActivityType) {
+        this.UserID = UserID;
+        this.ActivityTime = ActivityTime;
+        this.ActivityType = ActivityType; // constructor
+    }
+
+    // just all getters and setters
     public int getUserID() {
         return UserID;
     }
@@ -38,5 +40,5 @@ public class Logs {
     public void setActivityType(String activityType) {
         ActivityType = activityType;
     }
-	
+
 }

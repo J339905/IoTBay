@@ -14,20 +14,24 @@ import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.UserDAO;
 
 public class DeleteUserServlet extends HttpServlet {
+    // THis handles Post requests for deleting a user
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
+        // If user is logged in, their id is retrieved
         if (user != null) {
             int userId = user.getUserID();
             try {
                 DBConnector db = new DBConnector();
                 UserDAO userDAO = new UserDAO(db.openConnection());
-                userDAO.deleteUser(userId);
+                userDAO.deleteUser(userId); //ID is used here to delete user from database
                 db.closeConnection();
 
+                // Session will also invalidate.
                 session.invalidate();
                 response.sendRedirect("index.jsp");
             } catch (ClassNotFoundException | SQLException e) {

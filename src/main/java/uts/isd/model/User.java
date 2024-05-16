@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 	private int userId;
 	private String email;
-	private String firstname;
+	private String firstname; // properties
 	private String lastname;
 	private int phone;
 	private String password;
@@ -13,7 +13,7 @@ public class User implements Serializable {
 	private String favCol;
 	private String role;
 	private String status;
-	private boolean isActivated; 
+	private boolean isActivated;
 
 	public User() {
 	}
@@ -24,17 +24,20 @@ public class User implements Serializable {
 		this.email = email;
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.phone = phone;
+		this.phone = phone; // this constructor is used for code in USERDAO in relation to user such as
+							// create user
 		this.password = password;
 		this.gender = gender;
 		this.role = role;
 		this.isActivated = isActivated;
 	}
 
-	public User(int userId, String firstname, String lastname, String email, int phone, String gender, String role, boolean isActivated) {
+	public User(int userId, String firstname, String lastname, String email, int phone, String gender, String role,
+			boolean isActivated) {
 		this.userId = userId;
 		this.email = email;
-		this.firstname = firstname;
+		this.firstname = firstname; // this constructor is used for code in USERDAO for admin use such as
+									// admincreateuser
 		this.lastname = lastname;
 		this.phone = phone;
 		this.gender = gender;
@@ -42,6 +45,7 @@ public class User implements Serializable {
 		this.isActivated = isActivated;
 	}
 
+	// getters and setters
 	public void setUserID(int i) {
 		this.userId = i;
 	}

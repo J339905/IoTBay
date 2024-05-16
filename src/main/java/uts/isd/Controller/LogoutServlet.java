@@ -19,6 +19,7 @@ public class LogoutServlet extends HttpServlet {
     private DBConnector db;
     private logDAO logDAO;
 
+    // Set up database connection and DAOs
     @Override
     public void init() throws ServletException {
         super.init();
@@ -31,22 +32,26 @@ public class LogoutServlet extends HttpServlet {
         }
     }
 
+    // This handles Get request to logout a user
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
+        // If user is logged in, then the date/time as well as the user id is retrieved,
+
         if (user != null) {
             String currentTime = java.time.LocalDateTime.now().toString();
             int userId = user.getUserID();
             try {
+                // logout activity is also logged into database
                 logDAO.createLog(userId, currentTime, "Logout");
                 System.out.println("Logout activity logged successfully.");
             } catch (SQLException e) {
                 System.err.println("Error logging logout activity: " + e.getMessage());
             }
-
+            // while the session ends to log the user out and redirect them to the home page
             session.invalidate();
             System.out.println("User logged out successfully.");
         } else {
@@ -56,6 +61,7 @@ public class LogoutServlet extends HttpServlet {
         response.sendRedirect("login.jsp");
     }
 
+    // close DB connection
     @Override
     public void destroy() {
         try {

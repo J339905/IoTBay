@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import uts.isd.model.Logs;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.UserDAO;
@@ -22,6 +21,7 @@ public class LoginServlet extends HttpServlet {
     private UserDAO userDAO;
     private logDAO logDAO;
 
+    // Set up database connection and DAOs
     @Override
     public void init() throws ServletException {
         super.init();
@@ -30,42 +30,41 @@ public class LoginServlet extends HttpServlet {
             Connection conn = db.openConnection();
             userDAO = new UserDAO(conn);
             logDAO = new logDAO(conn);
+            db = new DBConnector(); // Initialize the DBConnector in the init method
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
     }
 
+    // This handles POST requests for users to be able to login
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+
+        // retrieving email and password from the request
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+
+        // Check if either password or username is empty
         if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
             session.setAttribute("nullErr", "Please fill in all the fields given.");
             request.getRequestDispatcher("login.jsp").include(request, response);
             return;
         }
+
+        // find user in database by matching email and password, if user is found,
+        // redirect the page based on whether the user is admin or customer
         try {
             User user = userDAO.findUser(email, password);
             if (user != null) {
-                if (user.getIsActivated()) {
-                    session.setAttribute("user", user);
-                    logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
-                    if (user.getRole().equals("Customer")) {
-                        response.sendRedirect("welcome.jsp");
-                    }
-                    else if (user.getRole().equals("Staff")) {
-                        session.setAttribute("role", "Staff");
-                        response.sendRedirect("admin.jsp");
-                    } 
-                    else {
-                        session.setAttribute("role", "Admin");
-                        response.sendRedirect("admin.jsp");
-                    }
-                }
-                else {
-                    response.sendRedirect("login.jsp");
+                session.setAttribute("user", user);
+                // Their Login activity should be logged into database
+                logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
+                if (user.getRole().equals("Customer")) {
+                    response.sendRedirect("welcome.jsp");
+                } else {
+                    response.sendRedirect("admin.jsp");
                 }
             } else {
                 session.setAttribute("loginErr", "Invalid login details or inactive account");
@@ -77,6 +76,7 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
+    // close DB connection
     @Override
     public void destroy() {
         try {
