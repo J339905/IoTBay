@@ -27,11 +27,15 @@
             margin: 20px 0;
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            justify-content: center;
+
         }
         th, td {
             border: 1px solid #ddd;
             padding: 12px;
             text-align: center;
+            justify-content: center;
+
         }
         th {
             background-color: #f2f2f2;
@@ -76,6 +80,10 @@
         .link-btn:hover {
             background-color: #0056b3;
         }
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -110,9 +118,16 @@
             </tbody>
         </table>
     </form>
+    <div class="button-container">
     <a href="/listProducts" class="btn link-btn">Continue Shopping</a>
-    <a href="updateCart?cancel=true" class="btn link-btn" style="background-color: #ff4444;">Cancel Cart</a>
+    <!-- Buttons are now within a flex container for horizontal alignment -->
+        <c:if test="${not empty cart.items}">
+            <a href="/saveOrder" class="btn link-btn" >Save Order</a>
+            <a href="updateCart?cancel=true" class="btn link-btn" style="background-color: #ff4444;">Cancel Cart</a>
+            <a href="/checkout" class="btn link-btn" >Proceed to Checkout</a>
 
+        </c:if>
+    </div>
 
     <script>
         function changeQuantity(productId, change) {
