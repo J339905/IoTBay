@@ -15,7 +15,7 @@ import uts.isd.model.Product;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
 
-@WebServlet("/listProducts")
+@WebServlet("/productlist")
 public class ListProductServlet extends HttpServlet {
     private DBConnector db;
     private ProductDAO productDAO;

@@ -87,7 +87,7 @@
     <div class="content">
         <h1>Update Product</h1>
         <p>Fill out the form below to update the product.</p>
-        <form action="/updateProduct" method="post" class="product-form">
+        <form action="/updateproduct" method="post" class="product-form">
             <% if (errorMessage != null) { %>
                 <div class="error-message"><%= errorMessage %></div>
             <% } %>

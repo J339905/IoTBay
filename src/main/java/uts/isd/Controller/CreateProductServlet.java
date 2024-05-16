@@ -14,7 +14,7 @@ import uts.isd.model.Product;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
 
-@WebServlet("/createProduct")
+@WebServlet("/createproduct")
 public class CreateProductServlet extends HttpServlet {
     private DBConnector db;
     private ProductDAO productDAO;
@@ -84,7 +84,7 @@ public class CreateProductServlet extends HttpServlet {
         try {
             productDAO.addProduct(product);
             session.removeAttribute("createProductError"); // Clean up session attribute
-            response.sendRedirect("/listProductsAdmin");
+            response.sendRedirect("/productlistadmin");
         } catch (SQLException e) {
             throw new ServletException("Error creating product", e);
         }

@@ -14,7 +14,7 @@ import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
 import uts.isd.model.dao.UserDAO;
 
-@WebServlet("/deleteProduct")
+@WebServlet("/deleteproduct")
 public class DeleteProductServlet extends HttpServlet {
     private DBConnector db;
     private ProductDAO productDAO;
@@ -38,7 +38,7 @@ public class DeleteProductServlet extends HttpServlet {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
             productDAO.deleteProduct(id);
-            response.sendRedirect("/listProductsAdmin");
+            response.sendRedirect("/productlistadmin");
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product ID.");
         } catch (SQLException e) {

@@ -163,7 +163,7 @@
             <li><a href="/admin/createUser.jsp">Create User</a></li>
             <li><a href="/admin/viewUsers.jsp">View Users</a></li>
             <li><a href="/admin/searchUsers.jsp">Search Users</a></li>
-            <li><a href="/listProductsAdmin">View Products</a></li>
+            <li><a href="/productlistadmin">View Products</a></li>
             <li><a href="/admin/addProduct.jsp">Add Products</a></li>
             <li><a href="/admin/logout.jsp">Logout</a></li>
         </ul>
@@ -171,7 +171,7 @@
     <div class="content">
         <h1>Product List - Admin</h1>
         <p>Below is a list of all products available:</p>
-        <form action="listProductsAdmin" method="get" class="search-form">
+        <form action="productlistadmin" method="get" class="search-form">
             <input type="text" name="name" placeholder="Search by name..." value="${param.name}">
             <select name="category">
                 <option value="">All Categories</option>
@@ -206,11 +206,11 @@
                                 <td>${product.productprice}</td>
                                 <td>${product.productstock}</td>
                                 <td class="action-buttons">
-                                    <form action="/updateProduct" method="get" style="display:inline;">
+                                    <form action="/updateproduct" method="get" style="display:inline;">
                                         <input type="hidden" name="id" value="${product.productid}">
                                         <button type="submit" class="btn btn-update">Update</button>
                                     </form>
-                                    <form id="deleteForm-${product.productid}" action="/deleteProduct" method="post" style="display:inline;">
+                                    <form id="deleteForm-${product.productid}" action="/deleteproduct" method="post" style="display:inline;">
                                         <input type="hidden" name="id" value="${product.productid}">
                                         <button type="button" class="btn btn-delete" onclick="confirmDelete(${product.productid})">Delete</button>
                                     </form>

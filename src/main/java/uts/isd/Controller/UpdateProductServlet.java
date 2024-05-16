@@ -14,7 +14,7 @@ import uts.isd.model.Product;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
 
-@WebServlet("/updateProduct")
+@WebServlet("/updateproduct")
 public class UpdateProductServlet extends HttpServlet {
     private DBConnector db;
     private ProductDAO productDAO;
@@ -109,9 +109,20 @@ public class UpdateProductServlet extends HttpServlet {
         try {
             productDAO.updateProduct(product);
             session.removeAttribute("updateProductError");
-            response.sendRedirect("/listProductsAdmin");
+            response.sendRedirect("/productlistadmin");
         } catch (SQLException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error during product update.");
+        }
+        
+    }
+    @Override
+    public void destroy() {
+        try {
+            if (db != null) {
+                db.closeConnection();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

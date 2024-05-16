@@ -1,8 +1,10 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url('/css/list-background.png');
-    background-size: cover;
-    background-position: center;
+    background-image: url('Mountain-Background.jpeg');
+    color: #333; /* Enhanced text color for better readability */
+    background-size: cover; /* Ensure the background covers the full view */
+    background-attachment: fixed; /* Fixed background on scroll */
+    background-position: center; /* Center the background image */
     margin: 0;
     padding: 20px;
     display: flex;
@@ -13,9 +15,11 @@ body {
 
 header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* Increased for better spacing */
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for header */
+    padding: 15px;
+    border-radius: 8px; /* Rounded corners */
 }
-
 h1 {
     color: #495057;
     margin-bottom: 10px;
@@ -52,36 +56,33 @@ main {
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly more transparency */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; /* Rounded corners for table */
 }
 
 th, td {
-    padding: 12px 15px;
-    border: 1px solid #dee2e6;
+    padding: 15px; /* More padding for cell spacing */
+    border: 1px solid #ddd; /* Lighter border color */
     text-align: left;
 }
 
-th {
-    background-color: #f8f9fa;
-    color: #6c757d;
-}
 
+th {
+    background-color: #007bff; /* Solid blue background for headers */
+    color: white; /* White text for headers */
+    text-shadow: 1px 1px 1px #000; /* Text shadow for better readability */
+}
 tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
 .btn {
-    padding: 8px 16px;
-    font-size: 14px;
-    color: #ffffff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.2s;
-    margin-right: 10px;
+    padding: 10px 20px; /* Larger buttons */
+    font-size: 16px; /* Larger font for better readability */
+    background-color: #007bff; /* Green background for buttons */
+    border-radius: 5px; /* Rounded corners for buttons */
+    color: white;
 }
 
 .btn:last-child {
@@ -90,6 +91,23 @@ tr:nth-child(even) {
 
 .btn:hover {
     background-color: #0056b3;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: space-between; /* This spreads the buttons across the full width */
+    margin-top: 20px; /* Adds some space between the table and the buttons */
+}
+
+.order-button {
+    /* Aligns the button to the left */
+    margin-left: 0; /* Ensures there is no margin on the left */
+}
+
+.dashboard-button {
+    /* Aligns the button to the right */
+    margin-right: 0; /* Ensures there is no margin on the right */
 }
 
 .quantity-control {

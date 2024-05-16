@@ -10,7 +10,7 @@
 <body>
     <header>
         <h1>Product List</h1>
-        <form action="listProducts" method="get" class="search-form">
+        <form action="productlist" method="get" class="search-form">
             <input type="text" name="name" placeholder="Search by name..." value="${param.name}">
             <select name="category">
                 <option value="">All Categories</option>
@@ -58,9 +58,11 @@
                     </c:forEach>
                 </tbody>
             </table>
-            <input type="submit" class="btn" value="Order Selected Products">
+            <div class="button-container">
+                <input type="submit" class="btn order-button" value="Order Selected Products">
+                <a href="dashboard.jsp" class="btn dashboard-button">Return to Dashboard</a>
+            </div>
         </form>
-        <a href="dashboard.jsp" class="btn">Return to Dashboard</a>
     </main>
 
     <script>

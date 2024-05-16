@@ -70,7 +70,7 @@
             <li><a href="/admin/createUser.jsp">Create User</a></li>
             <li><a href="/admin/viewUsers.jsp">View Users</a></li>
             <li><a href="/admin/searchUsers.jsp">Search Users</a></li>
-            <li><a href="/listProductsAdmin">View Products</a></li>
+            <li><a href="/productlistadmin">View Products</a></li>
             <li><a href="/admin/addProduct.jsp">Add Products</a></li>
             <li><a href="/admin/logout.jsp">Logout</a></li>
         </ul>
