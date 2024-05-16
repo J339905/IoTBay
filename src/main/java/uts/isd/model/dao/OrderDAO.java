@@ -91,6 +91,20 @@ public class OrderDAO {
     }
     
     
+    public List<Order> searchOrdersByUserId(int userId, String searchType, String searchTerm, String sortBy, String sortOrder) throws SQLException {
+        String query = "SELECT * FROM `Order` WHERE UserID = ? AND " + searchType + " LIKE ? ORDER BY " + sortBy + " " + sortOrder;
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, userId);
+        stmt.setString(2, "%" + searchTerm + "%");
+        List<Order> listOrder = new ArrayList<>();
+        ResultSet resultSet = stmt.executeQuery();
+        while (resultSet.next()) {
+            listOrder.add(extractOrderFromResultSet(resultSet));
+        }
+        resultSet.close();
+        stmt.close();
+        return listOrder;
+    }
     
 
     public boolean updateOrder(Order order) throws SQLException {

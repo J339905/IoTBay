@@ -77,6 +77,15 @@
             <input type="hidden" name="sortOrder" value="${currentSortBy eq 'Order_Date' && currentSortOrder eq 'asc' ? 'desc' : 'asc'}">
             <button type="submit" class="btn">Sort by Date (${currentSortBy eq 'Order_Date' ? currentSortOrder : 'asc'})</button>
         </form>
+        <form action="listOrders" method="get">
+    <select name="searchType">
+        <option value="OrderID">Order ID</option>
+        <option value="Order_Date">Order Date</option>
+    </select>
+    <input type="text" name="searchTerm" placeholder="Enter search term...">
+    <button type="submit" class="btn">Search</button>
+</form>
+
     </div>
     <table>
         <thead>
