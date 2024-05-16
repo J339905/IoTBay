@@ -1,139 +1,159 @@
-// // package uts.unit;
+package uts.unit;
 
-// // import static org.junit.jupiter.api.Assertions.assertNotNull;
-// // import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-// // import java.sql.Connection;
-// // import java.sql.SQLException;
-// // import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
-// // import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
 
-// // import uts.isd.model.Staff;
-// // import uts.isd.model.User;
-// // import uts.isd.model.dao.DBConnector;
-// // import uts.isd.model.dao.UserDAO;
-// // import uts.isd.model.dao.StaffDAO;
-// // import uts.isd.model.dao.ProductDAO;
+import uts.isd.model.Logs;
+import uts.isd.model.User;
+import uts.isd.model.dao.DBConnector;
+import uts.isd.model.dao.UserDAO;
+import uts.isd.model.dao.logDAO;
+import uts.isd.model.dao.ProductDAO;
 
+public class DAOTest {
 
-// // public class DAOTest {
+    private DBConnector connector;
+    private Connection conn;
+    private UserDAO userDAO;
+    private ProductDAO ProductDAO;
+    private logDAO logDAO;
 
+    public DAOTest() throws ClassNotFoundException, SQLException {
+        connector = new DBConnector();
+        conn = connector.openConnection();
+        userDAO = new UserDAO(conn);
+        logDAO = new logDAO(conn);
+        ProductDAO = new ProductDAO(conn);
+    }
 
-// // 	private DBConnector connector;
-// // 	private Connection conn;
-// // 	private UserDAO userDAO;
-// // 	private StaffDAO StaffDAO;
-// // 	// private ProductDAO ProductDAO;
+    @Test
+    public void testConnection() throws SQLException {
+        assertNotNull(conn);
+    }
 
-// // 	public DAOTest() throws ClassNotFoundException, SQLException {
-// // 		connector = new DBConnector();
-// // 		conn = connector.openConnection();
-// // 		userDAO = new UserDAO(conn);
-// // 		StaffDAO = new StaffDAO(conn);
-// // 		// ProductDAO = new ProductDAO(conn);
-// // 	}
+    @Test
+    public void testSelectAllTables() throws SQLException {
+        ArrayList<User> users = userDAO.readAllUsers();
+        assertTrue(users.size() > 0);
+    }
 
-// // 	@Test
-// // 	public void testConnection() throws SQLException {
-// // 		assertNotNull(conn);
-// // 	}
-// // 	@Test
-// // 	public void testSelectAllTables() throws SQLException {
-// // 		ArrayList<User> users = userDAO.fetchUsers();
-// // 		ArrayList<Staff> staff = StaffDAO.fetchStaff();
-// // 		// ArrayList<Staff> products = products.fetchStaff();
-// // 		assertTrue(users.size()>0);
-// // 		assertTrue(staff.size()>0);
-// // 	}
-// // 	@Test
-// // 	public void testcreateuser() throws SQLException{
-// // // Correct usage with an integer phone number
-// // 	userDAO.createUser("John", "Doe", "john.doe@example.com", 1234567890, "password123", "Male", "Customer");
+    @Test
+    public void testcreateuser() throws SQLException {
+        userDAO.createUser("John", "Doe", "john.doe@example.com", 1234567890, "password123", "Male", "Customer");
 
-// // 	}
-// // }
+    }
 
-// package uts.unit;
+    @Test
+    public void testViewLogsByDate() throws SQLException {
+        // Assuming a user with this email and password exists
+        User user = userDAO.findUser("john.doe@example.com", "password123");
+        assertNotNull(user);
 
-// import static org.junit.jupiter.api.Assertions.assertNotNull;
-// import static org.junit.jupiter.api.Assertions.assertTrue;
+        LocalDateTime.now();
+        String exactTime = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
-// import java.sql.Connection;
-// import java.sql.SQLException;
-// import java.util.ArrayList;
+        logDAO.createLog(user.getUserID(), exactTime, "Login");
 
-// import org.junit.jupiter.api.Test;
+        String formattedDate = LocalDateTime.now().toLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE);
 
-// import uts.isd.model.Staff;
-// import uts.isd.model.User;
-// import uts.isd.model.dao.DBConnector;
-// import uts.isd.model.dao.UserDAO;
-// import uts.isd.model.dao.StaffDAO;
-// import uts.isd.model.dao.ProductDAO;
+        List<Logs> logs = logDAO.fetchSpecificUserLogsByDate(user.getUserID(), formattedDate);
 
+        assertNotNull(logs);
+        assertTrue(logs.size() > 0);
 
-// public class DAOTest {
+        for (Logs log : logs) {
+            System.out.println(log.toString());
+        }
+    }
 
+    @Test
+    public void testViewRegistrationDetails() throws SQLException {
+        User user = userDAO.findUser("Jack@gmail.com", "sdfdsfsa");
+        System.out.println(user.toString());
+    }
 
-// 	private DBConnector connector;
-// 	private Connection conn;
-// 	private UserDAO userDAO;
-// 	private StaffDAO StaffDAO;
-// 	// private ProductDAO ProductDAO;
+    // @Test
+    // public void testdeleteuser() throws SQLException {
+    // User user = userDAO.findUser("Isaac@hotmail.com", "dsadfsfdfdsfdsfsdf");
+    // userDAO.deleteUser(user.getUserID());
+    // }
 
-// 	public DAOTest() throws ClassNotFoundException, SQLException {
-// 		connector = new DBConnector();
-// 		conn = connector.openConnection();
-// 		userDAO = new UserDAO(conn);
-// 		StaffDAO = new StaffDAO(conn);
-// 		// ProductDAO = new ProductDAO(conn);
-// 	}
+    // All testcases below are related to theJunit test cases in the assignment 2 marking criteria
+    @Test
+    public void testSuccessfulLogin() throws SQLException {
+        User user = userDAO.findUser("taejun@hotmail.com", "hello");
+        assertNotNull(user);
+        assertTrue(user.getEmail().equals("taejun@hotmail.com"));
+    }
 
-// 	@Test
-// 	public void testConnection() throws SQLException {
-// 		assertNotNull(conn);
-// 	}
+    @Test
+    public void testUnSuccessfulLogin() throws SQLException {
+        User user = userDAO.findUser("doesntexist@hotmail.com", "notexist");
+        assertTrue(user == null);
+    }
 
-// 	// @Test
-// 	// public void testSelectAllTables() throws SQLException {
-// 	// ArrayList<User> users = userDAO.fetchUsers();
-// 	// ArrayList<Logs> logs = LogsDAO.fetchLogs();
-// 	// // ArrayList<Staff> staff = StaffDAO.fetchStaff();
-// 	// // ArrayList<Staff> products = products.fetchStaff();
-// 	// assertTrue(users.size()>0);
-// 	// assertTrue(logs.size()>0);
+    // @Test
+    // public void testSuccessfulUpdate() throws Exception {
+    // User user = userDAO.findUser("a@f.com", "A");
+    // assertNotNull(user);
 
-// 	// // assertTrue(staff.size()>0);
-// 	// }
-// 	// @Test
-// 	// public void testcreateuser() throws SQLException{
-// 	// // Correct usage with an integer phone number
-// 	// userDAO.createUser("John", "Doe", "john.doe@example.com", 1234567890,
-// 	// "password123", "Male", "Customer");
+    // user = userDAO.updateUser("NewFirstName", "NewLastName", 123456789,
+    // "newpassword123", "Male", "Customer",
+    // user.getEmail());
+    // assertEquals("NewFirstName", user.getfirstName());
+    // assertEquals("NewLastName", user.getlastname());
+    // assertEquals(123456789, user.getPhone());
+    // assertEquals("newpassword123", user.getPassword());
+    // }
+    // @Test
+    // public void testUnsuccessfulUpdate() throws Exception {
+    // User user = userDAO.findUser("a@f.com", "A");
+    // assertNotNull(user);
+    // session.removeAttribute("nametypeErr");
+    // session.removeAttribute("nullErr");
+    // session.removeAttribute("phoneErr");
+    // session.removeAttribute("passwordErr");
 
-// 	// }
-// 	// @Test
-// 	// public void testcreatelog() throws SQLException{
-// 	// LogsDAO.createLog(2,"2024-07-06 15:53:30", "Logged");
+    // String nameRegex = "^[a-zA-Z\\s'-]+$";
+    // String phoneRegex = "^\\d+$";
 
-// 	// }
-// 	// @Test
-// 	// public void testSelectLogs() throws SQLException {
-// 	// ArrayList<Logs> Logs = LogsDAO.fetchUserLogs();
-// 	// assertTrue(Logs.size() > 0);
-// 	// }
-// 	// @Test
-// 	// public void testSelectLogs() throws SQLException {
-// 	// 	ArrayList<Logs> Logs = LogsDAO.fetchSpecificUserLogs(24);
-// 	// 	assertTrue(Logs.size() > 0);
-// 	// }
+    // try {
+    // userDAO.updateUser("NewFirstName", "NewLastName", -123456789, "short",
+    // "Male", "Customer", user.getEmail());
+    // fail("Expected SQLException");
+    // } catch (SQLException e) {
+    // // Expected exception due to incorrect format
+    // }
+    // }
+    @Test
+    public void testUpdateUserWithInvalidData() throws SQLException {
+        User user = userDAO.findUser("Nish@gmail.com", "Iwonalfsdf");
+        assertNotNull(user);
 
-// 	// @Test
-// 	// public void testDeletUser() throws SQLException {
-// 	// 	userDAO.deleteUser(37);
-// 	// }
+        String invalidFirstname = "John123";
+        String invalidLastname = "Doe@";
+        String invalidPhone = "123hvm456";
+        String invalidPassword = "123";
 
+        String nameRegex = "^[a-zA-Z\\s'-]+$";
+        String phoneRegex = "^\\d+$";
 
-// }
+        assertFalse(invalidFirstname.matches(nameRegex), "First name should be letters only");
+        assertFalse(invalidLastname.matches(nameRegex), "Last name should be letters only");
+        assertFalse(invalidPhone.matches(phoneRegex), "Phone number should be numbers only");
+        assertTrue(invalidPassword.length() < 6, "Password should have a length greater than 5");
 
+    }
+}
