@@ -1,0 +1,136 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('Mountain-Background.jpeg');
+    color: #333; 
+    background-size: cover; 
+    background-attachment: fixed; 
+    background-position: center; 
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px; 
+    background: rgba(255, 255, 255, 0.8); 
+    padding: 15px;
+    border-radius: 8px; 
+}
+h1 {
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.search-form {
+    margin: 10px 0;
+    display: inline-block;
+}
+
+.search-form input, .search-form button {
+    padding: 8px;
+    margin-right: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.search-form button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.search-form button:hover {
+    background-color: #0056b3;
+}
+
+main {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.9); 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; 
+}
+
+th, td {
+    padding: 15px; 
+    border: 1px solid #ddd; 
+    text-align: left;
+}
+
+
+th {
+    background-color: #007bff; 
+    color: white; 
+    text-shadow: 1px 1px 1px #000; 
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.btn {
+    padding: 10px 20px; 
+    font-size: 16px; 
+    background-color: #007bff; 
+    border-radius: 5px; 
+    color: white;
+}
+
+.btn:last-child {
+    margin-right: 0;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px; 
+}
+
+.order-button {
+    margin-left: 0; 
+}
+
+.dashboard-button {
+    margin-right: 0; 
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-control input {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.quantity-control button {
+    padding: 5px 8px;
+    border: 1px solid #ced4da;
+    background-color: #ffffff;
+    color: #007bff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.quantity-control button:hover {
+    background-color: #e2e6ea;
+}

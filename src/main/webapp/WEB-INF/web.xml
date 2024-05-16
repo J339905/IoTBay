@@ -138,4 +138,52 @@
     <servlet-name>AdminLogoutServlet</servlet-name>  
     <url-pattern>/AdminLogoutServlet</url-pattern>  
     </servlet-mapping> 
+
+    <servlet>
+        <servlet-name>ListProductServlet</servlet-name>
+        <servlet-class>uts.isd.Controller.ListProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListProductServlet</servlet-name>
+        <url-pattern>/ListProductServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ListProductAdminServlet</servlet-name>
+        <servlet-class>uts.isd.Controller.ListProductAdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListProductAdminServlet</servlet-name>
+        <url-pattern>/ListProductAdminServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>CreateProductServlet</servlet-name>
+        <servlet-class>uts.isd.Controller.CreateProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateProductServlet</servlet-name>
+        <url-pattern>/CreateProductServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateProductServlet</servlet-name>
+        <servlet-class>uts.isd.Controller.UpdateProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateProductServlet</servlet-name>
+        <url-pattern>/UpdateProductServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <servlet-class>uts.isd.Controller.DeleteProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <url-pattern>/DeleteProductServlet</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
