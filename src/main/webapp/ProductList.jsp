@@ -54,35 +54,6 @@
         .btn:hover {
             background-color: #0056b3;
         }
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .quantity-control input {
-            width: 40px;
-            text-align: center;
-            border: 1px solid #ddd;
-            margin: 0 5px;
-            line-height: 1.5;
-        }
-        .quantity-control button {
-            border: 1px solid #ddd;
-            background-color: #fff;
-            color: #007BFF;
-            font-size: 18px;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-        }
-        .quantity-control button:hover {
-            background-color: #f2f2f2;
-        }
         .search-form {
             margin-bottom: 20px;
         }
@@ -91,6 +62,11 @@
             margin-right: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
+        }
+        .checkbox-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -101,55 +77,38 @@
         <input type="text" name="category" placeholder="Product Category" value="${param.category}">
         <input type="submit" class="btn" value="Search">
     </form>
-    <form action="orderForm.jsp" method="post">
-        <table>
-            <thead>
+<form action="addToCart" method="post">
+    <table>
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Select</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="product" items="${products}">
                 <tr>
-                    <th>Product ID</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Order Quantity</th>
+                    <td>${product.productid}</td>
+                    <td>${product.productname}</td>
+                    <td>${product.productcategory}</td>
+                    <td>${product.productdescription}</td>
+                    <td>${product.productprice}</td>
+                    <td>${product.productstock}</td>
+                    <td>
+<input type="checkbox" name="selectedProduct_${product.productid}" value="${product.productid}">
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="product" items="${products}">
-                    <tr>
-                        <td>${product.productid}</td>
-                        <td>${product.productname}</td>
-                        <td>${product.productcategory}</td>
-                        <td>${product.productdescription}</td>
-                        <td>${product.productprice}</td>
-                        <td>${product.productstock}</td>
-                        <td>
-                            <div class="quantity-control">
-                                <button type="button" onclick="decrementQuantity(${product.productid})">-</button>
-                                <input type="number" name="orderQuantity_${product.productid}" id="orderQuantity_${product.productid}" value="0" min="0">
-                                <button type="button" onclick="incrementQuantity(${product.productid})">+</button>
-                            </div>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-        <input type="submit" class="btn" value="Order Selected Products">
-    </form>
+            </c:forEach>
+        </tbody>
+    </table>
+    <input type="submit" class="btn" value="Order Selected Products">
+</form>
+
     <a href="dashboard.jsp" class="btn">Return to Dashboard</a>
-
-    <script>
-        function incrementQuantity(productId) {
-            var quantityInput = document.getElementById('orderQuantity_' + productId);
-            quantityInput.value = parseInt(quantityInput.value) + 1;
-        }
-
-        function decrementQuantity(productId) {
-            var quantityInput = document.getElementById('orderQuantity_' + productId);
-            if (quantityInput.value > 0) {
-                quantityInput.value = parseInt(quantityInput.value) - 1;
-            }
-        }
-    </script>
 </body>
 </html>
