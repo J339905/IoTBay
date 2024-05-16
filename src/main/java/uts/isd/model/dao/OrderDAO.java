@@ -50,20 +50,25 @@ public class OrderDAO {
         return insertStmt.executeUpdate() > 0;
     }
 
-public boolean insertOrder(int userId, Cart cart, String deliveryAddress, String paymentMethod) throws SQLException {
-    String query = "INSERT INTO `Order` (UserID, Order_Date, Order_Status, Delivery_Address, TotalPrice, Quantity) VALUES (?, ?, ?, ?, ?, ?)";
-    PreparedStatement stmt = conn.prepareStatement(query);
-    stmt.setInt(1, userId);
-    stmt.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
-    stmt.setString(3, "Completed"); // Example status
-    stmt.setString(4, deliveryAddress);
-    stmt.setDouble(5, calculateTotalPrice(cart)); // Assuming you have a method to calculate total price
-    stmt.setInt(6, cart.getTotalQuantity());
-
-    int affectedRows = stmt.executeUpdate();
-    stmt.close();
-    return affectedRows > 0;
-}
+    public boolean insertOrder(Integer userId, Cart cart, String deliveryAddress, String paymentMethod) throws SQLException {
+        String query = "INSERT INTO `Order` (UserID, Order_Date, Order_Status, Delivery_Address, TotalPrice, Quantity) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        if (userId != null) {
+            stmt.setInt(1, userId);
+        } else {
+            stmt.setNull(1, java.sql.Types.INTEGER);
+        }
+        stmt.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+        stmt.setString(3, "Pending"); // Assuming status
+        stmt.setString(4, deliveryAddress);
+        stmt.setDouble(5, calculateTotalPrice(cart)); // Ensure this calculation method exists
+        stmt.setInt(6, cart.getTotalQuantity());
+    
+        int affectedRows = stmt.executeUpdate();
+        stmt.close();
+        return affectedRows > 0;
+    }
+    
 
 private double calculateTotalPrice(Cart cart) {
     double totalPrice = 0;

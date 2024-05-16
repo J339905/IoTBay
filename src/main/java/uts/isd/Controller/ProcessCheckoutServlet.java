@@ -35,33 +35,31 @@ public class ProcessCheckoutServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
         User user = (User) session.getAttribute("user");
-
-        if (cart == null || user == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-
+    
         String paymentMethod = request.getParameter("paymentMethod");
         String deliveryAddress = request.getParameter("deliveryAddress");
-
+    
+        if (cart == null || cart.getItems().isEmpty()) {
+            response.sendRedirect("cart.jsp"); // Redirect to cart page if cart is empty
+            return;
+        }
+    
         try {
-            if (!cart.getItems().isEmpty()) {
-                // Process payment here (mock)
-
-                // Insert order into the database
-                orderDAO.insertOrder(user.getUserID(), cart, deliveryAddress, paymentMethod);
-                
-                // Clear the cart after order is placed
-                cart.clearItems();
-                session.setAttribute("cart", cart);
-
-                // Redirect to a confirmation page
-                response.sendRedirect("orderConfirmation.jsp");
-            }
+            // Insert order into the database
+            Integer userId = user != null ? user.getUserID() : null; // Use null if user is not logged in
+            orderDAO.insertOrder(userId, cart, deliveryAddress, paymentMethod);
+            
+            // Clear the cart after order is placed
+            cart.clearItems();
+            session.setAttribute("cart", cart);
+    
+            // Redirect to a confirmation page
+            response.sendRedirect("orderConfirmation.jsp");
         } catch (SQLException e) {
             throw new ServletException("Order processing failed", e);
         }
     }
+    
 
     @Override
     public void destroy() {
