@@ -61,13 +61,13 @@ public class AdminCreateUserServlet extends HttpServlet {
                 password == null || password.trim().isEmpty() || gender == null || gender.trim().isEmpty() ||
                 role == null || role.trim().isEmpty()) {
             session.setAttribute("nullErr", "Please fill in all the fields given.");
-            request.getRequestDispatcher("admin/createUser.jsp").include(request, response);
+            request.getRequestDispatcher("/admin/createUser.jsp").include(request, response);
             return;
         }
 
         if (!email.matches(emailRegex)) {
             session.setAttribute("emailErr", "Email format wrong, try again!");
-            request.getRequestDispatcher("admin/createUser.jsp").include(request, response);
+            request.getRequestDispatcher("/admin/createUser.jsp").include(request, response);
             return;
         }
 
@@ -84,7 +84,7 @@ public class AdminCreateUserServlet extends HttpServlet {
 
         if (!phoneStr.matches(phoneRegex)) {
             session.setAttribute("phoneErr", "Phone number must consist of numbers only");
-            request.getRequestDispatcher("admin/createUser.jsp").include(request, response);
+            request.getRequestDispatcher("/admin/createUser.jsp").include(request, response);
             return;
         }
         int phone = Integer.parseInt(phoneStr);
@@ -100,7 +100,7 @@ public class AdminCreateUserServlet extends HttpServlet {
             User checkuser = userDAO.findExistingUser(email);
             if (checkuser != null) {
                 session.setAttribute("userexistsErr", "This user already exists");
-                request.getRequestDispatcher("admin/createUser.jsp").include(request, response);
+                request.getRequestDispatcher("/admin/createUser.jsp").include(request, response);
                 return;
             }
             

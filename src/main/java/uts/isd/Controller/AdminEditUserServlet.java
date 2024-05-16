@@ -72,7 +72,7 @@ public class AdminEditUserServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UserDAO userDAO = (UserDAO) session.getAttribute("userDAO");
         if (userDAO == null) {
-            request.getRequestDispatcher("admin.jsp").forward(request, response);
+            request.getRequestDispatcher("/admin.jsp").forward(request, response);
             return;
         }
 
@@ -96,13 +96,13 @@ public class AdminEditUserServlet extends HttpServlet {
                 gender == null || gender.trim().isEmpty() ||
                 role == null || role.trim().isEmpty()) {
             session.setAttribute("nullErr", "Please fill in all the fields given.");
-            request.getRequestDispatcher("admin/editUser.jsp").include(request, response);
+            request.getRequestDispatcher("/admin/editUser.jsp").include(request, response);
             return;
         }
 
         if (!email.matches(emailRegex)) {
             session.setAttribute("emailErr", "Email format wrong, try again!");
-            request.getRequestDispatcher("admin/editUser.jsp").include(request, response);
+            request.getRequestDispatcher("/admin/editUser.jsp").include(request, response);
             return;
         }
 
@@ -114,7 +114,7 @@ public class AdminEditUserServlet extends HttpServlet {
 
         if (!phoneStr.matches(phoneRegex)) {
             session.setAttribute("phoneErr", "Phone number must consist of numbers only");
-            request.getRequestDispatcher("admin/editUser.jsp").include(request, response);
+            request.getRequestDispatcher("/admin/editUser.jsp").include(request, response);
             return;
         }
 

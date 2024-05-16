@@ -29,7 +29,6 @@ public class AdminReadUsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("read users");
 
         HttpSession session = request.getSession();
 

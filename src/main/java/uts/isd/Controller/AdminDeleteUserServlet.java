@@ -29,21 +29,21 @@ public class AdminDeleteUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("userId");
         if (userId == null || userId.trim().isEmpty()) {
-            response.sendRedirect("viewUsers.jsp"); 
+            response.sendRedirect("/admin/viewUsers.jsp"); 
             return;
         }
 
         HttpSession session = request.getSession();
         UserDAO userDAO = (UserDAO) session.getAttribute("userDAO");
         if (userDAO == null) {
-            response.sendRedirect("admin.jsp"); 
+            response.sendRedirect("/admin.jsp"); 
             return;
         }
 
         try {
 
             userDAO.deleteUser(Integer.valueOf(userId));
-            response.sendRedirect("admin.jsp"); 
+            response.sendRedirect("/admin.jsp"); 
             
         } catch (SQLException e) {
             throw new ServletException("Database access error.", e);
