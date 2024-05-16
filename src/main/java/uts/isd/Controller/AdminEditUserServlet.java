@@ -114,7 +114,7 @@ public class AdminEditUserServlet extends HttpServlet {
 
         if (!phoneStr.matches(phoneRegex)) {
             session.setAttribute("phoneErr", "Phone number must consist of numbers only");
-            request.getRequestDispatcher("admin/v.jsp").include(request, response);
+            request.getRequestDispatcher("admin/editUser.jsp").include(request, response);
             return;
         }
 
