@@ -82,6 +82,7 @@ public class LoginServlet extends HttpServlet {
                     }
                 }
                 else {
+                    session.setAttribute("loginErr", "Deactivated account");
                     response.sendRedirect("login.jsp");
                 }
             } else {
