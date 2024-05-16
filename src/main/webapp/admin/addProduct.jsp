@@ -13,7 +13,6 @@
     <meta charset="UTF-8">
     <title>Create New Product</title>
     <link rel="stylesheet" href="/css/admin.css">
-
     <!-- Inline Styles for the form -->
     <style>
         body {
@@ -84,6 +83,15 @@
         .btn-secondary:hover {
             background-color: #27ae60;
         }
+
+        .error-message {
+            color: #e74c3c;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #fee;
+            border: 1px solid #e74c3c;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -105,14 +113,20 @@
     <div class="content">
         <h1>Create a New Product</h1>
         <p>Fill out the form below to add a new product.</p>
-
-        <!-- Product Creation Form -->
         <form action="/createProduct" method="post" class="product-form">
+            <% String errorMessage = (String) session.getAttribute("createProductError");
+               if (errorMessage != null) {
+                   session.removeAttribute("createProductError"); // Clear after display
+            %>
+            <div class="error-message"><%= errorMessage %></div>
+            <% } %>
+
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name">
 
             <label for="category">Category:</label>
-            <select id="category" name="category" required>
+            <select id="category" name="category">
+                <option value="">Select a category</option>
                 <option value="Actuator">Actuator</option>
                 <option value="Gateway">Gateway</option>
                 <option value="Sensor">Sensor</option>
@@ -120,13 +134,13 @@
             </select>
 
             <label for="description">Description:</label>
-            <input type="text" id="description" name="description" required>
+            <input type="text" id="description" name="description">
 
-            <label for="price">Price:</label>
-            <input type="number" step="0.01" id="price" name="price" required>
+            <label for="price">Price ($):</label>
+            <input type="textr" step="0.01" id="price" name="price">
 
             <label for="stock">Stock:</label>
-            <input type="number" id="stock" name="stock" required>
+            <input type="text" id="stock" name="stock">
 
             <button type="submit" class="btn btn-primary">Create Product</button>
         </form>
