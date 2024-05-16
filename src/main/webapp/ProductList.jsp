@@ -77,38 +77,39 @@
         <input type="text" name="category" placeholder="Product Category" value="${param.category}">
         <input type="submit" class="btn" value="Search">
     </form>
-<form action="addToCart" method="post">
-    <table>
-        <thead>
-            <tr>
-                <th>Product ID</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Select</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="product" items="${products}">
+    <form action="addToCart" method="post">
+        <table>
+            <thead>
                 <tr>
-                    <td>${product.productid}</td>
-                    <td>${product.productname}</td>
-                    <td>${product.productcategory}</td>
-                    <td>${product.productdescription}</td>
-                    <td>${product.productprice}</td>
-                    <td>${product.productstock}</td>
-                    <td>
-<input type="checkbox" name="selectedProduct_${product.productid}" value="${product.productid}">
-                    </td>
+                    <th>Product ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Select</th>
                 </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-    <input type="submit" class="btn" value="Order Selected Products">
-</form>
+            </thead>
+            <tbody>
+                <c:forEach var="product" items="${products}">
+                    <tr>
+                        <td>${product.productid}</td>
+                        <td>${product.productname}</td>
+                        <td>${product.productcategory}</td>
+                        <td>${product.productdescription}</td>
+                        <td>${product.productprice}</td>
+                        <td>${product.productstock}</td>
+                        <td>
+<input type="checkbox" name="selectedProduct_${product.productid}"
+       value="${product.productid}" ${sessionScope.selectedProductIds.contains(product.productid) ? 'disabled' : ''}>
 
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        <input type="submit" class="btn" value="Order Selected Products">
+    </form>
     <a href="dashboard.jsp" class="btn">Return to Dashboard</a>
 </body>
 </html>

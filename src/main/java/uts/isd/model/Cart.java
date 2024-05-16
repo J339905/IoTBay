@@ -23,5 +23,23 @@ public class Cart {
         this.items = items;
     }
 
+    public void removeItem(int productId) {
+        CartItem itemToRemove = null;
+        for (CartItem item : items) {
+            if (item.getProduct().getProductid() == productId) {
+                itemToRemove = item;
+                break;
+            }
+        }
+        if (itemToRemove != null) {
+            items.remove(itemToRemove);
+        }
+    }
+
+    public void clearItems() {
+        this.items.clear();
+    }
+    
+
     // Optionally add more methods to manage items in the cart
 }

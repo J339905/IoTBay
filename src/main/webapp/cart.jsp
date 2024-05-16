@@ -39,7 +39,7 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        .btn {
+        .btn, .btn-remove, .btn-quantity {
             padding: 5px 10px;
             margin: 0 5px;
             font-size: 16px;
@@ -49,35 +49,29 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        .btn:hover {
+        .btn:hover, .btn-remove:hover, .btn-quantity:hover {
             background-color: #f2f2f2;
         }
-
         .btn-quantity {
-            color: #007BFF;
-            background-color: #fff;
-            border: 2px solid #ddd;
-            border-radius: 50%; /* Circular shape */
+            border-radius: 50%;
             width: 30px;
             height: 30px;
-            cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0;
-            margin: 0 5px;
         }
-        .btn-quantity:hover {
-            background-color: #f2f2f2;
+        .btn-remove {
+            color: #ff0000;
         }
-
         th.quantity, td.quantity {
-            width: 160px; /* Adjust width here */
+            width: 160px;
         }
         .link-btn {
             color: #fff;
             background-color: #007BFF;
             text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
         }
         .link-btn:hover {
             background-color: #0056b3;
@@ -95,6 +89,7 @@
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Update</th>
+                    <th>Remove</th>
                 </tr>
             </thead>
             <tbody>
@@ -109,20 +104,38 @@
                             <button type="button" class="btn-quantity" onclick="changeQuantity('${item.product.productid}', 1)">+</button>
                         </td>
                         <td><input type="submit" class="btn link-btn" value="Update"></td>
+                        <td><button type="button" class="btn btn-remove" onclick="removeItem('${item.product.productid}')">X</button></td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
     </form>
     <a href="/listProducts" class="btn link-btn">Continue Shopping</a>
+    <a href="updateCart?cancel=true" class="btn link-btn" style="background-color: #ff4444;">Cancel Cart</a>
+
 
     <script>
         function changeQuantity(productId, change) {
             var quantityInput = document.getElementsByName('quantity_' + productId)[0];
             var newQuantity = parseInt(quantityInput.value) + change;
-            if (newQuantity >= 0) {
+            if (newQuantity >= 1) {
                 quantityInput.value = newQuantity;
             }
+        }
+
+        function removeItem(productId) {
+            var form = document.createElement('form');
+            form.method = 'post';
+            form.action = 'updateCart';
+
+            var idInput = document.createElement('input');
+            idInput.type = 'hidden';
+            idInput.name = 'removeProductId';
+            idInput.value = productId;
+
+            form.appendChild(idInput);
+            document.body.appendChild(form);
+            form.submit();
         }
     </script>
 </body>

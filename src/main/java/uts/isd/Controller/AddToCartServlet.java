@@ -3,6 +3,9 @@ package uts.isd.Controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +19,7 @@ import uts.isd.model.Product;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
 
-@WebServlet("/addToCart")
+@WebServlet(name = "AddToCartServlet", urlPatterns = {"/addToCart"})
 public class AddToCartServlet extends HttpServlet {
     private DBConnector dbConnector;
     private ProductDAO productDAO;
@@ -36,7 +39,15 @@ public class AddToCartServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             System.out.println("Session ID in AddToCartServlet: " + session.getId());
-    
+
+            // Retrieve or initialize the set of selected product IDs
+            Set<Integer> selectedProductIds = (Set<Integer>) session.getAttribute("selectedProductIds");
+            if (selectedProductIds == null) {
+                selectedProductIds = new HashSet<>();
+                session.setAttribute("selectedProductIds", selectedProductIds);
+                System.out.println("New product ID set created.");
+            }
+
             Cart cart = (Cart) session.getAttribute("cart");
             if (cart == null) {
                 cart = new Cart();
@@ -45,33 +56,44 @@ public class AddToCartServlet extends HttpServlet {
             } else {
                 System.out.println("Cart found with items: " + cart.getItems().size());
             }
-    
+
+            boolean productAdded = false;
             for (String key : request.getParameterMap().keySet()) {
                 if (key.startsWith("selectedProduct_")) {
                     int productId = Integer.parseInt(request.getParameter(key));
-                    Product product = productDAO.getProductById(productId);
-                    if (product != null) {
-                        CartItem newItem = new CartItem(product, 1);
-                        cart.addItem(newItem);
-                        System.out.println("Added product to cart: " + product.getProductname());
+                    // Check if product has already been added to the cart
+                    if (!selectedProductIds.contains(productId)) {
+                        Product product = productDAO.getProductById(productId);
+                        if (product != null) {
+                            CartItem newItem = new CartItem(product, 1); // Assume quantity is 1, can be adjusted
+                            cart.addItem(newItem);
+                            selectedProductIds.add(productId); // Add to set of selected IDs
+                            System.out.println("Added product to cart: " + product.getProductname());
+                            productAdded = true;
+                        }
+                    } else {
+                        System.out.println("Product ID " + productId + " is already in the cart.");
                     }
                 }
             }
-    
-            response.sendRedirect("viewCart");
+
+            if (productAdded) {
+                System.out.println("Redirecting to view cart.");
+                response.sendRedirect("viewCart");
+            } else {
+                System.out.println("No new products added. Redirecting to product list.");
+                response.sendRedirect("/viewCart"); // Corrected the redirect link for consistency
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error occurred.");
         }
     }
-    
 
     @Override
     public void destroy() {
-        try {
-            dbConnector.closeConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super.destroy();
+        // Clean up any resources such as database connections here
     }
+
 }
