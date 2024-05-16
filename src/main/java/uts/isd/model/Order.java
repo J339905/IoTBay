@@ -1,8 +1,8 @@
 package uts.isd.model;
+
 import java.time.LocalDateTime;
 
 public class Order {
-
     private int orderId;
     private int userId;
     private LocalDateTime orderDate;
@@ -10,6 +10,7 @@ public class Order {
     private String deliveryAddress;
     private String quantity;
 
+    // Constructors
     public Order(int orderId, int userId, LocalDateTime orderDate, String orderStatus, String deliveryAddress, String quantity) {
         this.orderId = orderId;
         this.userId = userId;
@@ -19,6 +20,7 @@ public class Order {
         this.quantity = quantity;
     }
 
+    // Getters and Setters
     public int getOrderId() {
         return orderId;
     }

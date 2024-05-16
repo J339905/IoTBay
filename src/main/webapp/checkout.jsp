@@ -67,6 +67,14 @@
         .link-btn:hover {
             background-color: #0056b3;
         }
+        .input-field {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -93,8 +101,10 @@
         </table>
         <p>Total Price: $${cart.totalPrice}</p>
         <p>Total Quantity: ${cart.totalQuantity}</p>
-        <h2>Payment Method</h2>
         <form action="processCheckout" method="post">
+            <h2>Delivery Address</h2>
+            <input type="text" name="deliveryAddress" class="input-field" placeholder="Enter delivery address" required>
+            <h2>Payment Method</h2>
             <select name="paymentMethod">
                 <option value="creditCard">Credit Card</option>
                 <option value="paypal">PayPal</option>

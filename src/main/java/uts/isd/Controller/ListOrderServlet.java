@@ -8,9 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.util.List;
-
-
 import uts.isd.model.Order;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.OrderDAO;
@@ -22,52 +22,35 @@ public class ListOrderServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        super.init();
         try {
             db = new DBConnector();
             Connection conn = db.openConnection();
             orderDAO = new OrderDAO(conn);
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();  // Log to console or a file
+            e.printStackTrace();
             throw new ServletException("DBConnector initialization failed.", e);
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String currentSortBy = request.getParameter("sortBy");
-        String currentSortOrder = request.getParameter("sortOrder");
-    
-        String nextSortOrder = "asc"; // Default to ascending unless conditions below are met
-    
-        String previousSortBy = (String) request.getSession().getAttribute("prevSortBy");
-        String previousSortOrder = (String) request.getSession().getAttribute("prevSortOrder");
-    
-        // Check if the same sorting field was clicked again
-        if (currentSortBy != null && currentSortBy.equals(previousSortBy) && "asc".equals(previousSortOrder)) {
-            nextSortOrder = "desc";
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) {
+            response.sendRedirect("login.jsp");
+            return;
         }
-    
+        String currentSortBy = request.getParameter("sortBy") != null ? request.getParameter("sortBy") : "OrderID";
+        String currentSortOrder = request.getParameter("sortOrder") != null ? request.getParameter("sortOrder") : "asc";
+
         try {
-            List<Order> orders = orderDAO.listAllOrders(currentSortBy, nextSortOrder);
+            List<Order> orders = orderDAO.listOrdersByUserId(userId, currentSortBy, currentSortOrder);
             request.setAttribute("orderList", orders);
-            request.setAttribute("currentSortOrder", nextSortOrder);
-            request.setAttribute("currentSortBy", currentSortBy);
-    
-            // Update session with current state
-            request.getSession().setAttribute("prevSortBy", currentSortBy);
-            request.getSession().setAttribute("prevSortOrder", nextSortOrder);
-    
             request.getRequestDispatcher("orderlist.jsp").forward(request, response);
         } catch (SQLException e) {
-            throw new ServletException("Error retrieving orders", e);
+            throw new ServletException("Error retrieving orders for user " + userId, e);
         }
     }
-    
-    
-    
-    
-    
 
     @Override
     public void destroy() {

@@ -68,6 +68,27 @@ public class OrderDAO {
         resultSet.close();
         return listOrder;
     }
+
+    public ArrayList<Order> listOrdersByUserId(int userId, String sortBy, String sortOrder) throws SQLException {
+        String query = "SELECT * FROM `Order` WHERE UserID = ? ORDER BY " + sortBy + " " + sortOrder;
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, userId);
+        ArrayList<Order> listOrder = new ArrayList<>();
+        ResultSet resultSet = stmt.executeQuery();
+        while (resultSet.next()) {
+            listOrder.add(new Order(
+                resultSet.getInt("OrderID"),
+                resultSet.getInt("UserID"),
+                resultSet.getObject("Order_Date", LocalDateTime.class),
+                resultSet.getString("Order_Status"),
+                resultSet.getString("Delivery_address"),
+                resultSet.getString("Quantity")
+            ));
+        }
+        resultSet.close();
+        stmt.close();
+        return listOrder;
+    }
     
     
     

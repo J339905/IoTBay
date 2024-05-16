@@ -50,6 +50,8 @@ public class LoginServlet extends HttpServlet {
         try {
             User user = userDAO.findUser(email, password);
             if (user != null) {
+                session.setAttribute("userId", user.getUserID()); // Storing user ID in session
+
                 session.setAttribute("user", user);
                 logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
                 if (user.getRole().equals("Customer")) {
