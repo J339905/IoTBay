@@ -34,14 +34,14 @@ public class AdminEditUserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("userId");
         if (userId == null || userId.trim().isEmpty()) {
-            response.sendRedirect("viewUsers.jsp"); // Redirect if no user ID is found
+            response.sendRedirect("/admin/viewUsers.jsp"); // Redirect if no user ID is found
             return;
         }
 
         HttpSession session = request.getSession();
         UserDAO userDAO = (UserDAO) session.getAttribute("userDAO");
         if (userDAO == null) {
-            response.sendRedirect("admin.jsp"); // Redirect if UserDAO is not found in the session
+            response.sendRedirect("/admin.jsp"); // Redirect if UserDAO is not found in the session
             return;
         }
 
@@ -51,7 +51,7 @@ public class AdminEditUserServlet extends HttpServlet {
                 request.setAttribute("user", user); // Set the user in the request scope
                 request.getRequestDispatcher("/admin/editUser.jsp").forward(request, response);
             } else {
-                response.sendRedirect("viewUsers.jsp"); // Redirect if no user is found
+                response.sendRedirect("/admin/viewUsers.jsp"); // Redirect if no user is found
             }
         } catch (SQLException e) {
             throw new ServletException("Database access error.", e);
@@ -60,10 +60,11 @@ public class AdminEditUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("email");
         String userId = request.getParameter("userId");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
-        String phone = request.getParameter("phone");
+        String phoneStr = request.getParameter("phone");
         String gender = request.getParameter("gender");
         String role = request.getParameter("role");
         String isActivated = request.getParameter("isActivated");
@@ -75,16 +76,66 @@ public class AdminEditUserServlet extends HttpServlet {
             return;
         }
 
+        User u = new User();
+        try {
+            u = userDAO.findUserById(userId);
+            if (u != null) {
+                request.setAttribute("user", u);
+            }
+        } catch (SQLException e) {
+            throw new ServletException("Database access error.", e);
+        }
+
+        String emailRegex = "^.+@.+\\.com$";
+        String phoneRegex = "^\\d+$";
+        String nameRegex = "^[a-zA-Z\\s'-]+$";
+
+        if (firstName == null || firstName.trim().isEmpty() || lastName == null || lastName.trim().isEmpty() ||
+                email == null || email.trim().isEmpty() || 
+                phoneStr == null || phoneStr.trim().isEmpty() ||
+                gender == null || gender.trim().isEmpty() ||
+                role == null || role.trim().isEmpty()) {
+            session.setAttribute("nullErr", "Please fill in all the fields given.");
+            request.getRequestDispatcher("admin/editUser.jsp").include(request, response);
+            return;
+        }
+
+        if (!email.matches(emailRegex)) {
+            session.setAttribute("emailErr", "Email format wrong, try again!");
+            request.getRequestDispatcher("admin/editUser.jsp").include(request, response);
+            return;
+        }
+
+        if (!firstName.matches(nameRegex) || !lastName.matches(nameRegex)) {
+            session.setAttribute("nametypeErr", "Names must contain letters only");
+            request.getRequestDispatcher("/admin/editUser.jsp").include(request, response);
+            return;
+        }
+
+        if (!phoneStr.matches(phoneRegex)) {
+            session.setAttribute("phoneErr", "Phone number must consist of numbers only");
+            request.getRequestDispatcher("admin/v.jsp").include(request, response);
+            return;
+        }
+
         try {
             User user = userDAO.findUserById(userId);
             if (user == null) {
-                request.getRequestDispatcher("/admin/viewUsers.jsp").forward(request, response);
+                request.getRequestDispatcher("/admin/editUser.jsp").forward(request, response);
                 return;
             }
 
+            User checkuser = userDAO.findExistingUser(email);
+            if (checkuser != null && !email.equals(u.getEmail())) {
+                session.setAttribute("userexistsErr", "This user already exists");
+                request.getRequestDispatcher("/admin/editUser.jsp").include(request, response);
+                return;
+            }
+
+            user.setEmail(email);
             user.setfirstName(firstName);
             user.setlastname(lastName);
-            user.setPhone(Integer.parseInt(phone));
+            user.setPhone(Integer.parseInt(phoneStr));
             user.setGender(gender);
             user.setRole(role);
             if (isActivated.equals("true")) {

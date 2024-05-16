@@ -68,8 +68,6 @@
     </style>
 </head>
 <body>
-
-    <!-- Navigation Bar -->
     <nav>
         <ul>
             <li><a href="/admin.jsp">AdminPage</a></li>
@@ -80,24 +78,50 @@
         </ul>
     </nav>
 
-    <!-- Page Content -->
+     <% 
+        String emailErr = (String) session.getAttribute("emailErr");
+        String nametypeErr = (String) session.getAttribute("nametypeErr");
+        String nullErr = (String) session.getAttribute("nullErr");
+        String phoneErr = (String) session.getAttribute("phoneErr");
+        String userexistsErr = (String) session.getAttribute("userexistsErr");
+    %>
+
     <div class="content">
         <h1>Edit User</h1>
         <p>Update the user details below:</p>
 
-        <!-- User Edit Form -->
+        <% if (nullErr != null) { %>
+            <div class="alert alert-danger"><%= nullErr %></div>
+        <% } %>
+        <% if(userexistsErr != null) { %>
+            <div class="alert alert-danger"><%= userexistsErr
+            %></div>
+        <% } %>
+
         <% User user = (User) request.getAttribute("user"); %>
         <form action="/AdminEditUserServlet" method="post" class="user-form">
             <input type="hidden" name="userId" value="<%= user.getUserID() %>">
+
+            <label for="first-name">Email:</label>
+            <input type="text" id="email" name="email" value="<%= user.getEmail() %>" required>
+            <% if(emailErr != null) { %>
+                <div class="alert alert-danger"><%= emailErr %></div>
+            <% } %>
 
             <label for="first-name">First Name:</label>
             <input type="text" id="first-name" name="firstName" value="<%= user.getfirstName() %>" required>
 
             <label for="last-name">Last Name:</label>
             <input type="text" id="last-name" name="lastName" value="<%= user.getlastname() %>" required>
+            <% if(nametypeErr != null) { %>
+                <div class="alert alert-danger"><%= nametypeErr %></div>
+            <% } %>
 
             <label for="phone-number">Phone Number:</label>
             <input type="number" id="phone-number" name="phone" value="<%= user.getPhone() %>" required>
+            <% if(phoneErr != null) { %>
+                <div class="alert alert-danger"><%= phoneErr %></div>
+            <% } %>
 
             <label for="gender">Gender:</label>
             <select id="gender" name="gender" required>

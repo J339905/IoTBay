@@ -68,14 +68,15 @@ public class UserDAO {
 
     public void adminUpdateUser(User user) throws SQLException {
         PreparedStatement st = conn.prepareStatement(
-                "UPDATE user SET FirstName = ?, LastName = ?, Phone_Number = ?, gender = ?, Role = ?, isActivated = ? WHERE UserID = ?");
-        st.setString(1, user.getfirstName());
-        st.setString(2, user.getlastname());
-        st.setInt(3, user.getPhone());
-        st.setString(4, user.getGender());
-        st.setString(5, user.getRole());
-        st.setBoolean(6, user.getIsActivated());
-        st.setInt(7, user.getUserID());
+                "UPDATE user SET email = ?, FirstName = ?, LastName = ?, Phone_Number = ?, gender = ?, Role = ?, isActivated = ? WHERE UserID = ?");
+        st.setString(1, user.getEmail());
+        st.setString(2, user.getfirstName());
+        st.setString(3, user.getlastname());
+        st.setInt(4, user.getPhone());
+        st.setString(5, user.getGender());
+        st.setString(6, user.getRole());
+        st.setBoolean(7, user.getIsActivated());
+        st.setInt(8, user.getUserID());
 
         st.executeUpdate();
     }
