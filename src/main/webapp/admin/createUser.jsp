@@ -136,7 +136,7 @@
             <% } %>
 
             <label for="phone-number">Phone Number:</label>
-            <input type="text" id="phone-number" name="phone" required>
+            <input type="number" id="phone-number" name="phone" required>
             <% if(phoneErr != null) { %>
                 <div class="alert alert-danger"><%= phoneErr %></div>
             <% } %>
@@ -158,6 +158,12 @@
             <select id="role" name="role" required>
                 <option value="Customer">Customer</option>
                 <option value="Staff">Staff</option>
+            </select>
+
+            <label for="isActivated">Activated:</label>
+            <select id="isActivated" name="isActivated" required>
+                <option value="true"> True</option>
+                <option value="false">False</option>
             </select>
 
             <button type="submit" class="btn btn-primary">Create User</button>

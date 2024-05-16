@@ -13,25 +13,13 @@ public class User implements Serializable {
 	private String favCol;
 	private String role;
 	private String status;
+	private boolean isActivated; 
 
 	public User() {
 	}
 
-	// public User(/*int userId,*/ String firstname, String lastname, String email,
-	// int phone, String password, String gender, String role) {
-	// this.userId = userId;
-	// this.email = email;
-	// this.firstname = firstname;
-	// this.lastname = lastname;
-	// this.phone = phone;
-	// this.password = password;
-	// this.gender = gender;
-	// this.role =role;
-
-	// }
-
 	public User(int userId, String firstname, String lastname, String email, int phone, String password, String gender,
-			String role) {
+			String role, boolean isActivated) {
 		this.userId = userId;
 		this.email = email;
 		this.firstname = firstname;
@@ -40,9 +28,10 @@ public class User implements Serializable {
 		this.password = password;
 		this.gender = gender;
 		this.role = role;
+		this.isActivated = isActivated;
 	}
 
-	public User(int userId, String firstname, String lastname, String email, int phone, String gender, String role) {
+	public User(int userId, String firstname, String lastname, String email, int phone, String gender, String role, boolean isActivated) {
 		this.userId = userId;
 		this.email = email;
 		this.firstname = firstname;
@@ -50,6 +39,7 @@ public class User implements Serializable {
 		this.phone = phone;
 		this.gender = gender;
 		this.role = role;
+		this.isActivated = isActivated;
 	}
 
 	public void setUserID(int i) {
@@ -91,6 +81,11 @@ public class User implements Serializable {
 	public void setStatus(String value) {
 		this.status = value;
 	}
+
+	public void setIsActivated(boolean value) {
+		this.isActivated = value;
+	}
+
 	public int getUserID() {
 		return this.userId;
 	}
@@ -129,6 +124,10 @@ public class User implements Serializable {
 
 	public String getStatus() {
 		return this.status;
+	}
+
+	public boolean getIsActivated() {
+		return this.isActivated;
 	}
 
 }

@@ -22,10 +22,10 @@ public class UserDAO {
     }
 
     public int adminCreateUser(String firstname, String lastname, String email, int phone, String password,
-            String gender, String role) throws SQLException {
+            String gender, String role, boolean isActivated) throws SQLException {
 
         PreparedStatement st = conn.prepareStatement(
-                "Insert into user(FirstName, LastName , email, Phone_Number, password ,gender, Role) Values(?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                "Insert into user(FirstName, LastName , email, Phone_Number, password ,gender, Role, isActivated) Values(?,?,?,?,?,?,?, ?)", Statement.RETURN_GENERATED_KEYS);
         st.setString(1, firstname);
         st.setString(2, lastname);
         st.setString(3, email);
@@ -33,6 +33,7 @@ public class UserDAO {
         st.setString(5, password);
         st.setString(6, gender);
         st.setString(7, role);
+        st.setBoolean(8, isActivated);
         st.executeUpdate();
 
         ResultSet rs = st.getGeneratedKeys();
@@ -45,7 +46,7 @@ public class UserDAO {
 
     public int createUser(String firstname, String lastname, String email, int phone, String password, String gender,
             String role) throws SQLException {
-        String sql = "INSERT INTO user (FirstName, LastName, Email, Phone_Number, Password, Gender, Role) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user (FirstName, LastName, Email, Phone_Number, Password, Gender, Role, isActivated) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         st.setString(1, firstname);
         st.setString(2, lastname);
@@ -54,6 +55,7 @@ public class UserDAO {
         st.setString(5, password);
         st.setString(6, gender);
         st.setString(7, role);
+        st.setBoolean(8, true);
         st.executeUpdate();
 
         ResultSet rs = st.getGeneratedKeys();
@@ -66,13 +68,14 @@ public class UserDAO {
 
     public void adminUpdateUser(User user) throws SQLException {
         PreparedStatement st = conn.prepareStatement(
-                "UPDATE user SET FirstName = ?, LastName = ?, Phone_Number = ?, gender = ?, Role = ? WHERE UserID = ?");
+                "UPDATE user SET FirstName = ?, LastName = ?, Phone_Number = ?, gender = ?, Role = ?, isActivated = ? WHERE UserID = ?");
         st.setString(1, user.getfirstName());
         st.setString(2, user.getlastname());
         st.setInt(3, user.getPhone());
         st.setString(4, user.getGender());
         st.setString(5, user.getRole());
-        st.setInt(6, user.getUserID());
+        st.setBoolean(6, user.getIsActivated());
+        st.setInt(7, user.getUserID());
 
         st.executeUpdate();
     }
@@ -119,7 +122,8 @@ public class UserDAO {
                                     rs.getInt("Phone_Number"),
                                     rs.getString("Password"),
                                     rs.getString("Gender"),
-                                    rs.getString("Role"));
+                                    rs.getString("Role"),
+                                    rs.getBoolean("isActivated"));
                         }
 
                     }
@@ -168,7 +172,8 @@ public class UserDAO {
                             rs.getInt("Phone_Number"),
                             rs.getString("Password"),
                             rs.getString("Gender"),
-                            rs.getString("Role"));
+                            rs.getString("Role"),
+                            rs.getBoolean("isActivated"));
                 }
             }
         }
@@ -222,8 +227,9 @@ public class UserDAO {
             int phone = Integer.parseInt(rs.getString(6));
             String role = rs.getString(7);
             String gender = rs.getString(8);
+            boolean isActivated = rs.getBoolean(9);
 
-            User u = new User(userId, firstName, lastName, email, phone, gender, role);
+            User u = new User(userId, firstName, lastName, email, phone, gender, role, isActivated);
             users.add(u);
         }
         return users;
@@ -244,7 +250,8 @@ public class UserDAO {
                     rs.getInt("Phone_Number"), // Make sure this column exists in your DB
                     rs.getString("Password"),
                     rs.getString("Gender"), // Make sure this column exists in your DB
-                    rs.getString("Role"));
+                    rs.getString("Role"),
+                    rs.getBoolean("isActivated"));
         } // get from sql table
         return null;
     }
@@ -262,7 +269,8 @@ public class UserDAO {
                     rs.getString("Email"),
                     rs.getInt("Phone_Number"), // Make sure this column exists in your DB
                     rs.getString("Gender"), // Make sure this column exists in your DB
-                    rs.getString("Role"));
+                    rs.getString("Role"),
+                    rs.getBoolean("isActivated"));
         } // get from sql table
         return null;
     }
@@ -284,8 +292,9 @@ public class UserDAO {
             int _phone = Integer.parseInt(rs.getString(6));
             String role = rs.getString(7);
             String gender = rs.getString(8);
+            boolean isActivated = rs.getBoolean(9);
 
-            User u = new User(userId, _firstName, _lastName, email, _phone, gender, role);
+            User u = new User(userId, _firstName, _lastName, email, _phone, gender, role, isActivated);
             users.add(u);
         }
 

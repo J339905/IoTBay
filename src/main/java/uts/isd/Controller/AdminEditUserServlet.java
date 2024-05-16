@@ -48,7 +48,6 @@ public class AdminEditUserServlet extends HttpServlet {
         try {
             User user = userDAO.findUserById(userId);
             if (user != null) {
-                System.out.println("id: " + userId);
                 request.setAttribute("user", user); // Set the user in the request scope
                 request.getRequestDispatcher("/admin/editUser.jsp").forward(request, response);
             } else {
@@ -67,8 +66,7 @@ public class AdminEditUserServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String gender = request.getParameter("gender");
         String role = request.getParameter("role");
-
-        System.out.println("id: " + userId);
+        String isActivated = request.getParameter("isActivated");
 
         HttpSession session = request.getSession();
         UserDAO userDAO = (UserDAO) session.getAttribute("userDAO");
@@ -89,6 +87,12 @@ public class AdminEditUserServlet extends HttpServlet {
             user.setPhone(Integer.parseInt(phone));
             user.setGender(gender);
             user.setRole(role);
+            if (isActivated.equals("true")) {
+                user.setIsActivated(true);
+            }
+            else {
+                user.setIsActivated(false);
+            }
 
             userDAO.adminUpdateUser(user);
             logDao.createLog(Integer.valueOf(userId), java.time.LocalDateTime.now().toString(), "Updated");

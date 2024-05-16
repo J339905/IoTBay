@@ -49,18 +49,23 @@ public class LoginServlet extends HttpServlet {
         try {
             User user = userDAO.findUser(email, password);
             if (user != null) {
-                session.setAttribute("user", user);
-                logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
-                if (user.getRole().equals("Customer")) {
-                    response.sendRedirect("welcome.jsp");
+                if (user.getIsActivated()) {
+                    session.setAttribute("user", user);
+                    logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
+                    if (user.getRole().equals("Customer")) {
+                        response.sendRedirect("welcome.jsp");
+                    }
+                    else if (user.getRole().equals("Staff")) {
+                        session.setAttribute("role", "Staff");
+                        response.sendRedirect("admin.jsp");
+                    } 
+                    else {
+                        session.setAttribute("role", "Admin");
+                        response.sendRedirect("admin.jsp");
+                    }
                 }
-                else if (user.getRole().equals("Staff")) {
-                    session.setAttribute("role", "Staff");
-                    response.sendRedirect("admin.jsp");
-                } 
                 else {
-                    session.setAttribute("role", "Admin");
-                    response.sendRedirect("admin.jsp");
+                    response.sendRedirect("login.jsp");
                 }
             } else {
                 session.setAttribute("loginErr", "Invalid login details or inactive account");

@@ -50,6 +50,7 @@ public class AdminCreateUserServlet extends HttpServlet {
         String password = request.getParameter("password");
         String gender = request.getParameter("gender");
         String role = "Customer";
+        String isActivated = request.getParameter("isActivated");
 
         String emailRegex = "^.+@.+\\.com$";
         String phoneRegex = "^\\d+$";
@@ -102,8 +103,15 @@ public class AdminCreateUserServlet extends HttpServlet {
                 request.getRequestDispatcher("admin/createUser.jsp").include(request, response);
                 return;
             }
-
-            int userId = userDAO.adminCreateUser(firstname, lastname, email, phone, password, gender, role);
+            
+            boolean checkIsActivated = true;
+            if (isActivated == "true") {
+                checkIsActivated = true;
+            }
+            else {
+                checkIsActivated = false;
+            }
+            int userId = userDAO.adminCreateUser(firstname, lastname, email, phone, password, gender, role, checkIsActivated);
             logDao.createLog(userId, java.time.LocalDateTime.now().toString(), "Registered");
             response.sendRedirect("/admin.jsp");
 

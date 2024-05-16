@@ -97,7 +97,7 @@
             <input type="text" id="last-name" name="lastName" value="<%= user.getlastname() %>" required>
 
             <label for="phone-number">Phone Number:</label>
-            <input type="text" id="phone-number" name="phone" value="<%= user.getPhone() %>" required>
+            <input type="number" id="phone-number" name="phone" value="<%= user.getPhone() %>" required>
 
             <label for="gender">Gender:</label>
             <select id="gender" name="gender" required>
@@ -111,7 +111,6 @@
                 <select id="role" name="role" required>
                     <option value="Customer" <%= user.getRole().equals("Customer") ? "selected" : "" %>>Customer</option>
                     <option value="Staff" <%= user.getRole().equals("Staff") ? "selected" : "" %>>Staff</option>
-                    <%-- <option value="Admin" <%= user.getRole().equals("Admin") ? "selected" : "" %>>Admin</option> --%>
                 </select>
             <% } 
             else {%>
@@ -119,6 +118,12 @@
                     <option value="Admin" <%= user.getRole().equals("Admin") ? "selected" : "" %>>Admin</option>
                 </select>
             <% } %>
+
+            <label for="isActivated">Activated:</label>
+            <select id="isActivated" name="isActivated" required>
+                <option value="true" <%= user.getIsActivated() ? "selected" : "" %>>True</option>
+                <option value="false" <%= !user.getIsActivated() ? "selected" : "" %>>False</option>
+            </select>
 
             <button type="submit" class="btn btn-primary">Update User</button>
         </form>

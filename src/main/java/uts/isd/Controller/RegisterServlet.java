@@ -118,7 +118,8 @@ public class RegisterServlet extends HttpServlet {
 
         try {
             int userId = userDAO.createUser(firstname, lastname, email, phone, password, gender, role);
-            User user = new User(userId, firstname, lastname, email, phone, password, gender, role);
+            boolean isActivated = true;
+            User user = new User(userId, firstname, lastname, email, phone, password, gender, role, isActivated);
             user.setUserID(userId);
             session.setAttribute("user", user);
 
