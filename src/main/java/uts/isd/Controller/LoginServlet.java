@@ -58,13 +58,31 @@ public class LoginServlet extends HttpServlet {
         try {
             User user = userDAO.findUser(email, password);
             if (user != null) {
-                session.setAttribute("user", user);
-                // Their Login activity should be logged into database
-                logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
-                if (user.getRole().equals("Customer")) {
-                    response.sendRedirect("welcome.jsp");
-                } else {
-                    response.sendRedirect("admin.jsp");
+                // session.setAttribute("user", user);
+                // // Their Login activity should be logged into database
+                // logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
+                // if (user.getRole().equals("Customer")) {
+                //     response.sendRedirect("welcome.jsp");
+                // } else {
+                //     response.sendRedirect("admin.jsp");
+                // }
+                if (user.getIsActivated()) {
+                    session.setAttribute("user", user);
+                    logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
+                    if (user.getRole().equals("Customer")) {
+                        response.sendRedirect("welcome.jsp");
+                    }
+                    else if (user.getRole().equals("Staff")) {
+                        session.setAttribute("role", "Staff");
+                        response.sendRedirect("admin.jsp");
+                    } 
+                    else {
+                        session.setAttribute("role", "Admin");
+                        response.sendRedirect("admin.jsp");
+                    }
+                }
+                else {
+                    response.sendRedirect("login.jsp");
                 }
             } else {
                 session.setAttribute("loginErr", "Invalid login details or inactive account");
