@@ -40,26 +40,17 @@ public class ListOrderServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
             return;
         }
-    
-        String searchType = request.getParameter("searchType");
-        String searchTerm = request.getParameter("searchTerm");
         String currentSortBy = request.getParameter("sortBy") != null ? request.getParameter("sortBy") : "OrderID";
         String currentSortOrder = request.getParameter("sortOrder") != null ? request.getParameter("sortOrder") : "asc";
-    
+
         try {
-            List<Order> orders;
-            if (searchType != null && !searchTerm.isEmpty()) {
-                orders = orderDAO.searchOrdersByUserId(userId, searchType, searchTerm, currentSortBy, currentSortOrder);
-            } else {
-                orders = orderDAO.listOrdersByUserId(userId, currentSortBy, currentSortOrder);
-            }
+            List<Order> orders = orderDAO.listOrdersByUserId(userId, currentSortBy, currentSortOrder);
             request.setAttribute("orderList", orders);
             request.getRequestDispatcher("orderlist.jsp").forward(request, response);
         } catch (SQLException e) {
             throw new ServletException("Error retrieving orders for user " + userId, e);
         }
     }
-    
 
     @Override
     public void destroy() {

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.time.LocalDateTime;
+
+import uts.isd.model.Cart;
+import uts.isd.model.CartItem;
 import uts.isd.model.Order;
 
 public class OrderDAO {
@@ -46,6 +49,31 @@ public class OrderDAO {
         insertStmt.setString(5, order.getQuantity());
         return insertStmt.executeUpdate() > 0;
     }
+
+public boolean insertOrder(int userId, Cart cart, String deliveryAddress, String paymentMethod) throws SQLException {
+    String query = "INSERT INTO `Order` (UserID, Order_Date, Order_Status, Delivery_Address, TotalPrice, Quantity) VALUES (?, ?, ?, ?, ?, ?)";
+    PreparedStatement stmt = conn.prepareStatement(query);
+    stmt.setInt(1, userId);
+    stmt.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+    stmt.setString(3, "Completed"); // Example status
+    stmt.setString(4, deliveryAddress);
+    stmt.setDouble(5, calculateTotalPrice(cart)); // Assuming you have a method to calculate total price
+    stmt.setInt(6, cart.getTotalQuantity());
+
+    int affectedRows = stmt.executeUpdate();
+    stmt.close();
+    return affectedRows > 0;
+}
+
+private double calculateTotalPrice(Cart cart) {
+    double totalPrice = 0;
+    for (CartItem item : cart.getItems()) {
+        totalPrice += item.getProduct().getProductprice() * item.getQuantity();
+    }
+    return totalPrice;
+}
+
+
 
     public ArrayList<Order> listAllOrders() throws SQLException {
         ArrayList<Order> listOrder = new ArrayList<>();

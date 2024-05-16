@@ -86,7 +86,7 @@
                 <tr>
                     <th>Product Name</th>
                     <th>Quantity</th>
-                    <th>Price</th>
+                    <th>Unit Price</th>
                 </tr>
             </thead>
             <tbody>

@@ -95,6 +95,8 @@
                 <th>Order Status</th>
                 <th>Delivery Address</th>
                 <th>Quantity</th>
+                <th>Total Price</th>
+
             </tr>
         </thead>
         <tbody>
@@ -105,6 +107,8 @@
                     <td>${order.orderStatus}</td>
                     <td>${order.deliveryAddress}</td>
                     <td>${order.quantity}</td>
+                    <td>$${order.totalPrice}</td>
+
                 </tr>
             </c:forEach>
         </tbody>
