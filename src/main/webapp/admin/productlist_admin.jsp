@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Product List - Admin</title>
+    <title>Product List - Staff</title>
     <link rel="stylesheet" href="/css/admin.css">
     <style>
         body {
@@ -169,7 +169,7 @@
         </ul>
     </nav>
     <div class="content">
-        <h1>Product List - Admin</h1>
+        <h1>Product List - Staff</h1>
         <p>Below is a list of all products available:</p>
         <form action="productlistadmin" method="get" class="search-form">
             <input type="text" name="name" placeholder="Search by name..." value="${param.name}">
