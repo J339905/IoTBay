@@ -1,4 +1,4 @@
-package uts.isd.controller;
+package uts.isd.Controller;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
