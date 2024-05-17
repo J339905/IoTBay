@@ -1,4 +1,4 @@
-package main.java.uts.isd.Controller;
+package uts.isd.Controller;
 
 import uts.isd.model.Payment;
 import uts.isd.model.dao.PaymentDAO;

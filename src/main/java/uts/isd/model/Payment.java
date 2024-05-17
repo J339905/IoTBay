@@ -1,4 +1,4 @@
-package main.java.uts.isd.model;
+package uts.isd.model;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package main.java.uts.isd.model.dao;
+package uts.isd.model.dao;
 
 import uts.isd.model.Payment;
 import java.sql.*;
