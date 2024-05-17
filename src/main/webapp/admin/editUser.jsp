@@ -69,6 +69,7 @@
 </head>
 <body>
     <nav>
+    <nav>
         <ul>
             <li><a href="/admin.jsp">AdminPage</a></li>
             <li><a href="/admin/createUser.jsp">Create User</a></li>

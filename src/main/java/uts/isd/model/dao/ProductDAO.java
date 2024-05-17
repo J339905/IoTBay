@@ -86,10 +86,10 @@ public class ProductDAO {
             double price = rs.getDouble("productprice");
             int stock = rs.getInt("productstock");
             rs.close();
-            return new Product(productId, name, category, description, price, stock);
+            return new Product(id, name, category, description, price, stock);
         } else {
             rs.close();
-            throw new SQLException("Product not found");
+            return null;  // Return null if no product is found
         }
     }
 
@@ -115,6 +115,9 @@ public class ProductDAO {
         rs.close();
         return products;
     }
+    
+    
+    
     
     public void deleteProduct(int productId) throws SQLException {
         deleteStmt.setInt(1, productId);
