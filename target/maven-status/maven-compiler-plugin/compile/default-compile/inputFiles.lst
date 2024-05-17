@@ -32,6 +32,7 @@
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/model/CartItem.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/ListProductServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/ViewCartServlet.java
+/Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/ViewSavedOrdersServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/model/Order.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/Controller/ViewActivityLogsServlet.java
 /Users/joshua/Documents/GitHub/IoTBay/src/main/java/uts/isd/model/dao/ProductDAO.java
