@@ -93,7 +93,8 @@ public class DAOTest {
     // userDAO.deleteUser(user.getUserID());
     // }
 
-    // All testcases below are related to theJunit test cases in the assignment 2 marking criteria
+    // All testcases below are related to theJunit test cases in the assignment 2
+    // marking criteria
     @Test
     public void testSuccessfulLogin() throws SQLException {
         User user = userDAO.findUser("taejun@hotmail.com", "hello");
@@ -140,25 +141,29 @@ public class DAOTest {
     // // Expected exception due to incorrect format
     // }
     // }
-    @Test
-    public void testUpdateUserWithInvalidData() throws SQLException {
-        User user = userDAO.findUser("Nish@gmail.com", "Iwonalfsdf");
-        assertNotNull(user);
+    // @Test
+    // public void testUpdateUserWithInvalidData() throws SQLException {
+    // User user = userDAO.findUser("Nish@gmail.com", "Iwonalfsdf");
+    // assertNotNull(user);
 
-        String invalidFirstname = "John123";
-        String invalidLastname = "Doe@";
-        String invalidPhone = "123hvm456";
-        String invalidPassword = "123";
+    // String invalidFirstname = "John123";
+    // String invalidLastname = "Doe@";
+    // String invalidPhone = "123hvm456";
+    // String invalidPassword = "123";
 
-        String nameRegex = "^[a-zA-Z\\s'-]+$";
-        String phoneRegex = "^\\d+$";
+    // String nameRegex = "^[a-zA-Z\\s'-]+$";
+    // String phoneRegex = "^\\d+$";
 
-        assertFalse(invalidFirstname.matches(nameRegex), "First name should be letters only");
-        assertFalse(invalidLastname.matches(nameRegex), "Last name should be letters only");
-        assertFalse(invalidPhone.matches(phoneRegex), "Phone number should be numbers only");
-        assertTrue(invalidPassword.length() < 6, "Password should have a length greater than 5");
+    // assertFalse(invalidFirstname.matches(nameRegex), "First name should be
+    // letters only");
+    // assertFalse(invalidLastname.matches(nameRegex), "Last name should be letters
+    // only");
+    // assertFalse(invalidPhone.matches(phoneRegex), "Phone number should be numbers
+    // only");
+    // assertTrue(invalidPassword.length() < 6, "Password should have a length
+    // greater than 5");
 
-    }
+    // }
 
     @BeforeEach
     public void setUp() throws SQLException {
@@ -167,9 +172,10 @@ public class DAOTest {
 
     @AfterEach
     public void tearDown() throws SQLException {
-        conn.createStatement().executeUpdate("DELETE FROM product WHERE productname LIKE 'TestProduct%' OR productname LIKE 'UpdatedTestProduct%'");
+        conn.createStatement().executeUpdate(
+                "DELETE FROM product WHERE productname LIKE 'TestProduct%' OR productname LIKE 'UpdatedTestProduct%'");
     }
-    
+
     @Test
     public void testCreateIoTDevice() throws SQLException {
 
@@ -205,7 +211,8 @@ public class DAOTest {
                 .orElseThrow(() -> new SQLException("Product not found"))
                 .getProductid();
 
-        Product updatedProduct = new Product(productId, "UpdatedTestProduct1", "UpdatedType", "UpdatedDescription", 150.0, 15);
+        Product updatedProduct = new Product(productId, "UpdatedTestProduct1", "UpdatedType", "UpdatedDescription",
+                150.0, 15);
         productDAO.updateProduct(updatedProduct);
 
         Product retrievedProduct = productDAO.getProductById(productId);

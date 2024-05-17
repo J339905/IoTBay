@@ -3,8 +3,8 @@
 <%@ page import="uts.isd.model.User"%>
 <%
     String role = (String) session.getAttribute("role");
-    if (role == null || !role.equals("Staff")) {
-        response.sendRedirect("/unauthorized.jsp"); 
+    if (role == null || (!role.equals("Staff") && !role.equals("Admin"))) {
+        response.sendRedirect("unauthorized.jsp"); 
         return;
     }
 %>
