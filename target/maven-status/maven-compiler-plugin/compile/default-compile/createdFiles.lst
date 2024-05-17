@@ -1,9 +1,0 @@
-uts/isd/Controller/SearchUserServlet.class
-uts/isd/Controller/DeleteProductServlet.class
-uts/isd/Controller/DeleteUserServlet.class
-uts/isd/Controller/ChangeRegistrationDetailsServlet.class
-uts/isd/Controller/RemoveUserServlet.class
-uts/isd/Controller/UpdateProductServlet.class
-uts/isd/Controller/EditUserServlet.class
-uts/isd/Controller/ListProductServlet.class
-uts/isd/Controller/CreateProductServlet.class
