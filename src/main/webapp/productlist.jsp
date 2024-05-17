@@ -24,7 +24,7 @@
     </header>
 
     <main>
-        <form action="orderForm.jsp" method="post">
+        <form action="addToCart" method="post">
             <table>
                 <thead>
                     <tr>
@@ -55,7 +55,7 @@
                                     <td>${product.productstock}</td>
                                     <td class="select-column">
                                         <input type="checkbox" name="selectedProduct_${product.productid}"
-                                               value="${product.productid}" ${product.productstock == 0 ? 'disabled' : ''}>
+                                               value="${product.productid}" ${product.productstock == 0 ? 'disabled' : ''} ${sessionScope.selectedProductIds.contains(product.productid) ? 'disabled' : ''}>
                                     </td>
                                 </tr>
                             </c:forEach>

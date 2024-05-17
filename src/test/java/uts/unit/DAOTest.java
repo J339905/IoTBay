@@ -17,6 +17,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import uts.isd.model.Cart;
+import uts.isd.model.CartItem;
+import uts.isd.model.Order;
 import uts.isd.model.Logs;
 import uts.isd.model.Product;
 import uts.isd.model.User;
@@ -24,6 +27,8 @@ import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.UserDAO;
 import uts.isd.model.dao.logDAO;
 import uts.isd.model.dao.ProductDAO;
+import uts.isd.model.dao.OrderDAO;
+
 
 public class DAOTest {
 
@@ -32,6 +37,8 @@ public class DAOTest {
     private UserDAO userDAO;
     private ProductDAO productDAO;
     private logDAO logDAO;
+    private OrderDAO orderDAO;
+
 
     public DAOTest() throws ClassNotFoundException, SQLException {
         connector = new DBConnector();
@@ -39,6 +46,8 @@ public class DAOTest {
         userDAO = new UserDAO(conn);
         logDAO = new logDAO(conn);
         productDAO = new ProductDAO(conn);
+        orderDAO = new OrderDAO(conn);
+
     }
 
     @Test
@@ -257,4 +266,39 @@ public class DAOTest {
         assertEquals(1, searchResults.size());
         assertEquals("TestProduct1", searchResults.get(0).getProductname());
     }
+
+    @Test
+    public void testInsertOrder() throws SQLException {
+        Order order = new Order(0, 1, LocalDateTime.now(), "Pending", "123 Main St", "2");
+        boolean result = orderDAO.insertOrder(order);
+        assertTrue(result, "Order should be inserted successfully");
+    }
+
+    @Test
+    public void testListAllOrders() throws SQLException {
+        List<Order> orders = orderDAO.listAllOrders();
+        assertTrue(orders.size() > 0, "There should be at least one order in the list");
+    }
+
+    @Test
+    public void testUpdateOrder() throws SQLException {
+        Order order = new Order(1, 1, LocalDateTime.now(), "Shipped", "123 Main St", "3");
+        boolean result = orderDAO.updateOrder(order);
+        assertTrue(result, "Order should be updated successfully");
+    }
+
+    @Test
+    public void testDeleteOrder() throws SQLException {
+        boolean result = orderDAO.deleteOrder(1);
+        assertTrue(result, "Order should be deleted successfully");
+    }
+
+    @Test
+    public void testSaveCart() throws SQLException {
+        Cart cart = new Cart();
+        cart.addItem(new CartItem(new Product(1, "Test Product", "Type", "Description", 10.0, 5), 2));
+        orderDAO.saveCart(1, cart);
+        assertNotNull(cart, "Cart should be saved successfully");
+    }
+
 }
