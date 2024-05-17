@@ -68,6 +68,7 @@ public class LoginServlet extends HttpServlet {
                 // }
                 if (user.getIsActivated()) {
                     session.setAttribute("user", user);
+                    // Their Login activity should be logged into database
                     logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
                     if (user.getRole().equals("Customer")) {
                         response.sendRedirect("welcome.jsp");
