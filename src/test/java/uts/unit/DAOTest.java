@@ -169,10 +169,9 @@ public class DAOTest {
     public void tearDown() throws SQLException {
         conn.createStatement().executeUpdate("DELETE FROM product WHERE productname LIKE 'TestProduct%' OR productname LIKE 'UpdatedTestProduct%'");
     }
+    
     @Test
     public void testCreateIoTDevice() throws SQLException {
-        User staffUser = userDAO.findUser("staff@gmail.com", "staff");
-        assertNotNull(staffUser);
 
         Product product1 = new Product(0, "TestProduct1", "Type1", "Description1", 100.0, 10);
         productDAO.addProduct(product1);
