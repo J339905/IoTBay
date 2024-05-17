@@ -17,6 +17,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import uts.isd.model.Cart;
+import uts.isd.model.CartItem;
+import uts.isd.model.Order;
 import uts.isd.model.Logs;
 import uts.isd.model.Product;
 import uts.isd.model.User;
@@ -24,6 +27,8 @@ import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.UserDAO;
 import uts.isd.model.dao.logDAO;
 import uts.isd.model.dao.ProductDAO;
+import uts.isd.model.dao.OrderDAO;
+
 
 public class DAOTest {
 
@@ -32,6 +37,8 @@ public class DAOTest {
     private UserDAO userDAO;
     private ProductDAO productDAO;
     private logDAO logDAO;
+    private OrderDAO orderDAO;
+
 
     public DAOTest() throws ClassNotFoundException, SQLException {
         connector = new DBConnector();
@@ -39,6 +46,8 @@ public class DAOTest {
         userDAO = new UserDAO(conn);
         logDAO = new logDAO(conn);
         productDAO = new ProductDAO(conn);
+        orderDAO = new OrderDAO(conn);
+
     }
 
     @Test
