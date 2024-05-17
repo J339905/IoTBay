@@ -104,9 +104,9 @@
             <label for="description">Description:</label>
             <input type="text" id="description" name="description" value="${product.productdescription}">
             <label for="price">Price:</label>
-            <input type="number" step="0.01" id="price" name="price" value="${product.productprice}">
+            <input type="int" step="0.01" id="price" name="price" value="${product.productprice}">
             <label for="stock">Stock:</label>
-            <input type="number" id="stock" name="stock" value="${product.productstock}">
+            <input type="int" id="stock" name="stock" value="${product.productstock}">
             <button type="submit" class="btn btn-primary">Update Product</button>
         </form>
     </div>
