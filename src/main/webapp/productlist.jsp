@@ -34,7 +34,7 @@
                         <th>Description</th>
                         <th>Price</th>
                         <th>Stock</th>
-                        <th>Order Quantity</th>
+                        <th>Select</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,12 +53,9 @@
                                     <td>${product.productdescription}</td>
                                     <td>${product.productprice}</td>
                                     <td>${product.productstock}</td>
-                                    <td>
-                                        <div class="quantity-control">
-                                            <button type="button" onclick="decrementQuantity(${product.productid})">-</button>
-                                            <input type="number" name="orderQuantity_${product.productid}" id="orderQuantity_${product.productid}" value="0" min="0">
-                                            <button type="button" onclick="incrementQuantity(${product.productid})">+</button>
-                                        </div>
+                                    <td class="select-column">
+                                        <input type="checkbox" name="selectedProduct_${product.productid}"
+                                               value="${product.productid}" ${product.productstock == 0 ? 'disabled' : ''}>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -72,19 +69,5 @@
             </div>
         </form>
     </main>
-
-    <script>
-        function incrementQuantity(productId) {
-            var quantityInput = document.getElementById('orderQuantity_' + productId);
-            quantityInput.value = parseInt(quantityInput.value) + 1;
-        }
-
-        function decrementQuantity(productId) {
-            var quantityInput = document.getElementById('orderQuantity_' + productId);
-            if (quantityInput.value > 0) {
-                quantityInput.value = parseInt(quantityInput.value) - 1;
-            }
-        }
-    </script>
 </body>
 </html>

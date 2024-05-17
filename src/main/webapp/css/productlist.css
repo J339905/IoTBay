@@ -49,7 +49,7 @@ h1 {
 
 main {
     width: 90%;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
 }
 
@@ -133,4 +133,11 @@ tr:nth-child(even) {
 
 .quantity-control button:hover {
     background-color: #e2e6ea;
+}
+
+.select-column {
+    text-align: center;
+}
+.select-column input[type="checkbox"] {
+    margin: 0 auto;
 }
