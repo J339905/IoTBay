@@ -259,4 +259,39 @@ public class DAOTest {
         assertEquals(1, searchResults.size());
         assertEquals("TestProduct1", searchResults.get(0).getProductname());
     }
+
+    @Test
+    public void testInsertOrder() throws SQLException {
+        Order order = new Order(0, 1, LocalDateTime.now(), "Pending", "123 Main St", "2");
+        boolean result = orderDAO.insertOrder(order);
+        assertTrue(result, "Order should be inserted successfully");
+    }
+
+    @Test
+    public void testListAllOrders() throws SQLException {
+        List<Order> orders = orderDAO.listAllOrders();
+        assertTrue(orders.size() > 0, "There should be at least one order in the list");
+    }
+
+    @Test
+    public void testUpdateOrder() throws SQLException {
+        Order order = new Order(1, 1, LocalDateTime.now(), "Shipped", "123 Main St", "3");
+        boolean result = orderDAO.updateOrder(order);
+        assertTrue(result, "Order should be updated successfully");
+    }
+
+    @Test
+    public void testDeleteOrder() throws SQLException {
+        boolean result = orderDAO.deleteOrder(1);
+        assertTrue(result, "Order should be deleted successfully");
+    }
+
+    @Test
+    public void testSaveCart() throws SQLException {
+        Cart cart = new Cart();
+        cart.addItem(new CartItem(new Product(1, "Test Product", "Type", "Description", 10.0, 5), 2));
+        orderDAO.saveCart(1, cart);
+        assertNotNull(cart, "Cart should be saved successfully");
+    }
+
 }
