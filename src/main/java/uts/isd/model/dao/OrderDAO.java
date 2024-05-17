@@ -124,8 +124,10 @@ private double calculateTotalPrice(Cart cart) {
     }
     
     
-    public List<Order> searchOrdersByUserId(int userId, String searchType, String searchTerm, String sortBy, String sortOrder) throws SQLException {
-        String query = "SELECT * FROM `Order` WHERE UserID = ? AND " + searchType + " LIKE ? ORDER BY " + sortBy + " " + sortOrder;
+    public List<Order> searchOrdersByUserId(int userId, String searchType, String searchTerm, String sortBy,
+            String sortOrder) throws SQLException {
+        String query = "SELECT * FROM `Order` WHERE UserID = ? AND " + searchType + " LIKE ? ORDER BY " + sortBy + " "
+                + sortOrder;
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setInt(1, userId);
         stmt.setString(2, "%" + searchTerm + "%");
@@ -138,6 +140,21 @@ private double calculateTotalPrice(Cart cart) {
         stmt.close();
         return listOrder;
     }
+    
+    public List<Order> getOrderListByUserId(int userId) throws SQLException {
+        List<Order> orders = new ArrayList<>();
+        String query = "SELECT * FROM `Order` WHERE UserID = ?"; // Adjust the query to match your table structure
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, userId);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            orders.add(extractOrderFromResultSet(rs));
+        }
+        rs.close();
+        stmt.close();
+        return orders;
+    }
+    
     
 
     public boolean updateOrder(Order order) throws SQLException {
@@ -165,6 +182,8 @@ private double calculateTotalPrice(Cart cart) {
         return null;
     }
 
+    
+
     private Order extractOrderFromResultSet(ResultSet rs) throws SQLException {
         return new Order(
             rs.getInt("OrderID"),
@@ -175,4 +194,19 @@ private double calculateTotalPrice(Cart cart) {
             rs.getString("Quantity")
         );
     }
+
+    public void saveCart(int userId, Cart cart) throws SQLException {
+        String query = "INSERT INTO SavedCarts (userId, productId, quantity, savedDate) VALUES (?, ?, ?, NOW())";
+        PreparedStatement stmt = conn.prepareStatement(query);
+    
+        for (CartItem item : cart.getItems()) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, item.getProduct().getProductid());
+            stmt.setInt(3, item.getQuantity());
+            stmt.executeUpdate();
+        }
+    
+        stmt.close();
+    }
+    
 }

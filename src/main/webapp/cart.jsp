@@ -118,16 +118,19 @@
             </tbody>
         </table>
     </form>
-    <div class="button-container">
+<div class="button-container">
     <a href="/listProducts" class="btn link-btn">Continue Shopping</a>
-    <!-- Buttons are now within a flex container for horizontal alignment -->
-        <c:if test="${not empty cart.items}">
-            <a href="/saveOrder" class="btn link-btn" >Save Order</a>
-            <a href="updateCart?cancel=true" class="btn link-btn" style="background-color: #ff4444;">Cancel Cart</a>
-            <a href="/checkout" class="btn link-btn" >Proceed to Checkout</a>
+    <!-- Check if there are items in the cart before showing the save option -->
+    <c:if test="${not empty cart.items}">
+<form action="/saveOrders" method="post">
+    <button type="submit" class="btn link-btn">Save Order</button>
+</form>
 
-        </c:if>
-    </div>
+        <a href="updateCart?cancel=true" class="btn link-btn" style="background-color: #ff4444;">Cancel Cart</a>
+        <a href="/checkout" class="btn link-btn">Proceed to Checkout</a>
+    </c:if>
+</div>
+
 
     <script>
         function changeQuantity(productId, change) {
