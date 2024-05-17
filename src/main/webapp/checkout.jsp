@@ -7,35 +7,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
+    <link rel="stylesheet" href="/css/productlist.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            height: 100vh;
+        }
+        .summary-container {
+            width: 90%;
+            max-width: 800px;
         }
         .summary {
-            margin: 20px;
+            margin: 20px auto;
             padding: 20px;
             border: 1px solid #ddd;
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
         }
         .summary th, .summary td {
             padding: 10px;
             text-align: left;
         }
-        table {
+        .input-field {
             width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
             padding: 8px;
-            text-align: left;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
         .btn {
             padding: 10px 20px;
@@ -63,56 +69,62 @@
             display: inline-block;
             margin: 5px;
             text-align: center;
+            width: 100%;
         }
         .link-btn:hover {
             background-color: #0056b3;
         }
-        .input-field {
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
             width: 100%;
-            padding: 8px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
         }
     </style>
 </head>
 <body>
-    <h1>Checkout</h1>
-    <div class="summary">
-        <h2>Order Summary</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Unit Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${cart.items}" var="item">
+    <header>
+        <h1>Checkout</h1>
+    </header>
+
+    <main class="summary-container">
+        <div class="summary">
+            <h2>Order Summary</h2>
+            <table>
+                <thead>
                     <tr>
-                        <td>${item.product.productname}</td>
-                        <td>${item.quantity}</td>
-                        <td>$${item.product.productprice}</td>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-        <p>Total Price: $${cart.totalPrice}</p>
-        <p>Total Quantity: ${cart.totalQuantity}</p>
-        <form action="processCheckout" method="post">
-            <h2>Delivery Address</h2>
-            <input type="text" name="deliveryAddress" class="input-field" placeholder="Enter delivery address" required>
-            <h2>Payment Method</h2>
-            <select name="paymentMethod">
-                <option value="creditCard">Credit Card</option>
-                <option value="paypal">PayPal</option>
-                <option value="applepay">Apple Pay</option>
-            </select>
-            <input type="submit" class="btn" value="Complete Purchase">
-        </form>
-    </div>
-    <a href="viewCart" class="link-btn">Back to Cart</a> <!-- Back to Cart Button -->
+                </thead>
+                <tbody>
+                    <c:forEach items="${cart.items}" var="item">
+                        <tr>
+                            <td>${item.product.productname}</td>
+                            <td>${item.quantity}</td>
+                            <td>$${item.product.productprice}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+            <p>Total Price: $${cart.totalPrice}</p>
+            <p>Total Quantity: ${cart.totalQuantity}</p>
+            <form action="processCheckout" method="post">
+                <h2>Delivery Address</h2>
+                <input type="text" name="deliveryAddress" class="input-field" placeholder="Enter delivery address" required>
+                <h2>Payment Method</h2>
+                <select name="paymentMethod" class="input-field">
+                    <option value="creditCard">Credit Card</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="applepay">Apple Pay</option>
+                </select>
+                <input type="submit" class="btn" value="Complete Purchase">
+            </form>
+        </div>
+        <div class="button-container">
+            <a href="viewCart" class="link-btn">Back to Cart</a>
+        </div>
+    </main>
 </body>
 </html>
