@@ -42,6 +42,7 @@
             <a href="/productlist" class="btn btn-primary">View Products</a>
             <a href="/orderlist.jsp" class="btn btn-info">View Your Orders</a>
             <a href="/welcome.jsp" class="btn btn-danger">Return to home</a>
+            <a href="/checkout.jsp" class="btn btn-"
         </div>
     </div>
 </body>
