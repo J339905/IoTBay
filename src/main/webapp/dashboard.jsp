@@ -42,6 +42,8 @@
             <a href="/productlist" class="btn btn-primary">View Products</a>
             <a href="/listOrders" class="btn btn-info">View Your Orders</a>
             <a href="/welcome.jsp" class="btn btn-danger">Return to home</a>
+            <a href="/checkout.jsp" class="btn btn-success">Make a Payment</a>
+            <a href="/PaymentServlet?action=viewHistory" class="btn btn-warning">View Payment History</a>
         </div>
     </div>
 </body>

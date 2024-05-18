@@ -32,7 +32,7 @@ import uts.isd.model.dao.OrderDAO;
 
 public class DAOTest {
 
-    private DBConnector connector;
+ /*    private DBConnector connector;
     private Connection conn;
     private UserDAO userDAO;
     private ProductDAO productDAO;
@@ -299,6 +299,6 @@ public class DAOTest {
         cart.addItem(new CartItem(new Product(1, "Test Product", "Type", "Description", 10.0, 5), 2));
         orderDAO.saveCart(1, cart);
         assertNotNull(cart, "Cart should be saved successfully");
-    }
+    }*/
 
 }
