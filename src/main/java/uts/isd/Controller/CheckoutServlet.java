@@ -1,9 +1,10 @@
-package uts.isd.Controller;
+package uts.isd.controller;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.Date;
 import uts.isd.model.Cart;
 
 @WebServlet(name = "CheckoutServlet", urlPatterns = {"/checkout"})
@@ -23,6 +24,7 @@ public class CheckoutServlet extends HttpServlet {
 
             request.setAttribute("totalPrice", total);
             request.setAttribute("totalQuantity", quantity);
+            request.setAttribute("currentDate", new Date()); // Add current date to request
 
             request.getRequestDispatcher("/checkout.jsp").forward(request, response);
         }

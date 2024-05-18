@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Date;
 
 @WebServlet(name = "PaymentServlet", urlPatterns = {"/PaymentServlet"})
 public class PaymentServlet extends HttpServlet {
@@ -69,7 +70,13 @@ public class PaymentServlet extends HttpServlet {
         int orderID = Integer.parseInt(request.getParameter("orderID"));
         double amount = Double.parseDouble(request.getParameter("amount"));
         String paymentMethod = request.getParameter("paymentMethod");
-        java.util.Date paymentDate = new java.util.Date();
+        Date paymentDate = new Date();
+
+        String cardNumber = request.getParameter("cardNumber");
+        String expiryDate = request.getParameter("expiryDate");
+        String cvv = request.getParameter("cvv");
+
+        // Here you can add code to process the credit card details, e.g., validation, encryption, etc.
 
         Payment payment = new Payment();
         payment.setOrderID(orderID);
@@ -86,7 +93,7 @@ public class PaymentServlet extends HttpServlet {
         int orderID = Integer.parseInt(request.getParameter("orderID"));
         double amount = Double.parseDouble(request.getParameter("amount"));
         String paymentMethod = request.getParameter("paymentMethod");
-        java.util.Date paymentDate = new java.util.Date();
+        Date paymentDate = new Date();
 
         Payment payment = new Payment(paymentID, orderID, amount, paymentDate, paymentMethod);
         paymentDAO.updatePayment(payment);

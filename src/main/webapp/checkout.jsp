@@ -119,6 +119,13 @@
                     <option value="paypal">PayPal</option>
                     <option value="applepay">Apple Pay</option>
                 </select>
+                
+                <h2>Credit Card Details</h2>
+                <input type="text" name="cardNumber" class="input-field" placeholder="Card Number" required>
+                <input type="text" name="expiryDate" class="input-field" placeholder="Expiry Date (MM/YY)" required>
+                <input type="text" name="cvv" class="input-field" placeholder="CVV" required>
+                
+                <input type="hidden" name="currentDate" value="${currentDate}">
                 <input type="submit" class="btn" value="Complete Purchase">
             </form>
         </div>

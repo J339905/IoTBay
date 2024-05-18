@@ -134,4 +134,7 @@ public class User implements Serializable {
 		return this.isActivated;
 	}
 
+	public int getId() {
+		return this.userId;
+	}
 }
