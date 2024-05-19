@@ -59,31 +59,20 @@ public class LoginServlet extends HttpServlet {
             User user = userDAO.findUser(email, password);
             if (user != null) {
                 session.setAttribute("userId", user.getUserID()); // Storing user ID in session
-                // session.setAttribute("user", user);
-                // // Their Login activity should be logged into database
-                // logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
-                // if (user.getRole().equals("Customer")) {
-                //     response.sendRedirect("welcome.jsp");
-                // } else {
-                //     response.sendRedirect("admin.jsp");
-                // }
                 if (user.getIsActivated()) { // check is activated user
                     session.setAttribute("user", user);
                     // Their Login activity should be logged into database
                     logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
                     if (user.getRole().equals("Customer")) {
                         response.sendRedirect("welcome.jsp");
-                    }
-                    else if (user.getRole().equals("Staff")) { // if role is staff, redirect to admin page
+                    } else if (user.getRole().equals("Staff")) { // if role is staff, redirect to admin page
                         session.setAttribute("role", "Staff");
                         response.sendRedirect("admin.jsp");
-                    } 
-                    else {
+                    } else {
                         session.setAttribute("role", "Admin"); // if role is admin, redirect to admin page
                         response.sendRedirect("admin.jsp");
                     }
-                }
-                else {
+                } else {
                     session.setAttribute("loginErr", "Deactivated account");
                     response.sendRedirect("login.jsp");
                 }

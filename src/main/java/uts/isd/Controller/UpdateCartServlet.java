@@ -9,7 +9,6 @@ import java.util.Set;
 import uts.isd.model.Cart;
 import uts.isd.model.CartItem;
 
-// Servlet mapping defined to handle requests to "/updateCart"
 @WebServlet(name = "UpdateCartServlet", urlPatterns = {"/updateCart"})
 public class UpdateCartServlet extends HttpServlet {
     

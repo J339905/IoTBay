@@ -21,13 +21,13 @@ public class ListOrderServlet extends HttpServlet {
     private DBConnector db;
     private OrderDAO orderDAO;
 
-    // Initializes the servlet and its database connection
+    // Initializes the servlet/database connection
     @Override
     public void init() throws ServletException {
         try {
-            db = new DBConnector(); // Create a new instance of the DB connector
-            Connection conn = db.openConnection(); // Open a connection to the database
-            orderDAO = new OrderDAO(conn); // Initialize the OrderDAO with the database connection
+            db = new DBConnector(); 
+            Connection conn = db.openConnection(); 
+            orderDAO = new OrderDAO(conn); 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             throw new ServletException("DBConnector initialization failed.", e);

@@ -13,7 +13,6 @@ import uts.isd.model.Order;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.OrderDAO;
 
-// Define the servlet and its mapping URL
 @WebServlet(name = "OrderServlet", urlPatterns = {"/OrderServlet"})
 public class OrderServlet extends HttpServlet {
 
