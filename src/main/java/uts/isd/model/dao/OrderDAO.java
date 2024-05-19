@@ -14,18 +14,22 @@ import uts.isd.model.CartItem;
 import uts.isd.model.Order;
 
 public class OrderDAO {
-    private Connection conn;
+    private Connection conn; // Connection object to manage the database connection
     private PreparedStatement insertStmt;
     private PreparedStatement updateStmt;
     private PreparedStatement deleteStmt;
     private PreparedStatement selectAllStmt;
     private PreparedStatement selectStmt;
 
+        // Constructor that initializes the database connection and prepared statements
+
     public OrderDAO(Connection connection) throws SQLException {
         this.conn = connection;
         conn.setAutoCommit(true);
         initStatements();
     }
+
+        // Constructor that initializes the database connection and prepared statements
 
     private void initStatements() throws SQLException {
         String insertQuery = "INSERT INTO `Order` (UserID, Order_Date, Order_Status, Delivery_address, Quantity) VALUES (?, ?, ?, ?, ?)";
@@ -40,6 +44,8 @@ public class OrderDAO {
         selectAllStmt = conn.prepareStatement(selectAllQuery);
         selectStmt = conn.prepareStatement(selectQuery);
     }
+
+        // Inserts a new order into the database
 
     public boolean insertOrder(Order order) throws SQLException {
         insertStmt.setInt(1, order.getUserId());
@@ -69,6 +75,7 @@ public class OrderDAO {
         return affectedRows > 0;
     }
     
+    // Method to calculate the total price of the cart items
 
 private double calculateTotalPrice(Cart cart) {
     double totalPrice = 0;
@@ -79,6 +86,7 @@ private double calculateTotalPrice(Cart cart) {
 }
 
 
+    // Lists all orders from the database
 
     public ArrayList<Order> listAllOrders() throws SQLException {
         ArrayList<Order> listOrder = new ArrayList<>();
@@ -90,6 +98,8 @@ private double calculateTotalPrice(Cart cart) {
         return listOrder;
     }
     
+        // Method to list all orders, sorted by the specified column and order
+
     public ArrayList<Order> listAllOrders(String sortBy, String sortOrder) throws SQLException {
         String query = "SELECT * FROM `Order` ORDER BY " + sortBy + " " + sortOrder;
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -101,6 +111,8 @@ private double calculateTotalPrice(Cart cart) {
         resultSet.close();
         return listOrder;
     }
+
+        // Method to list orders by a specific user, sorted by the specified column and order
 
     public ArrayList<Order> listOrdersByUserId(int userId, String sortBy, String sortOrder) throws SQLException {
         String query = "SELECT * FROM `Order` WHERE UserID = ? ORDER BY " + sortBy + " " + sortOrder;
@@ -123,7 +135,8 @@ private double calculateTotalPrice(Cart cart) {
         return listOrder;
     }
     
-    
+    // Method to search for orders by user ID and search criteria, sorted by the specified column and order
+
     public List<Order> searchOrdersByUserId(int userId, String searchType, String searchTerm, String sortBy,
             String sortOrder) throws SQLException {
         String query = "SELECT * FROM `Order` WHERE UserID = ? AND " + searchType + " LIKE ? ORDER BY " + sortBy + " "
@@ -140,7 +153,9 @@ private double calculateTotalPrice(Cart cart) {
         stmt.close();
         return listOrder;
     }
-    
+
+        // Helper method to extract Order object from ResultSet
+
     public List<Order> getOrderListByUserId(int userId) throws SQLException {
         List<Order> orders = new ArrayList<>();
         String query = "SELECT * FROM `Order` WHERE UserID = ?"; // Adjust the query to match your table structure
@@ -156,6 +171,7 @@ private double calculateTotalPrice(Cart cart) {
     }
     
     
+    // Updates an existing order in the database
 
     public boolean updateOrder(Order order) throws SQLException {
         updateStmt.setInt(1, order.getUserId());
@@ -172,6 +188,8 @@ private double calculateTotalPrice(Cart cart) {
         return deleteStmt.executeUpdate() > 0;
     }
 
+        // Retrieves a specific order by its ID
+
     public Order getOrder(int id) throws SQLException {
         selectStmt.setInt(1, id);
         try (ResultSet resultSet = selectStmt.executeQuery()) {
@@ -183,6 +201,7 @@ private double calculateTotalPrice(Cart cart) {
     }
 
     
+    // Extracts order data from the ResultSet and returns an Order object
 
     private Order extractOrderFromResultSet(ResultSet rs) throws SQLException {
         return new Order(
@@ -195,9 +214,13 @@ private double calculateTotalPrice(Cart cart) {
         );
     }
 
+        // Method to save the current state of the cart for a specific user
+
     public void saveCart(int userId, Cart cart) throws SQLException {
         String query = "INSERT INTO SavedCarts (userId, productId, quantity, savedDate) VALUES (?, ?, ?, NOW())";
         PreparedStatement stmt = conn.prepareStatement(query);
+
+                // Iterate through each item in the cart and set the parameters for the prepared statement
 
         for (CartItem item : cart.getItems()) {
             stmt.setInt(1, userId);
