@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="uts.isd.model.User"%>
 <%
+    // Check if the user is authorized to view this page
     String role = (String) session.getAttribute("role");
     if (role == null || (!role.equals("Staff") && !role.equals("Admin"))) {
         response.sendRedirect("unauthorized.jsp"); 
@@ -231,29 +232,36 @@
         </div>
     </div>
 
+    <!-- Modal for confirming product deletion -->
     <div id="confirmModal" class="modal">
         <div class="modal-content">
             <h2>Confirm Deletion</h2>
             <p>Are you sure you want to delete this? This cannot be undone.</p>
             <div class="modal-buttons">
+                <!-- Button to confirm deletion -->
                 <button id="confirmBtn" class="btn btn-confirm">Yes, I am sure</button>
+                <!-- Button to cancel and close the modal -->
                 <button onclick="closeModal()" class="btn btn-cancel">No</button>
             </div>
         </div>
     </div>
 
     <script>
+        // Variable to store the form to be submitted upon confirmation
         let formToSubmit;
 
+        // Function to display the confirmation modal and set the form to be submitted
         function confirmDelete(productId) {
             formToSubmit = document.getElementById('deleteForm-' + productId);
             document.getElementById('confirmModal').style.display = 'block';
         }
 
+        // Function to close the confirmation modal
         function closeModal() {
             document.getElementById('confirmModal').style.display = 'none';
         }
 
+        // Event listener to submit the form when the confirmation button is clicked
         document.getElementById('confirmBtn').onclick = function() {
             formToSubmit.submit();
         }

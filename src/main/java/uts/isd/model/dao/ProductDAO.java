@@ -9,19 +9,21 @@ import java.util.List;
 import uts.isd.model.Product;
 
 public class ProductDAO {
-    private Connection conn;
-    private PreparedStatement readst;
-    private PreparedStatement createStmt;
-    private PreparedStatement updateStmt;
-    private PreparedStatement deleteStmt;
-    private PreparedStatement maxIdStmt;
+    private Connection conn; // Database connection
+    private PreparedStatement readst; // Prepared statement for reading products
+    private PreparedStatement createStmt; // Prepared statement for creating a product
+    private PreparedStatement updateStmt; // Prepared statement for updating a product
+    private PreparedStatement deleteStmt; // Prepared statement for deleting a product
+    private PreparedStatement maxIdStmt; // Prepared statement for getting max product ID
 
+    // SQL queries
     private String readQuery = "SELECT * from product";
     private String createQuery = "INSERT INTO product (productid, productname, productcategory, productdescription, productprice, productstock) VALUES (?, ?, ?, ?, ?, ?)";
     private String updateQuery = "UPDATE product SET productname = ?, productcategory = ?, productdescription = ?, productprice = ?, productstock = ? WHERE productid = ?";
     private String deleteQuery = "DELETE FROM product WHERE productid = ?";
     private String maxIdQuery = "SELECT MAX(productid) AS maxid FROM product";
 
+    // Constructor initializing the DAO with the database connection
     public ProductDAO(Connection connection) throws SQLException {
         this.conn = connection;
         connection.setAutoCommit(true);
@@ -32,6 +34,7 @@ public class ProductDAO {
         maxIdStmt = connection.prepareStatement(maxIdQuery);
     }
 
+    // Retrieve all products from the database
     public List<Product> getAllProducts() throws SQLException {
         List<Product> products = new ArrayList<>();
         ResultSet rs = readst.executeQuery();
@@ -51,6 +54,7 @@ public class ProductDAO {
         return products;
     }
 
+    // Add a new product to the database
     public void addProduct(Product product) throws SQLException {
         int nextId = getNextProductId();
         createStmt.setInt(1, nextId);
@@ -62,6 +66,7 @@ public class ProductDAO {
         createStmt.executeUpdate();
     }
 
+    // Update an existing product in the database
     public void updateProduct(Product product) throws SQLException {
         updateStmt.setString(1, product.getProductname());
         updateStmt.setString(2, product.getProductcategory());
@@ -71,7 +76,8 @@ public class ProductDAO {
         updateStmt.setInt(6, product.getProductid());
         updateStmt.executeUpdate();
     }
-    
+
+    // Retrieve a product by its ID
     public Product getProductById(int id) throws SQLException {
         String query = "SELECT * FROM product WHERE productid = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -93,6 +99,7 @@ public class ProductDAO {
         }
     }
 
+    // Search products by name and category
     public List<Product> searchProducts(String name, String category) throws SQLException {
         List<Product> products = new ArrayList<>();
         String query = "SELECT * FROM product WHERE productname LIKE ? AND productcategory LIKE ?";
@@ -115,12 +122,14 @@ public class ProductDAO {
         rs.close();
         return products;
     }
-    
+
+    // Delete a product by its ID
     public void deleteProduct(int productId) throws SQLException {
         deleteStmt.setInt(1, productId);
         deleteStmt.executeUpdate();
     }
 
+    // Get the next product ID
     private int getNextProductId() throws SQLException {
         ResultSet rs = maxIdStmt.executeQuery();
         int nextId = 1; // Default to 1 if no products are found
