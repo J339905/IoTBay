@@ -1,59 +1,93 @@
 package uts.isd.model;
 
-public class OrderLineItem {
+import java.util.Date;
 
-    private int lineItemId;
-    private int orderId;
-    private int productId;
-    private int quantity;
+public class Payment {
+    private int paymentID;
+    private int orderID;
+    private double amount;
+    private Date paymentDate;
+    private String paymentMethod;
+    private String cardNumber;
+    private String expiryDate;
+    private String cvv;
 
-    private double price;
+    // Constructors
+    public Payment() {}
 
-    public OrderLineItem(int lineItemId, int orderId, int productId, int quantity, double price) {
-        this.lineItemId = lineItemId;
-        this.orderId = orderId;
-        this.productId = productId;
-        this.quantity = quantity;
-        this.price = price;
+    public Payment(int paymentID, int orderID, double amount, Date paymentDate, String paymentMethod, String cardNumber, String expiryDate, String cvv) {
+        this.paymentID = paymentID;
+        this.orderID = orderID;
+        this.amount = amount;
+        this.paymentDate = paymentDate;
+        this.paymentMethod = paymentMethod;
+        this.cardNumber = cardNumber;
+        this.expiryDate = expiryDate;
+        this.cvv = cvv;
     }
 
-    public int getLineItemId() {
-        return lineItemId;
+    // Getters and Setters
+    public int getPaymentID() {
+        return paymentID;
     }
 
-    public void setLineItemId(int lineItemId) {
-        this.lineItemId = lineItemId;
+    public void setPaymentID(int paymentID) {
+        this.paymentID = paymentID;
     }
 
-    public double getprice() {
-        return price;
+    public int getOrderID() {
+        return orderID;
     }
 
-    public void setLineItemId(double price) {
-        this.price = price;
+    public void setOrderID(int orderID) {
+        this.orderID = orderID;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public int getProductId() {
-        return productId;
+    public Date getPaymentDate() {
+        return paymentDate;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public String getCvv() {
+        return cvv;
+    }
+
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
     }
 }

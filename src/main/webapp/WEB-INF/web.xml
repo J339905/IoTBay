@@ -193,6 +193,23 @@
         <servlet-name>PaymentServlet</servlet-name>
         <url-pattern>/PaymentServlet</url-pattern>
     </servlet-mapping>
+        <servlet>
+        <servlet-name>ViewPaymentHistoryServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ViewPaymentHistoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewPaymentHistoryServlet</servlet-name>
+        <url-pattern>/ViewPaymentHistoryServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SearchPaymentServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchPaymentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchPaymentServlet</servlet-name>
+        <url-pattern>/SearchPaymentServlet</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>

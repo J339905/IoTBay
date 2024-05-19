@@ -70,23 +70,23 @@ public class PaymentServlet extends HttpServlet {
         int orderID = Integer.parseInt(request.getParameter("orderID"));
         double amount = Double.parseDouble(request.getParameter("amount"));
         String paymentMethod = request.getParameter("paymentMethod");
-        Date paymentDate = new Date();
-
         String cardNumber = request.getParameter("cardNumber");
         String expiryDate = request.getParameter("expiryDate");
         String cvv = request.getParameter("cvv");
-
-        // Here you can add code to process the credit card details, e.g., validation, encryption, etc.
-
+        Date paymentDate = Date.valueOf(request.getParameter("paymentDate"));
+    
         Payment payment = new Payment();
         payment.setOrderID(orderID);
         payment.setAmount(amount);
         payment.setPaymentMethod(paymentMethod);
+        payment.setCardNumber(cardNumber);
+        payment.setExpiryDate(expiryDate);
+        payment.setCvv(cvv);
         payment.setPaymentDate(paymentDate);
-
+    
         paymentDAO.createPayment(payment);
         response.sendRedirect("paymentSuccess.jsp");
-    }
+    }    
 
     private void updatePayment(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int paymentID = Integer.parseInt(request.getParameter("paymentID"));

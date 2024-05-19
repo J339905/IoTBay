@@ -46,10 +46,21 @@
         .btn:hover {
             background-color: #0056b3;
         }
+        .search-form {
+            margin-bottom: 20px;
+        }
+        .search-form input {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>Payment History</h1>
+    <form class="search-form" action="SearchPaymentServlet" method="post">
+        <input type="text" name="paymentID" placeholder="Search by Payment ID">
+        <input type="date" name="paymentDate" placeholder="Search by Date">
+        <button type="submit" class="btn">Search</button>
+    </form>
     <table>
         <thead>
             <tr>
