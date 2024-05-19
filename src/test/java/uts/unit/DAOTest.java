@@ -309,6 +309,19 @@ public class DAOTest {
     }   
 
     @Test
+    public void adminAddUserFailed() throws SQLException {
+        System.out.println("Admin - add user");
+        String firstName = "ss12";
+        String nameRegex = "^[a-zA-Z\\s'-]+$";
+        if (!firstName.matches(nameRegex)) {
+            System.out.println("Admin creation failed");
+            return;
+        }
+        userDAO.createUser(firstName, "Doe", "j.doe@example.com", 1234567890, "password123", "Male", "Customer");
+        System.out.println("Admin - user added!");
+    }   
+
+    @Test
     public void adminUpdateUser() throws SQLException {
         System.out.println("Admin update user");
         User u = userDAO.findUserById("36");
@@ -318,8 +331,34 @@ public class DAOTest {
     }
 
     @Test
+    public void adminUpdateUserFailed() throws SQLException {
+        System.out.println("Admin update user");
+        User u = userDAO.findUserById("36");
+        String name = "sdf21";
+        String nameRegex = "^[a-zA-Z\\s'-]+$";
+        if (!name.matches(nameRegex)) {
+            System.out.println("Admin update failed");
+            return;
+        }
+        userDAO.adminUpdateUser(u);
+        System.out.println("Admin - user updated!");
+    }
+
+    @Test
     public void adminDeleteUser() throws SQLException {
         System.out.println("Admin delete user");
+        userDAO.deleteUser(Integer.valueOf("36"));
+        System.out.println("Admin - user deleted!");
+    }
+
+    @Test
+    public void adminDeleteUserFailed() throws SQLException {
+        System.out.println("Admin delete user");
+        User u = userDAO.findUserById("36");
+        if (u == null) {
+            System.out.println("user delete failed");
+            return;
+        }
         userDAO.deleteUser(Integer.valueOf("36"));
         System.out.println("Admin - user deleted!");
     }
