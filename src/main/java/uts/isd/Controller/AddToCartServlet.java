@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;  // Add this import for HttpSession
+import javax.servlet.http.HttpSession;
 
 import uts.isd.model.Cart;
 import uts.isd.model.CartItem;
@@ -19,6 +19,7 @@ import uts.isd.model.Product;
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
 
+// Declares the servlet and mapping
 @WebServlet(name = "AddToCartServlet", urlPatterns = {"/addToCart"})
 public class AddToCartServlet extends HttpServlet {
     private DBConnector dbConnector;
@@ -26,6 +27,7 @@ public class AddToCartServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        // Initializes the database connection and DAO
         try {
             dbConnector = new DBConnector(); // Ensure DBConnector can throw ClassNotFoundException
             Connection conn = dbConnector.openConnection();
@@ -48,6 +50,7 @@ public class AddToCartServlet extends HttpServlet {
                 System.out.println("New product ID set created.");
             }
 
+            // Retrieve or create a cart object in session
             Cart cart = (Cart) session.getAttribute("cart");
             if (cart == null) {
                 cart = new Cart();
@@ -94,6 +97,12 @@ public class AddToCartServlet extends HttpServlet {
     public void destroy() {
         super.destroy();
         // Clean up any resources such as database connections here
+        if (dbConnector != null) {
+            try {
+                dbConnector.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
 }
