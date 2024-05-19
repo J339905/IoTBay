@@ -218,7 +218,7 @@ public class UserDAO {
     }
     
     
-    // read whole users
+
     public ArrayList<User> readAllUsers() throws SQLException {
         ResultSet rs = readst.executeQuery();
         ArrayList<User> users = new ArrayList<User>();

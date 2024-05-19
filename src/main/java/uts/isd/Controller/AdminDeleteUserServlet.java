@@ -42,8 +42,8 @@ public class AdminDeleteUserServlet extends HttpServlet {
 
         try {
 
-            userDAO.deleteUser(Integer.valueOf(userId)); // delete user by id
-            response.sendRedirect("/admin.jsp"); // redirect to admin page
+            userDAO.deleteUser(Integer.valueOf(userId));
+            response.sendRedirect("/admin.jsp"); 
             
         } catch (SQLException e) {
             throw new ServletException("Database access error.", e);

@@ -40,7 +40,7 @@ public class AdminReadUsersServlet extends HttpServlet {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "UserDAO not initialized.");
                 return;
             }
-            users = userDAO.readAllUsers(); // read whole users
+            users = userDAO.readAllUsers();
             request.setAttribute("users", users); // Set users in request scope
         } catch (SQLException e) {
             e.printStackTrace();

@@ -67,19 +67,19 @@ public class LoginServlet extends HttpServlet {
                 // } else {
                 //     response.sendRedirect("admin.jsp");
                 // }
-                if (user.getIsActivated()) { // check is activated user
+                if (user.getIsActivated()) {
                     session.setAttribute("user", user);
                     // Their Login activity should be logged into database
                     logDAO.createLog(user.getUserID(), java.time.LocalDateTime.now().toString(), "Login");
                     if (user.getRole().equals("Customer")) {
                         response.sendRedirect("welcome.jsp");
                     }
-                    else if (user.getRole().equals("Staff")) { // if role is staff, redirect to admin page
+                    else if (user.getRole().equals("Staff")) {
                         session.setAttribute("role", "Staff");
                         response.sendRedirect("admin.jsp");
                     } 
                     else {
-                        session.setAttribute("role", "Admin"); // if role is admin, redirect to admin page
+                        session.setAttribute("role", "Admin");
                         response.sendRedirect("admin.jsp");
                     }
                 }

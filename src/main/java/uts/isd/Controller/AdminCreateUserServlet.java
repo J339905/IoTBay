@@ -65,24 +65,24 @@ public class AdminCreateUserServlet extends HttpServlet {
             return;
         }
 
-        if (!email.matches(emailRegex)) { // check if email is written in correct format
+        if (!email.matches(emailRegex)) {
             session.setAttribute("emailErr", "Email format wrong, try again!");
             request.getRequestDispatcher("/admin/createUser.jsp").include(request, response);
             return;
         }
 
-        if (!firstname.matches(nameRegex) || !lastname.matches(nameRegex)) { // check if firstname and lastname are written in correct format
+        if (!firstname.matches(nameRegex) || !lastname.matches(nameRegex)) {
             session.setAttribute("nametypeErr", "Names must contain letters only");
             request.getRequestDispatcher("/admin/createUser.jsp").include(request, response);
             return;
         }
-        if (password.length() < 5) { // check if password is written in correct format
+        if (password.length() < 5) {
             session.setAttribute("passwordErr", "Password must have a length of at least 5 characters");
             request.getRequestDispatcher("/admin/createUser.jsp").include(request, response);
             return;
         }
 
-        if (!phoneStr.matches(phoneRegex)) { // check if phone number is written in correct format
+        if (!phoneStr.matches(phoneRegex)) {
             session.setAttribute("phoneErr", "Phone number must consist of numbers only");
             request.getRequestDispatcher("/admin/createUser.jsp").include(request, response);
             return;
@@ -97,8 +97,8 @@ public class AdminCreateUserServlet extends HttpServlet {
                 return;
             }
 
-            User checkuser = userDAO.findExistingUser(email); // check is email existing
-            if (checkuser != null) { // if existing doesn't save the user data
+            User checkuser = userDAO.findExistingUser(email);
+            if (checkuser != null) {
                 session.setAttribute("userexistsErr", "This user already exists");
                 request.getRequestDispatcher("/admin/createUser.jsp").include(request, response);
                 return;
@@ -111,8 +111,8 @@ public class AdminCreateUserServlet extends HttpServlet {
             else {
                 checkIsActivated = false;
             }
-            int userId = userDAO.adminCreateUser(firstname, lastname, email, phone, password, gender, role, checkIsActivated); // save user
-            logDao.createLog(userId, java.time.LocalDateTime.now().toString(), "Registered"); // save user log
+            int userId = userDAO.adminCreateUser(firstname, lastname, email, phone, password, gender, role, checkIsActivated);
+            logDao.createLog(userId, java.time.LocalDateTime.now().toString(), "Registered");
             response.sendRedirect("/admin.jsp");
 
         } catch (Exception e) {
