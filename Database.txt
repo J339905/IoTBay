@@ -1,0 +1,317 @@
+-- IOTBay.Cart definition 
+
+ 
+
+CREATE TABLE `Cart` ( 
+
+  `CartID` int NOT NULL AUTO_INCREMENT, 
+
+  `productid` int NOT NULL, 
+
+  `productname` varchar(100) NOT NULL, 
+
+  `productprice` double NOT NULL, 
+
+  `OrderID` int NOT NULL, 
+
+  `UserID` int NOT NULL, 
+
+  PRIMARY KEY (`CartID`), 
+
+  KEY `Cart_product_FK` (`productid`), 
+
+  KEY `Cart_Order_FK` (`OrderID`), 
+
+  KEY `Cart_user_FK` (`UserID`), 
+
+  CONSTRAINT `Cart_Order_FK` FOREIGN KEY (`OrderID`) REFERENCES `Order` (`OrderID`), 
+
+  CONSTRAINT `Cart_product_FK` FOREIGN KEY (`productid`) REFERENCES `product` (`productid`), 
+
+  CONSTRAINT `Cart_user_FK` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) 
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; 
+
+ 
+
+ 
+
+ 
+
+ 
+
+-- IOTBay.Invoice definition 
+
+ 
+
+CREATE TABLE `Invoice` ( 
+
+  `InvoiceID` int NOT NULL AUTO_INCREMENT, 
+
+  `OrderID` int NOT NULL, 
+
+  `amount` int NOT NULL, 
+
+  `PaymentDate` datetime NOT NULL, 
+
+  PRIMARY KEY (`InvoiceID`) 
+
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; 
+
+ 
+
+ 
+
+ 
+
+ 
+
+-- IOTBay.Logs definition 
+
+ 
+
+CREATE TABLE `Logs` ( 
+
+  `LogID` int NOT NULL AUTO_INCREMENT, 
+
+  `UserID` int NOT NULL, 
+
+  `ActivityTime` date NOT NULL, 
+
+  `ActivityType` varchar(100) NOT NULL, 
+
+  PRIMARY KEY (`LogID`) 
+
+) ENGINE=InnoDB AUTO_INCREMENT=350 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; 
+
+-- IOTBay.`Order` definition 
+
+ 
+
+CREATE TABLE `Order` ( 
+
+  `OrderID` int NOT NULL AUTO_INCREMENT, 
+
+  `UserID` int DEFAULT NULL, 
+
+  `Order_Date` datetime NOT NULL, 
+
+  `Order_Status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL, 
+
+  `Delivery_address` varchar(100) NOT NULL, 
+
+  `Quantity` int NOT NULL, 
+
+  `TotalPrice` double NOT NULL, 
+
+  PRIMARY KEY (`OrderID`) 
+
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; 
+
+ 
+
+ 
+
+ 
+
+ 
+
+-- IOTBay.OrderLine definition 
+
+ 
+
+CREATE TABLE `OrderLine` ( 
+
+  `lineItemid` int NOT NULL AUTO_INCREMENT, 
+
+  `OrderID` int NOT NULL, 
+
+  `ProductID` int NOT NULL, 
+
+  `quantity` int NOT NULL, 
+
+  PRIMARY KEY (`lineItemid`), 
+
+  KEY `OrderLine_Order_FK` (`OrderID`), 
+
+  CONSTRAINT `OrderLine_Order_FK` FOREIGN KEY (`OrderID`) REFERENCES `Order` (`OrderID`) 
+
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; 
+
+ 
+
+ 
+
+ 
+
+ 
+
+-- IOTBay.Payment definition 
+
+ 
+
+CREATE TABLE `Payment` ( 
+
+  `paymentID` int NOT NULL AUTO_INCREMENT, 
+
+  `orderID` int NOT NULL, 
+
+  `amount` int NOT NULL, 
+
+  `paymentDate` date NOT NULL, 
+
+  `paymentMethod` varchar(100) NOT NULL, 
+
+  PRIMARY KEY (`paymentID`) 
+
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; 
+
+ 
+
+ 
+
+ 
+
+-- IOTBay.product definition 
+
+ 
+
+CREATE TABLE `product` ( 
+
+  `productid` int NOT NULL, 
+
+  `productname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL, 
+
+  `productcategory` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL, 
+
+  `productdescription` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL, 
+
+  `productprice` double NOT NULL, 
+
+  `productstock` int NOT NULL, 
+
+  PRIMARY KEY (`productid`) 
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; 
+
+ 
+
+ 
+
+ 
+
+ 
+
+-- IOTBay.SavedCarts definition 
+
+ 
+
+CREATE TABLE `SavedCarts` ( 
+
+  `savedCartId` int NOT NULL AUTO_INCREMENT, 
+
+  `userId` int DEFAULT NULL, 
+
+  `productId` int DEFAULT NULL, 
+
+  `quantity` int DEFAULT NULL, 
+
+  `savedDate` datetime DEFAULT NULL, 
+
+  PRIMARY KEY (`savedCartId`), 
+
+  KEY `userId` (`userId`), 
+
+  KEY `productId` (`productId`), 
+
+  CONSTRAINT `savedcarts_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User` (`UserID`), 
+
+  CONSTRAINT `savedcarts_ibfk_2` FOREIGN KEY (`productId`) REFERENCES `Product` (`productid`) 
+
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; 
+
+ 
+
+ 
+
+ 
+
+-- IOTBay.shipment definition 
+
+ 
+
+CREATE TABLE `shipment` ( 
+
+  `shipmentID` int NOT NULL AUTO_INCREMENT, 
+
+  `orderID` int NOT NULL, 
+
+  `shipmentDate` timestamp NOT NULL, 
+
+  `shipmentStatus` varchar(255) DEFAULT NULL, 
+
+  PRIMARY KEY (`shipmentID`) 
+
+) ENGINE=InnoDB AUTO_INCREMENT=45453437 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; 
+
+-- IOTBay.staff definition 
+
+ 
+
+CREATE TABLE `staff` ( 
+
+  `UserID` int NOT NULL AUTO_INCREMENT, 
+
+  `StaffID` int NOT NULL, 
+
+  `StaffUsername` varchar(100) NOT NULL, 
+
+  `StaffPassword` varchar(100) NOT NULL, 
+
+  `FirstName` varchar(100) NOT NULL, 
+
+  `LastName` varchar(100) NOT NULL, 
+
+  `role` varchar(100) NOT NULL, 
+
+  UNIQUE KEY `staff_unique` (`UserID`), 
+
+  CONSTRAINT `UserID` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`) 
+
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; 
+
+ 
+
+ 
+
+ 
+
+-- IOTBay.`user` definition 
+
+ 
+
+CREATE TABLE `user` ( 
+
+  `UserID` int NOT NULL AUTO_INCREMENT, 
+
+  `Email` varchar(100) NOT NULL, 
+
+  `Password` varchar(100) NOT NULL, 
+
+  `Phone_Number` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL, 
+
+  `Gender` varchar(100) NOT NULL, 
+
+  `FirstName` varchar(100) NOT NULL, 
+
+  `LastName` varchar(100) NOT NULL, 
+
+  `role` varchar(100) NOT NULL, 
+
+  `isActivated` tinyint(1) NOT NULL DEFAULT '1', 
+
+  PRIMARY KEY (`UserID`) 
+
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci; 
+
+ 
