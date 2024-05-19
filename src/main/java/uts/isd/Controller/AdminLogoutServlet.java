@@ -14,7 +14,7 @@ public class AdminLogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.removeAttribute("role");
-        session.invalidate();
-        response.sendRedirect("/login.jsp");
+        session.invalidate(); // remove session datas
+        response.sendRedirect("/login.jsp"); // redirect to login page
     }
 }
