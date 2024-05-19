@@ -301,4 +301,34 @@ public class DAOTest {
         assertNotNull(cart, "Cart should be saved successfully");
     }
 
+    @Test
+    public void adminAddUser() throws SQLException {
+        System.out.println("Admin - add user");
+        userDAO.createUser("John", "Doe", "j.doe@example.com", 1234567890, "password123", "Male", "Customer");
+        System.out.println("Admin - user added!");
+    }   
+
+    @Test
+    public void adminUpdateUser() throws SQLException {
+        System.out.println("Admin update user");
+        User u = userDAO.findUserById("36");
+        u.setEmail("test@gmail.com");
+        userDAO.adminUpdateUser(u);
+        System.out.println("Admin - user updated!");
+    }
+
+    @Test
+    public void adminDeleteUser() throws SQLException {
+        System.out.println("Admin delete user");
+        userDAO.deleteUser(Integer.valueOf("36"));
+        System.out.println("Admin - user deleted!");
+    }
+
+    @Test
+    public void adminFindUser() throws SQLException {
+        System.out.println("Admin find user");
+        User u = userDAO.findUserById("50");
+        System.out.println(u.getEmail());
+    }
+
 }
