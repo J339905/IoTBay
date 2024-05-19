@@ -29,7 +29,6 @@ import uts.isd.model.dao.logDAO;
 import uts.isd.model.dao.ProductDAO;
 import uts.isd.model.dao.OrderDAO;
 
-
 public class DAOTest {
 
     private DBConnector connector;
@@ -38,7 +37,6 @@ public class DAOTest {
     private ProductDAO productDAO;
     private logDAO logDAO;
     private OrderDAO orderDAO;
-
 
     public DAOTest() throws ClassNotFoundException, SQLException {
         connector = new DBConnector();
@@ -96,11 +94,11 @@ public class DAOTest {
         System.out.println(user.toString());
     }
 
-    // @Test
-    // public void testdeleteuser() throws SQLException {
-    // User user = userDAO.findUser("Isaac@hotmail.com", "dsadfsfdfdsfdsfsdf");
-    // userDAO.deleteUser(user.getUserID());
-    // }
+    @Test
+    public void testdeleteuser() throws SQLException {
+        User user = userDAO.findUser("e@e.com", "sdfsdfsf");
+        userDAO.deleteUser(user.getUserID());
+    }
 
     // All testcases below are related to theJunit test cases in the assignment 2
     // marking criteria
@@ -117,62 +115,38 @@ public class DAOTest {
         assertTrue(user == null);
     }
 
-    // @Test
-    // public void testSuccessfulUpdate() throws Exception {
-    // User user = userDAO.findUser("a@f.com", "A");
-    // assertNotNull(user);
+    @Test
+    public void testSuccessfulUpdate() throws Exception {
+        User user = userDAO.findUser("Vishal@s.com", "Vish");
+        assertNotNull(user);
 
-    // user = userDAO.updateUser("NewFirstName", "NewLastName", 123456789,
-    // "newpassword123", "Male", "Customer",
-    // user.getEmail());
-    // assertEquals("NewFirstName", user.getfirstName());
-    // assertEquals("NewLastName", user.getlastname());
-    // assertEquals(123456789, user.getPhone());
-    // assertEquals("newpassword123", user.getPassword());
-    // }
-    // @Test
-    // public void testUnsuccessfulUpdate() throws Exception {
-    // User user = userDAO.findUser("a@f.com", "A");
-    // assertNotNull(user);
-    // session.removeAttribute("nametypeErr");
-    // session.removeAttribute("nullErr");
-    // session.removeAttribute("phoneErr");
-    // session.removeAttribute("passwordErr");
+        user = userDAO.updateUser("NewFirstName", "NewLastName", 123456789,
+                "newpassword123", "Male", "Customer",
+                user.getEmail());
+        assertEquals("NewFirstName", user.getfirstName());
+        assertEquals("NewLastName", user.getlastname());
+        assertEquals(123456789, user.getPhone());
+        assertEquals("newpassword123", user.getPassword());
+    }
 
-    // String nameRegex = "^[a-zA-Z\\s'-]+$";
-    // String phoneRegex = "^\\d+$";
+    @Test
+    public void testUnsuccessfulUpdate() throws SQLException {
+        User user = userDAO.findUser("Nish@gmail.com", "Iwonalfsdf");
+        assertNotNull(user);
 
-    // try {
-    // userDAO.updateUser("NewFirstName", "NewLastName", -123456789, "short",
-    // "Male", "Customer", user.getEmail());
-    // fail("Expected SQLException");
-    // } catch (SQLException e) {
-    // // Expected exception due to incorrect format
-    // }
-    // }
-    // @Test
-    // public void testUpdateUserWithInvalidData() throws SQLException {
-    // User user = userDAO.findUser("Nish@gmail.com", "Iwonalfsdf");
-    // assertNotNull(user);
+        String invalidFirstname = "John123";
+        String invalidLastname = "Doe@";
+        String invalidPhone = "123hvm456";
+        String invalidPassword = "123";
 
-    // String invalidFirstname = "John123";
-    // String invalidLastname = "Doe@";
-    // String invalidPhone = "123hvm456";
-    // String invalidPassword = "123";
+        String nameRegex = "^[a-zA-Z\\s'-]+$";
+        String phoneRegex = "^\\d+$";
 
-    // String nameRegex = "^[a-zA-Z\\s'-]+$";
-    // String phoneRegex = "^\\d+$";
-
-    // assertFalse(invalidFirstname.matches(nameRegex), "First name should be
-    // letters only");
-    // assertFalse(invalidLastname.matches(nameRegex), "Last name should be letters
-    // only");
-    // assertFalse(invalidPhone.matches(phoneRegex), "Phone number should be numbers
-    // only");
-    // assertTrue(invalidPassword.length() < 6, "Password should have a length
-    // greater than 5");
-
-    // }
+        assertFalse(invalidFirstname.matches(nameRegex), "First name should be letters only");
+        assertFalse(invalidLastname.matches(nameRegex), "Last name should be letters only");
+        assertFalse(invalidPhone.matches(phoneRegex), "Phone number should be numbers only");
+        assertTrue(invalidPassword.length() < 6, "Password should have a length greater than 5");
+    }
 
     @BeforeEach
     public void setUp() throws SQLException {

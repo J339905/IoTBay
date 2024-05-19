@@ -80,7 +80,7 @@ public class AdminEditUserServlet extends HttpServlet {
         try {
             u = userDAO.findUserById(userId);
             if (u != null) {
-                request.setAttribute("user", u);
+                request.setAttribute("user", u); // save user data in session
             }
         } catch (SQLException e) {
             throw new ServletException("Database access error.", e);
@@ -100,19 +100,19 @@ public class AdminEditUserServlet extends HttpServlet {
             return;
         }
 
-        if (!email.matches(emailRegex)) {
+        if (!email.matches(emailRegex)) { // check if email is written in correct format
             session.setAttribute("emailErr", "Email format wrong, try again!");
             request.getRequestDispatcher("/admin/editUser.jsp").include(request, response);
             return;
         }
 
-        if (!firstName.matches(nameRegex) || !lastName.matches(nameRegex)) {
+        if (!firstName.matches(nameRegex) || !lastName.matches(nameRegex)) { // check if firstname and lastname are written in correct format
             session.setAttribute("nametypeErr", "Names must contain letters only");
             request.getRequestDispatcher("/admin/editUser.jsp").include(request, response);
             return;
         }
 
-        if (!phoneStr.matches(phoneRegex)) {
+        if (!phoneStr.matches(phoneRegex)) { // check if phone number is written in correct format
             session.setAttribute("phoneErr", "Phone number must consist of numbers only");
             request.getRequestDispatcher("/admin/editUser.jsp").include(request, response);
             return;
@@ -120,12 +120,12 @@ public class AdminEditUserServlet extends HttpServlet {
 
         try {
             User user = userDAO.findUserById(userId);
-            if (user == null) {
+            if (user == null) { // if the user not existing, cancel the update and go back to the update page.
                 request.getRequestDispatcher("/admin/editUser.jsp").forward(request, response);
                 return;
             }
 
-            User checkuser = userDAO.findExistingUser(email);
+            User checkuser = userDAO.findExistingUser(email); // check if email is existing
             if (checkuser != null && !email.equals(u.getEmail())) {
                 session.setAttribute("userexistsErr", "This user already exists");
                 request.getRequestDispatcher("/admin/editUser.jsp").include(request, response);
@@ -145,7 +145,7 @@ public class AdminEditUserServlet extends HttpServlet {
                 user.setIsActivated(false);
             }
 
-            userDAO.adminUpdateUser(user);
+            userDAO.adminUpdateUser(user); // update the user
             logDao.createLog(Integer.valueOf(userId), java.time.LocalDateTime.now().toString(), "Updated");
             session.setAttribute("message", "User updated successfully.");
             response.sendRedirect("/admin.jsp"); 
