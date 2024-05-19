@@ -185,5 +185,13 @@
         <url-pattern>/DeleteProductServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ViewSavedOrdersServlet</servlet-name>
+        <servlet-class>uts.isd.Controller.ViewSavedOrdersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewSavedOrdersServlet</servlet-name>
+        <url-pattern>/ViewSavedOrdersServlet</url-pattern>
+    </servlet-mapping>
 
 </web-app>

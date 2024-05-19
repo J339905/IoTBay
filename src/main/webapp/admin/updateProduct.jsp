@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="uts.isd.model.User"%>
 <%
+    // Check if the user is authorized to view this page
     String role = (String) session.getAttribute("role");
     if (role == null || (!role.equals("Staff") && !role.equals("Admin"))) {
         response.sendRedirect("unauthorized.jsp"); 

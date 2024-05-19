@@ -17,7 +17,7 @@ import uts.isd.model.dao.ProductDAO;
 
 @WebServlet("/productlist")
 public class ListProductServlet extends HttpServlet {
-    private DBConnector db;
+    private DBConnector db; 
     private ProductDAO productDAO;
 
     @Override
@@ -26,7 +26,7 @@ public class ListProductServlet extends HttpServlet {
         try {
             db = new DBConnector();
             Connection conn = db.openConnection();
-            productDAO = new ProductDAO(conn);
+            productDAO = new ProductDAO(conn); 
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
@@ -35,17 +35,18 @@ public class ListProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String category = request.getParameter("category");
+        String name = request.getParameter("name"); // Retrieve name filter from request
+        String category = request.getParameter("category"); // Retrieve category filter from request
         try {
             List<Product> products;
+            // Search for products by name and/or category, or retrieve all products if no filters are provided
             if (name != null || category != null) {
                 products = productDAO.searchProducts(name != null ? name : "", category != null ? category : "");
             } else {
                 products = productDAO.getAllProducts();
             }
-            request.setAttribute("products", products);
-            request.getRequestDispatcher("productlist.jsp").forward(request, response);
+            request.setAttribute("products", products); // Set products attribute for the request
+            request.getRequestDispatcher("productlist.jsp").forward(request, response); // Forward request to JSP
         } catch (SQLException e) {
             throw new ServletException("Error retrieving products", e);
         }

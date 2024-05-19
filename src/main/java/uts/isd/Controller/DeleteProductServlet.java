@@ -12,21 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.ProductDAO;
-import uts.isd.model.dao.UserDAO;
 
 @WebServlet("/deleteproduct")
 public class DeleteProductServlet extends HttpServlet {
-    private DBConnector db;
-    private ProductDAO productDAO;
-    
+    private DBConnector db; 
+    private ProductDAO productDAO; 
 
     @Override
     public void init() throws ServletException {
         super.init();
         try {
-            db = new DBConnector();
-            Connection conn = db.openConnection();
-            productDAO = new ProductDAO(conn);
+            db = new DBConnector(); 
+            Connection conn = db.openConnection(); 
+            productDAO = new ProductDAO(conn); 
         } catch (ClassNotFoundException | SQLException e) {
             throw new ServletException("DBConnector initialization failed.", e);
         }
@@ -36,8 +34,8 @@ public class DeleteProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            productDAO.deleteProduct(id);
+            int id = Integer.parseInt(request.getParameter("id")); // Retrieve product ID from request
+            productDAO.deleteProduct(id); // Delete product by ID
             response.sendRedirect("/productlistadmin");
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product ID.");
@@ -50,7 +48,7 @@ public class DeleteProductServlet extends HttpServlet {
     public void destroy() {
         try {
             if (db != null) {
-                db.closeConnection();
+                db.closeConnection(); 
             }
         } catch (SQLException e) {
             e.printStackTrace();
