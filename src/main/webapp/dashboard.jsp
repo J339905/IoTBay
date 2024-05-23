@@ -41,6 +41,7 @@
         <div class="mt-4">
             <a href="/productlist" class="btn btn-primary">View Products</a>
             <a href="/listOrders" class="btn btn-info">View Your Orders</a>
+            <a href="paymentList.jsp" class="btn btn-success">Manage Payments</a>
             <a href="/welcome.jsp" class="btn btn-danger">Return to home</a>
         </div>
     </div>
