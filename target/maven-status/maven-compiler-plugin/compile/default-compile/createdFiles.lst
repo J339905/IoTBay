@@ -1,9 +1,0 @@
-uts\isd\Controller\ProcessCheckoutServlet.class
-uts\isd\Controller\OrderServlet.class
-uts\isd\Controller\ViewSavedOrdersServlet.class
-uts\isd\Controller\ViewCartServlet.class
-uts\isd\model\dao\PaymentDAO.class
-uts\isd\Controller\CheckoutServlet.class
-uts\isd\Controller\PaymentServlet.class
-uts\isd\Controller\SaveOrderServlet.class
-uts\isd\Controller\UpdateCartServlet.class

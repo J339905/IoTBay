@@ -14,12 +14,17 @@ public class PaymentDAO {
 
     // Create a new payment record
     public void createPayment(Payment payment) throws SQLException {
-        String query = "INSERT INTO Payment (orderID, amount, paymentDate, paymentMethod) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO Payment (orderID, amount, paymentDate, paymentMethod, address, cardName, cardNumber, expiryDate, cvv) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setInt(1, payment.getOrderID());
         stmt.setDouble(2, payment.getAmount());
         stmt.setDate(3, new java.sql.Date(payment.getPaymentDate().getTime()));
         stmt.setString(4, payment.getPaymentMethod());
+        stmt.setString(5, payment.getAddress());
+        stmt.setString(6, payment.getCardName());
+        stmt.setString(7, payment.getCardNumber());
+        stmt.setString(8, payment.getExpiryDate());
+        stmt.setString(9, payment.getCvv());
         stmt.executeUpdate();
     }
 
@@ -35,7 +40,12 @@ public class PaymentDAO {
                 rs.getInt("orderID"),
                 rs.getDouble("amount"),
                 rs.getDate("paymentDate"),
-                rs.getString("paymentMethod")
+                rs.getString("paymentMethod"),
+                rs.getString("address"),
+                rs.getString("cardName"),
+                rs.getString("cardNumber"),
+                rs.getString("expiryDate"),
+                rs.getString("cvv")
             );
         }
         return null;
@@ -53,7 +63,12 @@ public class PaymentDAO {
                 rs.getInt("orderID"),
                 rs.getDouble("amount"),
                 rs.getDate("paymentDate"),
-                rs.getString("paymentMethod")
+                rs.getString("paymentMethod"),
+                rs.getString("address"),
+                rs.getString("cardName"),
+                rs.getString("cardNumber"),
+                rs.getString("expiryDate"),
+                rs.getString("cvv")
             ));
         }
         return payments;
@@ -61,13 +76,18 @@ public class PaymentDAO {
 
     // Update a payment record
     public void updatePayment(Payment payment) throws SQLException {
-        String query = "UPDATE Payment SET orderID=?, amount=?, paymentDate=?, paymentMethod=? WHERE paymentID=?";
+        String query = "UPDATE Payment SET orderID=?, amount=?, paymentDate=?, paymentMethod=?, address=?, cardName=?, cardNumber=?, expiryDate=?, cvv=? WHERE paymentID=?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setInt(1, payment.getOrderID());
         stmt.setDouble(2, payment.getAmount());
         stmt.setDate(3, new java.sql.Date(payment.getPaymentDate().getTime()));
         stmt.setString(4, payment.getPaymentMethod());
-        stmt.setInt(5, payment.getPaymentID());
+        stmt.setString(5, payment.getAddress());
+        stmt.setString(6, payment.getCardName());
+        stmt.setString(7, payment.getCardNumber());
+        stmt.setString(8, payment.getExpiryDate());
+        stmt.setString(9, payment.getCvv());
+        stmt.setInt(10, payment.getPaymentID());
         stmt.executeUpdate();
     }
 
