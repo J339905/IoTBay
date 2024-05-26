@@ -1,38 +1,36 @@
 package uts.isd.model;
 
-import java.time.LocalDateTime;
-
 public class Payment {
-
     private int paymentId;
-    private int orderId;
-    private int amount;
-    private LocalDateTime paymentDate;
-    private String paymentMethod;
-    private String cvv;
-    private String nameOnCard;
-    private LocalDateTime expiryDate;
-    private LocalDateTime datePaid;
-    private String transactionStatus;
-    private String confirmationNumber;
-    private int userId; // Assuming each payment is linked to a specific user
+    private String cardHolderName;
+    private String creditCardNumber;
+    private int cvv; // Ensure cvv is of type int
+    private String expiryDate;
+    private double amount;
+    private String date;
 
-    // Constructor
-    public Payment(int paymentId, int orderId, int amount, LocalDateTime paymentDate, String paymentMethod,
-                   String cvv, String nameOnCard, LocalDateTime expiryDate, LocalDateTime datePaid,
-                   String transactionStatus, String confirmationNumber, int userId) {
+    // Default constructor
+    public Payment() {}
+
+    // Constructor with all fields
+    public Payment(int paymentId, String cardHolderName, String creditCardNumber, int cvv, String expiryDate, double amount, String date) {
         this.paymentId = paymentId;
-        this.orderId = orderId;
-        this.amount = amount;
-        this.paymentDate = paymentDate;
-        this.paymentMethod = paymentMethod;
+        this.cardHolderName = cardHolderName;
+        this.creditCardNumber = creditCardNumber;
         this.cvv = cvv;
-        this.nameOnCard = nameOnCard;
         this.expiryDate = expiryDate;
-        this.datePaid = datePaid;
-        this.transactionStatus = transactionStatus;
-        this.confirmationNumber = confirmationNumber;
-        this.userId = userId;
+        this.amount = amount;
+        this.date = date;
+    }
+
+    // Constructor without paymentId (used for creating new payments)
+    public Payment(String cardHolderName, String creditCardNumber, int cvv, String expiryDate, double amount, String date) {
+        this.cardHolderName = cardHolderName;
+        this.creditCardNumber = creditCardNumber;
+        this.cvv = cvv;
+        this.expiryDate = expiryDate;
+        this.amount = amount;
+        this.date = date;
     }
 
     // Getters and Setters
@@ -44,91 +42,51 @@ public class Payment {
         this.paymentId = paymentId;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public String getCardHolderName() {
+        return cardHolderName;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setCardHolderName(String cardHolderName) {
+        this.cardHolderName = cardHolderName;
     }
 
-    public int getAmount() {
-        return amount;
+    public String getCreditCardNumber() {
+        return creditCardNumber;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setCreditCardNumber(String creditCardNumber) {
+        this.creditCardNumber = creditCardNumber;
     }
 
-    public LocalDateTime getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDateTime paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public String getCVV() {
+    public int getCvv() {
         return cvv;
     }
 
-    public void setCVV(String cvv) {
+    public void setCvv(int cvv) {
         this.cvv = cvv;
     }
 
-    public String getNameOnCard() {
-        return nameOnCard;
-    }
-
-    public void setNameOnCard(String nameOnCard) {
-        this.nameOnCard = nameOnCard;
-    }
-
-    public LocalDateTime getExpiryDate() {
+    public String getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(LocalDateTime expiryDate) {
+    public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
     }
 
-    public LocalDateTime getDatePaid() {
-        return datePaid;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setDatePaid(LocalDateTime datePaid) {
-        this.datePaid = datePaid;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public String getTransactionStatus() {
-        return transactionStatus;
+    public String getDate() {
+        return date;
     }
 
-    public void setTransactionStatus(String transactionStatus) {
-        this.transactionStatus = transactionStatus;
-    }
-
-    public String getConfirmationNumber() {
-        return confirmationNumber;
-    }
-
-    public void setConfirmationNumber(String confirmationNumber) {
-        this.confirmationNumber = confirmationNumber;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setDate(String date) {
+        this.date = date;
     }
 }

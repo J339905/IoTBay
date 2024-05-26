@@ -60,7 +60,7 @@
         }
         .button-container {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             margin: 20px 0;
             width: 100%;
         }
@@ -94,20 +94,31 @@
             </table>
             <p>Total Price: $${cart.totalPrice}</p> <!-- Display total price -->
             <p>Total Quantity: ${cart.totalQuantity}</p> <!-- Display total quantity -->
-            <form action="processCheckout" method="post"> <!-- Form for checkout details -->
+            <form action="createPayment" method="post"> <!-- Form for checkout details -->
+                <input type="hidden" name="orderID" value="${orderID}">
+                <input type="hidden" name="amount" value="${cart.totalPrice}">
                 <h2>Delivery Address</h2>
                 <input type="text" name="deliveryAddress" class="input-field" placeholder="Enter delivery address" required>
                 <h2>Payment Method</h2>
-                <select name="paymentMethod" class="input-field"> <!-- Payment method selection -->
-                    <option value="creditCard">Credit Card</option>
-                    <option value="paypal">PayPal</option>
-                    <option value="applepay">Apple Pay</option>
+                <select name="paymentMethod" class="input-field" required> <!-- Payment method selection -->
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="PayPal">PayPal</option>
+                    <option value="Apple Pay">Apple Pay</option>
                 </select>
+                <h2>Card Holder Name</h2>
+                <input type="text" name="cardHolderName" class="input-field" placeholder="Enter card holder name" required>
+                <h2>Credit Card Number</h2>
+                <input type="text" name="cardNumber" class="input-field" placeholder="Enter 16-digit card number" required pattern="\d{16}">
+                <h2>CVV</h2>
+                <input type="text" name="cvv" class="input-field" placeholder="Enter CVV" required pattern="\d{3}">
+                <h2>Expiry Date</h2>
+                <input type="text" name="expiryDate" class="input-field" placeholder="MM/YY" required pattern="\d{2}/\d{2}">
                 <input type="submit" class="btn" value="Complete Purchase"> <!-- Submit button -->
             </form>
         </div>
         <div class="button-container">
             <a href="viewCart" class="link-btn">Back to Cart</a> <!-- Link back to cart page -->
+            <a href="viewSavedPayments" class="link-btn">View Saved Payments</a> <!-- Link to view saved payments -->
         </div>
     </main>
 </body>
