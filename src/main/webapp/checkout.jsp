@@ -64,6 +64,10 @@
             margin: 20px 0;
             width: 100%;
         }
+        .button-container a, .button-container button {
+            flex: 1;
+            margin: 0 5px;
+        }
     </style>
 </head>
 <body>
@@ -113,12 +117,18 @@
                 <input type="text" name="cvv" class="input-field" placeholder="Enter CVV" required pattern="\d{3}">
                 <h2>Expiry Date</h2>
                 <input type="text" name="expiryDate" class="input-field" placeholder="MM/YY" required pattern="\d{2}/\d{2}">
-                <input type="submit" class="btn" value="Complete Purchase"> <!-- Submit button -->
+                <h2>Amount</h2>
+                <input type="text" name="amount" class="input-field" value="${cart.totalPrice}" readonly>
+                <h2>Payment Date</h2>
+                <input type="text" name="paymentDate" class="input-field" placeholder="dd/mm/yyyy" required>
+                <div class="button-container">
+                    <button type="submit" class="btn" onclick="this.form.action='paymentSuccess.jsp'; this.form.submit();">Complete Purchase</button>
+                    <a href="viewSavedPayments" class="btn link-btn">Save Order Payment Details</a>
+                </div>
             </form>
         </div>
         <div class="button-container">
             <a href="viewCart" class="link-btn">Back to Cart</a> <!-- Link back to cart page -->
-            <a href="viewSavedPayments" class="link-btn">View Saved Payments</a> <!-- Link to view saved payments -->
         </div>
     </main>
 </body>

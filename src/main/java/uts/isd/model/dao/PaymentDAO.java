@@ -14,7 +14,7 @@ public class PaymentDAO {
     }
 
     public void createPayment(Payment payment) throws SQLException {
-        String sql = "INSERT INTO payments (cardHolderName, creditCardNumber, cvv, expiryDate, amount, date) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Payment (cardHolderName, cardNumber, cvv, expiryDate, amount, paymentDate) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, payment.getCardHolderName());
         stmt.setString(2, payment.getCreditCardNumber());
@@ -26,7 +26,7 @@ public class PaymentDAO {
     }
 
     public List<Payment> getAllPayments() throws SQLException {
-        String sql = "SELECT * FROM payments";
+        String sql = "SELECT * FROM Payment";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(sql);
 
@@ -34,11 +34,11 @@ public class PaymentDAO {
         while (rs.next()) {
             int paymentId = rs.getInt("paymentId");
             String cardHolderName = rs.getString("cardHolderName");
-            String creditCardNumber = rs.getString("creditCardNumber");
+            String creditCardNumber = rs.getString("cardNumber");
             int cvv = rs.getInt("cvv");
             String expiryDate = rs.getString("expiryDate");
             double amount = rs.getDouble("amount");
-            String date = rs.getString("date");
+            String date = rs.getString("paymentDate");
 
             Payment payment = new Payment(paymentId, cardHolderName, creditCardNumber, cvv, expiryDate, amount, date);
             payments.add(payment);
@@ -47,7 +47,7 @@ public class PaymentDAO {
     }
 
     public List<Payment> searchPaymentsById(int paymentId) throws SQLException {
-        String sql = "SELECT * FROM payments WHERE paymentId = ?";
+        String sql = "SELECT * FROM Payment WHERE paymentId = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setInt(1, paymentId);
         ResultSet rs = stmt.executeQuery();
@@ -55,11 +55,11 @@ public class PaymentDAO {
         List<Payment> payments = new ArrayList<>();
         while (rs.next()) {
             String cardHolderName = rs.getString("cardHolderName");
-            String creditCardNumber = rs.getString("creditCardNumber");
+            String creditCardNumber = rs.getString("cardNumber");
             int cvv = rs.getInt("cvv");
             String expiryDate = rs.getString("expiryDate");
             double amount = rs.getDouble("amount");
-            String date = rs.getString("date");
+            String date = rs.getString("paymentDate");
 
             Payment payment = new Payment(paymentId, cardHolderName, creditCardNumber, cvv, expiryDate, amount, date);
             payments.add(payment);
@@ -68,7 +68,7 @@ public class PaymentDAO {
     }
 
     public List<Payment> searchPaymentsByDate(String date) throws SQLException {
-        String sql = "SELECT * FROM payments WHERE date = ?";
+        String sql = "SELECT * FROM Payment WHERE paymentDate = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, date);
         ResultSet rs = stmt.executeQuery();
@@ -77,7 +77,7 @@ public class PaymentDAO {
         while (rs.next()) {
             int paymentId = rs.getInt("paymentId");
             String cardHolderName = rs.getString("cardHolderName");
-            String creditCardNumber = rs.getString("creditCardNumber");
+            String creditCardNumber = rs.getString("cardNumber");
             int cvv = rs.getInt("cvv");
             String expiryDate = rs.getString("expiryDate");
             double amount = rs.getDouble("amount");
@@ -86,5 +86,25 @@ public class PaymentDAO {
             payments.add(payment);
         }
         return payments;
+    }
+
+    public void updatePayment(Payment payment) throws SQLException {
+        String sql = "UPDATE Payment SET cardHolderName = ?, cardNumber = ?, cvv = ?, expiryDate = ?, amount = ?, paymentDate = ? WHERE paymentId = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, payment.getCardHolderName());
+        stmt.setString(2, payment.getCreditCardNumber());
+        stmt.setInt(3, payment.getCvv());
+        stmt.setString(4, payment.getExpiryDate());
+        stmt.setDouble(5, payment.getAmount());
+        stmt.setString(6, payment.getDate());
+        stmt.setInt(7, payment.getPaymentId());
+        stmt.executeUpdate();
+    }
+
+    public void deletePayment(int paymentId) throws SQLException {
+        String sql = "DELETE FROM Payment WHERE paymentId = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, paymentId);
+        stmt.executeUpdate();
     }
 }

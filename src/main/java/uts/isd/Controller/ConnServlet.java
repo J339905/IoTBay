@@ -9,52 +9,60 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 import uts.isd.model.dao.DBConnector;
 import uts.isd.model.dao.UserDAO;
 
-public class ConnServlet extends HttpServlet {
+public class ConnServlet extends HttpServlet implements ServletContextListener {
 
     private DBConnector db;
-    private UserDAO userDAO;
     private Connection conn;
 
-    // Set up database connection and DAOs
     @Override
-    public void init() {
+    public void contextInitialized(ServletContextEvent event) {
         try {
             db = new DBConnector();
+            conn = db.openConnection();
+            event.getServletContext().setAttribute("dbConnection", conn);
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
         }
     }
 
-    // This is what connects UserDAO to the session
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        System.out.println("db conn");
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        conn = db.openConnection();
-
         try {
-            userDAO = new UserDAO(conn);
+            UserDAO userDAO = new UserDAO(conn);
+            session.setAttribute("userDAO", userDAO);
         } catch (SQLException e) {
             System.out.print(e);
         }
-
-        session.setAttribute("userDAO", userDAO);
     }
     
-    // close DB connection
     @Override
-    public void destroy() {
+    public void contextDestroyed(ServletContextEvent event) {
         try {
-            db.closeConnection();
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
-
+    
+    @Override
+    public void destroy() {
+        try {
+            if (db != null) {
+                db.closeConnection();
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 }

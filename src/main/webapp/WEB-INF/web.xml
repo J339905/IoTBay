@@ -204,6 +204,10 @@
         <url-pattern>/createPayment</url-pattern>
     </servlet-mapping>
 
+    <listener>
+        <listener-class>uts.isd.Controller.ConnServlet</listener-class>
+    </listener>
+
     <servlet>
         <servlet-name>ViewSavedPaymentsServlet</servlet-name>
         <servlet-class>uts.isd.Controller.ViewSavedPaymentsServlet</servlet-class>
@@ -211,15 +215,6 @@
     <servlet-mapping>
         <servlet-name>ViewSavedPaymentsServlet</servlet-name>
         <url-pattern>/viewSavedPayments</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>SearchPaymentHistoryServlet</servlet-name>
-        <servlet-class>uts.isd.Controller.SearchPaymentHistoryServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SearchPaymentHistoryServlet</servlet-name>
-        <url-pattern>/SearchPaymentHistoryServlet</url-pattern>
     </servlet-mapping>
 
 </web-app>
